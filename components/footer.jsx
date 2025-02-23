@@ -1,0 +1,63 @@
+import React from 'react'
+import Image from 'next/image'
+
+const Footer = () => {
+    return (
+
+        <footer className="bg-gray-100 text-gray-800 py-8">
+            <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+                {/* Left Section */}
+                <div className="mb-6 md:mb-0 flex gap-5 items-center justify-center">  
+                    <Image src="/logo.png" alt="Shreeji Remedies" width={60 } height={60 } />
+                    <div className="text ">
+
+                    <h2 className="font-bold text-3xl mt-2">BynaTablet.in</h2>
+                    <p className="text-sm">By Shreeji Remedies Since 2000.</p>
+                    </div>
+                </div>
+
+                {/* Social Links */}
+                <div className="mb-6 md:mb-0">
+                    <h3 className="font-semibold mb-2 text-lg">Socials</h3>
+                    <ul className="space-y-1">
+
+                        <li className="flex items-center"><Image src="/instagram.png" alt="Instagram" width={20} height={20} className="mr-2" /> Instagram</li>
+                        <li className="flex items-center"><Image src="/facebook.png" alt="Facebook" width={20} height={20} className="mr-2" /> FaceBook</li>
+                        <li className="flex items-center"><Image src="/whatsapp.png" alt="WhatsApp" width={20} height={20} className="mr-2" /> WhatsApp</li>
+                    </ul>
+                </div>
+
+                {/* Contact Us */}
+                <div className="mb-6 md:mb-0">
+                    <h3 className="font-semibold mb-2 text-lg">Contact Us</h3>
+                    <p>Call Us : <a href="tel:+919928077671" className="text-blue-500">+91 9928077671</a></p>
+                    <p>Email : <a href="mailto:shreejiremedies25@gmail.com" className="text-blue-500">shreejiremedies25@gmail.com</a></p>
+                    <p>Address : 37, Gyan Marg, near R.M.V. School, Old City, Surajpole, Brahmpuri, Udaipur, Rajasthan 313001</p>
+                </div>
+
+                {/* Get The App */}
+                <div className='flex-col '>
+                    <h3 className="font-semibold mb-5 text-lg text-center ">Get The App</h3>
+                    <button className='bg-[#D3D3D3] p-3 rounded-lg'> 
+
+                        <li className="flex items-center"><Image src="/playstore.png" alt="Instagram" width={20} height={20} className="mr-2" />Download Now</li>
+
+                    </button>
+                </div>
+            </div>
+
+            {/* Bottom Section */}
+            <div className="bg-lime-500 text-gray-900 text-center py-3 mt-6">
+                <p>&copy; Inc. All rights reserved.</p>
+                <div className="flex justify-center space-x-4 mt-1">
+                    <a href="#" className="text-sm hover:underline">Terms of Service</a>
+                    <a href="#" className="text-sm hover:underline">Privacy Policy</a>
+                    <a href="#" className="text-sm hover:underline">Cookies</a>
+                </div>
+            </div>
+        </footer>
+
+    )
+}
+
+export default Footer

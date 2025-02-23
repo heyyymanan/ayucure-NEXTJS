@@ -1,10 +1,9 @@
-import Image from "next/image";
-import navbar from "@/components/navbar";
+"use client"
+import Hero from "@/components/Hero"
 
 export default function Home() {
-  return (
-    <div>
-      {/* <navbar/> */}
-    </div>
+  return(
+    <Hero/>
+
   );
-}
+  }

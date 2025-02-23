@@ -1,5 +1,6 @@
+"use client"
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Call02FreeIcons,Trolley01FreeIcons, User03Icon,} from '@hugeicons/core-free-icons/index';
+import { Call02FreeIcons, Trolley01FreeIcons, User03Icon, } from '@hugeicons/core-free-icons/index';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,9 +12,11 @@ import {
 import { ChevronDown } from "lucide-react";
 import Image from 'next/image';
 import { Separator } from "@/components/ui/separator"
+import Link from 'next/link'
 
 
 const Navbar = () => {
+
     return (
         <nav className="bg-[#222831] text-white w-100  flex-col">
             <div className="bar-1 flex justify-between  p-1">
@@ -26,9 +29,8 @@ const Navbar = () => {
                     />
                     <p>+91-9928077671</p>
                 </div>
-                <div className="welcome-text">
-                    <p>Welcome ! Get 10% OFF On Your First Purchase. | Shop Now</p>
-                    {/* <hr /> */}
+                <div className="welcome-text text-sm flex items-center">
+                    <Link href='#'>Welcome ! Get 10% OFF On Your First Purchase. | Shop Now</Link>
                 </div>
                 <div className="lang flex justify-center">
                     <DropdownMenu >
@@ -47,26 +49,33 @@ const Navbar = () => {
 
             <div className="bar-2 p-2 flex items-center justify-between">
 
-                <div className="logo flex items-center gap-2 px-2">
-                    <Image
-                        src="/logo.png" // Path to your image in the public folder
-                        alt="logo Image"
-                        width={50} // Set the desired width
-                        height={40} // Set the desired height
-                        layout="intrinsic" // Automatically adjust dimensions
-                        priority // Load image faster
-                    />
-                    <h1 className='text-4xl font-serif'>BynaTablet.in</h1>
-                </div>
+                <Link href={'/'}>
 
-                <div className="flex h-5 items-center space-x-4 text-sm">
-                    <div>Home</div>
+                    <div className="logo flex items-center gap-2 px-2">
+
+                        <Image
+                            src="/logo.png"
+                            alt="logo Image"
+                            width={50}
+                            height={40}
+                            priority
+                        />
+                        <h1 className='text-4xl font-serif'>BynaTablet.in</h1>
+
+                    </div>
+                </Link>
+
+
+                <div className="flex h-5 items-center space-x-4 text-xl font-serif">
+                    <Link href="/" className='hover:-translate-y-1'>Home</Link>
                     <Separator orientation="vertical" />
-                    <div>About Us</div>
+                    <Link href="#" className='hover:-translate-y-1'>Shop</Link>
                     <Separator orientation="vertical" />
-                    <div>Contact Us</div>
+                    <Link href="#" className='hover:-translate-y-1'>About Us</Link>
                     <Separator orientation="vertical" />
-                    <div>Doctor Consultany</div>
+                    <Link href="#" className='hover:-translate-y-1'>Contact Us</Link>
+                    <Separator orientation="vertical" />
+                    <Link href="#" className='hover:-translate-y-1'>Consult a Doctor</Link>
                 </div>
 
                 <div className="user flex justify-center items-center gap-5 px-2">
