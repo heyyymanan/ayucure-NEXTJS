@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client"
 import Hero from "@/components/Hero"
 import Category from "@/components/category"
@@ -180,5 +181,15 @@ export default function Home() {
     </div>
 
 
+=======
+import Image from "next/image";
+import navbar from "@/components/navbar";
+
+export default function Home() {
+  return (
+    <div>
+      {/* <navbar/> */}
+    </div>
+>>>>>>> parent of 5d615c7 (hero_made)
   );
 }
