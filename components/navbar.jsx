@@ -125,6 +125,7 @@ const Navbar = () => {
 
                 </div>
             </div>
+            <hr className=" border-t border-gray-700" />
         </nav>
     );
 };

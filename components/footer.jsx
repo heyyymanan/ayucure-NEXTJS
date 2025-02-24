@@ -4,7 +4,8 @@ import Image from 'next/image'
 const Footer = () => {
     return (
 
-        <footer className="bg-gray-100 text-gray-800 py-8">
+        <footer className="bg-gray-100 text-gray-800">
+            <hr className=" border-t border-gray-400 mb-5" />
             <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center">
                 {/* Left Section */}
                 <div className="mb-6 md:mb-0 flex gap-5 items-center justify-center">  
@@ -47,7 +48,7 @@ const Footer = () => {
             </div>
 
             {/* Bottom Section */}
-            <div className="bg-lime-500 text-gray-900 text-center py-3 mt-6">
+            <div className="bg-lime-500 text-gray-900 text-center  py-3 mt-6 mb-0">
                 <p>&copy; Inc. All rights reserved.</p>
                 <div className="flex justify-center space-x-4 mt-1">
                     <a href="#" className="text-sm hover:underline">Terms of Service</a>
