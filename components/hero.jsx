@@ -28,17 +28,17 @@ const Hero = () => {
     }, []);
   
       return (
-        <div className="hero flex justify-evenly py-10 items-center">
+        <div className="hero flex justify-evenly  pt-10 items-center    ">
   
           <div ref={textRef1} className="hero-text flex-col justify-start">
   
-            <h1 id='hero-text' className="text-7xl font-bold">Meet Our Heros !</h1>
+            <h1 id='hero-text' className="text-7xl text-white font-bold">Meet Our Heros !</h1>
   
-            <h3 className="text-grey text-2xl ">& Say Goodbye To Joint Pains.</h3>
+            <h3 className="text-white text-2xl ">& Say Goodbye To Joint Pains.</h3>
   
-            <div className="shop-now-btn">
+            <div className="shop-now-btn ">
   
-              <button className="bg-lime-400 text-5xl p-3 font-serif rounded-3xl mt-16 hover:bg-lime-500 ">Shop Now</button>
+              <button className="bg-lime-400 text-5xl p-3 font-serif rounded-3xl mt-16 transition-transform duration-200 hover:scale-105 hover:bg-lime-300  ">Shop Now</button>
   
             </div>
           </div>
@@ -46,7 +46,7 @@ const Hero = () => {
   
           <div className="heri-img-byna-medicine">
             <Image
-              src="/byna.png"
+              src="/Heros-white.png"
               alt="byna medicine"
               width={1029}
               height={492}
@@ -54,8 +54,9 @@ const Hero = () => {
               ref={textRef2}
             />
           </div>
-  
+        
         </div>
+        
   
   
       );
