@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client"
 import Hero from "@/components/Hero"
 import Category from "@/components/category"
@@ -144,8 +145,7 @@ const products_healthy = [
 // bg-gradient-to-r from-red-400 to-pink-500
 
 export default function Home() {
-  return(
-    
+  return (
     <div className=" bg-gradient-to-t from-slate-100 to-[#222831] ">
 
 
@@ -181,5 +181,15 @@ export default function Home() {
     </div>
 
 
+=======
+import Image from "next/image";
+import navbar from "@/components/navbar";
+
+export default function Home() {
+  return (
+    <div>
+      {/* <navbar/> */}
+    </div>
+>>>>>>> parent of 5d615c7 (hero_made)
   );
-  }
+}
