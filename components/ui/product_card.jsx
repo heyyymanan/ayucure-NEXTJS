@@ -37,11 +37,11 @@ const ProductCard = ({ product }) => {
     if (cardRef.current) {
       gsap.fromTo(
         cardRef.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.5 , ease: "power2.out",
+        { x: 100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1.5 , ease: "power3.out",
           scrollTrigger: {
             trigger: cardRef.current,
-            start: "top 85%",
+            start: "top 90%",
             toggleActions: "play none none none",
           }
         }
