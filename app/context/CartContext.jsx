@@ -1,27 +1,12 @@
 "use client"
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useContext } from "react";
 
-// Create Cart Context
 const CartContext = createContext();
 
-// Cart Provider Component
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // Load cart from localStorage on component mount
-  useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem("cart"));
-    if (savedCart) {
-      setCart(savedCart);
-    }
-  }, []);
-
-  // Save cart to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
-
-  // Add item to cart
+  // Add product to cart or increase quantity
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
@@ -29,38 +14,42 @@ export const CartProvider = ({ children }) => {
         return prevCart.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }];
       }
-      return [...prevCart, { ...product, quantity: 1 }];
     });
   };
 
-  // Remove item from cart
-  const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  };
-
-  // Update item quantity
-  const updateQuantity = (id, quantity) => {
+  // Increment quantity
+  const incrementQuantity = (productId) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === id ? { ...item, quantity: quantity } : item
+        item.id === productId ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
 
-  // Clear cart
-  const clearCart = () => {
-    setCart([]);
+  // Decrement quantity
+  const decrementQuantity = (productId) => {
+    setCart((prevCart) =>
+      prevCart
+        .map((item) =>
+          item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
+        )
+        .filter((item) => item.quantity > 0) // Remove if quantity is 0
+    );
+  };
+
+  // Remove item from cart
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
   return (
-    <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart }}
-    >
+    <CartContext.Provider value={{ cart, addToCart, incrementQuantity, decrementQuantity, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
 };
 
-// Export CartContext for use in other components
-export default CartContext;
+export const useCart = () => useContext(CartContext);

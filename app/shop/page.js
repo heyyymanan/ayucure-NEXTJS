@@ -1,45 +1,32 @@
 "use client"
-import { useContext } from "react";
-import CartContext from "../context/CartContext";
+
+
+import { useCart } from "../context/CartContext";
 
 const CartPage = () => {
-  const { cart, removeFromCart, updateQuantity, clearCart } =
-    useContext(CartContext);
+  const { cart, incrementQuantity, decrementQuantity, removeFromCart } = useCart();
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Shopping Cart</h1>
-
+    <div>
+      <h1>Shopping Cart</h1>
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <div>
-          {cart.map((item) => (
-            <div key={item.id} className="border p-2 flex justify-between">
-              <p>{item.name}</p>
-              <p>${item.price}</p>
-              <input
-                type="number"
-                value={item.quantity}
-                min="1"
-                className="w-12 text-center"
-                onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
-              />
-              <button
-                className="text-red-500"
-                onClick={() => removeFromCart(item.id)}
-              >
-                Remove
-              </button>
+        cart.map((item) => (
+          <div key={item.id} className="border p-2 flex justify-between items-center">
+            <p>{item.p_name} - ${item.p_price}</p>
+            <div className="flex items-center">
+              <button onClick={() => decrementQuantity(item.id)} className="p-2 border">-</button>
+              <span className="mx-2">{item.quantity}</span>
+              <button onClick={() => incrementQuantity(item.id)} className="p-2 border">+</button>
             </div>
-          ))}
-          <button className="bg-red-500 text-white px-4 py-2 mt-4" onClick={clearCart}>
-            Clear Cart
-          </button>
-        </div>
+            <button onClick={() => removeFromCart(item.id)} className="p-2 bg-red-500 text-white">Remove</button>
+          </div>
+        ))
       )}
     </div>
   );
 };
 
 export default CartPage;
+
