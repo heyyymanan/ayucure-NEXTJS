@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Star, StarHalf, Star as StarOutline } from "lucide-react";
 import CartContext from "@/app/context/CartContext";
+import { useCart } from "@/app/context/CartContext";
 import { useEffect, useRef,useContext } from "react";
 import { LucidePlusCircle, LucideMinusCircle } from "lucide-react";
 import gsap from "gsap";
@@ -11,8 +12,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useContext(CartContext);
-  const { cart } = useContext(CartContext);
+  const { cart, addToCart, incrementQuantity, decrementQuantity } = useCart();
+  const cartItem = cart.find((item) => item.id === product.id);
+  // const { cart } = useContext(CartContext);
 
   const fullStars = Math.floor(product.p_rating);
   const hasHalfStar = product.p_rating % 1 !== 0;
@@ -95,7 +97,7 @@ const ProductCard = ({ product }) => {
         <span className="text-3xl font-semibold">₹{product.p_price}</span>
 
         {/* Add to Cart Button / Counter */}
-        <div ref={buttonRef} className="">
+        {/* <div ref={buttonRef} className="">
           
             <div className="flex items-center space-x-2 mr-2 border border-gray-500 rounded-lg p-1">
               <button
@@ -104,7 +106,7 @@ const ProductCard = ({ product }) => {
               >
                 <LucideMinusCircle />
               </button>
-              <span className="text-lg text-red-500 font-bold pr-1.5">{cart.quantity}</span>
+              <span className="text-lg text-red-500 font-bold pr-1.5">{cartItem.quantity}</span>
               <button
                 onClick={() => addToCart(product)}
                 className="h-8 rounded-lg transition-transform duration-200 hover:scale-105"
@@ -113,7 +115,18 @@ const ProductCard = ({ product }) => {
               </button>
             </div>
           
+        </div> */}
+        {cartItem ? (
+        <div className="flex items-center mt-2">
+          <button onClick={() => decrementQuantity(product.id)} className="p-2 border">-</button>
+          <span className="mx-2">{cartItem.quantity}</span> {/* Quantity Counter */}
+          <button onClick={() => incrementQuantity(product.id)} className="p-2 border">+</button>
         </div>
+      ) : (
+        <button onClick={() => addToCart(product)} className="p-2 bg-blue-500 text-white mt-2">
+          Add to Cart
+        </button>
+      )}
       </div>
       <div onClick={() => {}} className="buy-now h-10 bg-lime-500 rounded-lg flex justify-center items-center mt-5 transition-transform duration-200 hover:scale-105 cursor-pointer">
         <button className="text-white text-lg font-serif">Buy Now</button>
