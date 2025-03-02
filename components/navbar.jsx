@@ -18,7 +18,7 @@ import Link from 'next/link'
 const Navbar = () => {
 
     return (
-        <nav className="bg-[#222831] text-white w-100  flex-col">
+        <nav className="bg-[#222831] text-white w-100  flex-col sticky top-0 z-10">
             <div className="bar-1 flex justify-between  p-1">
                 <div className="call flex  items-center gap-1 ">
                     <HugeiconsIcon
@@ -69,7 +69,7 @@ const Navbar = () => {
                 <div className="flex h-5 items-center space-x-4 text-xl font-serif">
                     <Link href="/" className='hover:-translate-y-1'>Home</Link>
                     <Separator orientation="vertical" />
-                    <Link href="#" className='hover:-translate-y-1'>Shop</Link>
+                    <Link href="/shop" className='hover:-translate-y-1'>Shop</Link>
                     <Separator orientation="vertical" />
                     <Link href="#" className='hover:-translate-y-1'>About Us</Link>
                     <Separator orientation="vertical" />
@@ -79,28 +79,18 @@ const Navbar = () => {
                 </div>
 
                 <div className="user flex justify-center items-center gap-5 px-2">
-
+                    <Link href={"/shop"}>
                     <div className="cart flex gap-2">
-                        <DropdownMenu >
-                            <DropdownMenuTrigger >
-                                <HugeiconsIcon
+                    <HugeiconsIcon
                                     icon={Trolley01FreeIcons}
                                     size={20}
                                     color="currentColor"
                                     strokeWidth={1}
-                                />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuTrigger >
-                                <p className='flex items-center font-bold text-base'>My Cart<ChevronDown className='h-5' /></p>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuLabel>Select Language</DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Hindi</DropdownMenuItem>
-                                <DropdownMenuItem>Arabic</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                                    />
+                        <p className='flex items-center font-bold text-base'>My Cart</p>
+                       
                     </div>
+                    </Link>
                     <div className="cart flex gap-2">
                         <DropdownMenu >
                             <DropdownMenuTrigger >
