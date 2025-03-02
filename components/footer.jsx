@@ -38,7 +38,7 @@ const Footer = () => {
 
                 {/* Get The App */}
                 <div className='flex-col '>
-                    <h3 className="font-semibold mb-5 text-lg text-center ">Get The App</h3>
+                    <h3 className="font-semibold mb-5 text-lg text-center ">Get The App (Upcoming)</h3>
                     <button className='bg-[#D3D3D3] p-3 rounded-lg'> 
 
                         <li className="flex items-center"><Image src="/playstore.png" alt="Instagram" width={20} height={20} className="mr-2" />Download Now</li>
