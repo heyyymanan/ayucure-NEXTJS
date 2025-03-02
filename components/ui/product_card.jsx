@@ -1,11 +1,10 @@
 import Image from "next/image";
 import { Star, StarHalf, Star as StarOutline } from "lucide-react";
-import CartContext from "@/app/context/CartContext";
 import { useCart } from "@/app/context/CartContext";
 import { useEffect, useRef,useContext } from "react";
 import { LucidePlusCircle, LucideMinusCircle } from "lucide-react";
 import gsap from "gsap";
-import { HugeiconsIcon } from '@hugeicons/react';
+import Link from "next/link";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 
@@ -117,10 +116,10 @@ const ProductCard = ({ product }) => {
           
         </div> */}
         {cartItem ? (
-        <div className="flex items-center mt-2">
-          <button onClick={() => decrementQuantity(product.id)} className="p-2 border">-</button>
+        <div className="flex items-center mt-2 border-2 rounded-lg p-1">
+          <button onClick={() => decrementQuantity(product.id)} className=""><LucideMinusCircle /></button>
           <span className="mx-2">{cartItem.quantity}</span> {/* Quantity Counter */}
-          <button onClick={() => incrementQuantity(product.id)} className="p-2 border">+</button>
+          <button onClick={() => incrementQuantity(product.id)} className=""><LucidePlusCircle /></button>
         </div>
       ) : (
         <button onClick={() => addToCart(product)} className="p-2 bg-blue-500 text-white mt-2">
@@ -128,9 +127,11 @@ const ProductCard = ({ product }) => {
         </button>
       )}
       </div>
-      <div onClick={() => {}} className="buy-now h-10 bg-lime-500 rounded-lg flex justify-center items-center mt-5 transition-transform duration-200 hover:scale-105 cursor-pointer">
+      <Link href="/shop">
+      <div  className="buy-now h-10 bg-lime-500 rounded-lg flex justify-center items-center mt-5 transition-transform duration-200 hover:scale-105 cursor-pointer">
         <button className="text-white text-lg font-serif">Buy Now</button>
       </div>
+      </Link>
     </div>
   );
 };

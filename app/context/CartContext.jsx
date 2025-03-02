@@ -1,10 +1,28 @@
 "use client"
-import { createContext, useState, useContext } from "react";
+
+
+
+import { createContext, useState, useContext, useEffect } from "react";
+
+
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+
+  // Load cart from local storage when the component mounts
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+
+  // Save cart to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   // Add product to cart or increase quantity
   const addToCart = (product) => {
@@ -36,7 +54,7 @@ export const CartProvider = ({ children }) => {
         .map((item) =>
           item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
         )
-        .filter((item) => item.quantity > 0) // Remove if quantity is 0
+        .filter((item) => item.quantity > 0) // Remove item if quantity is 0
     );
   };
 
@@ -45,11 +63,20 @@ export const CartProvider = ({ children }) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
+  // **Clear entire cart**
+  const clearCart = () => {
+    setCart([]); // Empty cart
+    localStorage.removeItem("cart"); // Remove from local storage
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, incrementQuantity, decrementQuantity, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, incrementQuantity, decrementQuantity, removeFromCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
 };
 
+// Custom hook to use the cart
 export const useCart = () => useContext(CartContext);

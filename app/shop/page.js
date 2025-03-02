@@ -4,7 +4,7 @@
 import { useCart } from "../context/CartContext";
 
 const CartPage = () => {
-  const { cart, incrementQuantity, decrementQuantity, removeFromCart } = useCart();
+  const { cart, incrementQuantity, decrementQuantity, removeFromCart, clearCart} = useCart();
 
   return (
     <div>
