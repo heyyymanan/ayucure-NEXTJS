@@ -79,7 +79,7 @@ const Navbar = () => {
                 </div>
 
                 <div className="user flex justify-center items-center gap-5 px-2">
-                    <Link href={"/shop"}>
+                    <Link href={"/cart"}>
                     <div className="cart flex gap-2">
                     <HugeiconsIcon
                                     icon={Trolley01FreeIcons}

@@ -69,9 +69,14 @@ export const CartProvider = ({ children }) => {
     localStorage.removeItem("cart"); // Remove from local storage
   };
 
+  const getTotalPrice = () => {
+    return cart.reduce((total, item) => total + item.p_price * item.quantity, 0);
+  };
+  
+
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, incrementQuantity, decrementQuantity, removeFromCart, clearCart }}
+      value={{ cart, addToCart, incrementQuantity, decrementQuantity, removeFromCart, clearCart, getTotalPrice }}
     >
       {children}
     </CartContext.Provider>

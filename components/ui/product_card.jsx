@@ -94,27 +94,6 @@ const ProductCard = ({ product }) => {
       {/*  Price and Add to Cart Button */}
       <div className="flex gap-5 items-center mt-5">
         <span className="text-3xl font-semibold">₹{product.p_price}</span>
-
-        {/* Add to Cart Button / Counter */}
-        {/* <div ref={buttonRef} className="">
-          
-            <div className="flex items-center space-x-2 mr-2 border border-gray-500 rounded-lg p-1">
-              <button
-                onClick={() => removeFromCart(product)}
-                className="h-8 mr-1 rounded-lg transition-transform duration-200 hover:scale-105"
-              >
-                <LucideMinusCircle />
-              </button>
-              <span className="text-lg text-red-500 font-bold pr-1.5">{cartItem.quantity}</span>
-              <button
-                onClick={() => addToCart(product)}
-                className="h-8 rounded-lg transition-transform duration-200 hover:scale-105"
-              >
-                <LucidePlusCircle />
-              </button>
-            </div>
-          
-        </div> */}
         {cartItem ? (
         <div className="flex items-center mt-2 border-2 rounded-lg p-1">
           <button onClick={() => decrementQuantity(product.id)} className=""><LucideMinusCircle /></button>
