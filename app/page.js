@@ -2,12 +2,11 @@
 import Hero from "@/components/Hero"
 import Category from "@/components/category"
 import ProductCard from "@/components/ui/product_card";
-import { CartProvider } from "./context/CartContext";
-import Checkout_side_pannel from "@/components/checkout_side_pannel";
+
 
 const products_trending = [
   {
-    p_id: 1,
+    id: 1,
     p_img: "/product_jpg/byna_oil2.jpg",
     p_name: "Byna Oil",
     p_cures: "Joint Pain | Inflammation",
@@ -20,7 +19,7 @@ const products_trending = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 2,
+    id: 2,
     p_img: "/product_jpg/byna_tablet2.jpg",
     p_name: "Byna Tablet",
     p_cures: "Joint Pain | Inflammation",
@@ -33,7 +32,7 @@ const products_trending = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 3,
+    id: 3,
     p_img: "/product_jpg/byna_syrup2.jpg",
     p_name: "Byna Syrup",
     p_cures: "Joint Pain | Inflammation",
@@ -46,7 +45,7 @@ const products_trending = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 4,
+    id: 4,
     p_img: "/product_jpg/spruehit_syrup2.jpg",
     p_name: "Spruehit Syrup",
     p_cures: "Diarrhea",
@@ -59,7 +58,7 @@ const products_trending = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 5,
+    id: 5,
     p_img: "/product_jpg/byna_plus_capsule2.jpg",
     p_name: "Byna Capsule",
     p_cures: "Joint Pain | Inflammation",
@@ -75,7 +74,7 @@ const products_trending = [
 
 const products_healthy = [
   {
-    p_id: 6,
+    id: 6,
     p_img: "/product_jpg/jeevanjyoti.jpg",
     p_name: "Jeevan Jyoti Rasayana",
     p_cures: "Boosts Immunity",
@@ -88,7 +87,7 @@ const products_healthy = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 7,
+    id: 7,
     p_img: "/product_jpg/be_well_syrup.jpg",
     p_name: "Be Well Syrup",
     p_cures: "Energy Booster",
@@ -101,7 +100,7 @@ const products_healthy = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 8,
+    id: 8,
     p_img: "/product_jpg/jeevan_jyoti_gold.jpg",
     p_name: "Jeevan Jyoti Rasayana Gold",
     p_cures: "Boosts Immunity",
@@ -114,7 +113,7 @@ const products_healthy = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 9,
+    id: 9,
     p_img: "/product_jpg/madhumehnashak_churna.jpg",
     p_name: "Madhumehnashak Churna",
     p_cures: "Diabetes",
@@ -127,7 +126,7 @@ const products_healthy = [
     qty: "10ml | 100ml"
   },
   {
-    p_id: 10,
+    id: 10,
     p_img: "/product_jpg/calse_tablet.jpg",
     p_name: "Calse",
     p_cures: "Strong Bones | Calcium Booster",
@@ -146,6 +145,7 @@ const products_healthy = [
 export default function Home() {
   return(
     
+      
     <div className=" bg-gradient-to-t from-slate-100 to-[#222831] ">
 
 
@@ -159,26 +159,25 @@ export default function Home() {
       <hr className=" border-t border-gray-400" />
 
 
-      <CartProvider>
         <h1 className="text-center text-5xl mt-10 font-serif">Trending Products</h1>
         <div className="trending-products flex p-10 justify-evenly">
           {products_trending.map((product) => (
-            <ProductCard key={product.p_id} product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
         <h1 className="text-center text-5xl font-serif">Want A Healthy Life?</h1>
         <div className="trending-products-trending flex p-10 justify-evenly">
           {products_healthy.map((product) => (
-            <ProductCard key={product.p_id} product={product} />
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
-      </CartProvider>
 
 
 
 
     </div>
+      
 
 
   );

@@ -17,7 +17,7 @@ export default function HealthCategories() {
       categoryRefs.current,
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "power2.out" },
-      "-=0.5"
+      ""
     );
 
     return () => {

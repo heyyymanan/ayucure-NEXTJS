@@ -4,21 +4,21 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 const Hero = () => {
-    const textRef1 = useRef(null);
-    const textRef2 = useRef(null);
+    const textRef = useRef(null);
+    const pngRef = useRef(null);
   
     useEffect(() => {
       const tl = gsap.timeline();
       
   
       tl.fromTo(
-        textRef1.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
+        pngRef.current,
+        { x: -100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, ease: "power2.out" }
       ).fromTo(
-        textRef2.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power2.out" },
+        textRef.current,
+        { x: 100, opacity: 0 },
+        { x: 0, opacity: 1, duration: 2, ease: "power2.out" },
         "-=0.5" // Starts second animation slightly before the first finishes
       );
   
@@ -30,7 +30,7 @@ const Hero = () => {
       return (
         <div className="hero flex justify-evenly  pt-10 items-center    ">
   
-          <div ref={textRef1} className="hero-text flex-col justify-start">
+          <div ref={textRef} className="hero-text flex-col justify-start">
   
             <h1 id='hero-text' className="text-7xl text-white font-bold">Meet Our Heros !</h1>
   
@@ -51,7 +51,7 @@ const Hero = () => {
               width={1029}
               height={492}
               className="hero-img"
-              ref={textRef2}
+              ref={pngRef}
             />
           </div>
         

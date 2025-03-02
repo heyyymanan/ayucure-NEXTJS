@@ -1,18 +1,18 @@
 import Image from "next/image";
 import { Star, StarHalf, Star as StarOutline } from "lucide-react";
-import { useCart } from "@/app/context/CartContext";// Import cart context
-import { useEffect, useRef } from "react";
+import CartContext from "@/app/context/CartContext";
+import { useEffect, useRef,useContext } from "react";
 import { LucidePlusCircle, LucideMinusCircle } from "lucide-react";
 import gsap from "gsap";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ShoppingCartAdd02FreeIcons } from "@hugeicons/core-free-icons/index";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ProductCard = ({ product }) => {
-  const { cart, addToCart, removeFromCart } = useCart();
-  const quantity = cart[product.p_id] || 0; // Get specific product quantity
+  const { addToCart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
 
   const fullStars = Math.floor(product.p_rating);
   const hasHalfStar = product.p_rating % 1 !== 0;
@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
         { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
       );
     }
-  }, [quantity]);
+  }, [cart.quantity]);
 
   // GSAP ScrollTrigger animation for the card
   useEffect(() => {
@@ -96,35 +96,23 @@ const ProductCard = ({ product }) => {
 
         {/* Add to Cart Button / Counter */}
         <div ref={buttonRef} className="">
-          {quantity === 0 ? (
-            <button
-              onClick={() => addToCart(product.p_id)}
-              className="bg-blue-500 text-white p-2 rounded-lg transition-transform duration-200 hover:scale-105"
-            >
-              <HugeiconsIcon
-                icon={ShoppingCartAdd02FreeIcons}
-                size={18}
-                color="white"
-                strokeWidth={1}
-              />
-            </button>
-          ) : (
+          
             <div className="flex items-center space-x-2 mr-2 border border-gray-500 rounded-lg p-1">
               <button
-                onClick={() => removeFromCart(product.p_id)}
+                onClick={() => removeFromCart(product)}
                 className="h-8 mr-1 rounded-lg transition-transform duration-200 hover:scale-105"
               >
                 <LucideMinusCircle />
               </button>
-              <span className="text-lg text-red-500 font-bold pr-1.5">{quantity}</span>
+              <span className="text-lg text-red-500 font-bold pr-1.5">{cart.quantity}</span>
               <button
-                onClick={() => addToCart(product.p_id)}
+                onClick={() => addToCart(product)}
                 className="h-8 rounded-lg transition-transform duration-200 hover:scale-105"
               >
                 <LucidePlusCircle />
               </button>
             </div>
-          )}
+          
         </div>
       </div>
       <div onClick={() => {}} className="buy-now h-10 bg-lime-500 rounded-lg flex justify-center items-center mt-5 transition-transform duration-200 hover:scale-105 cursor-pointer">
