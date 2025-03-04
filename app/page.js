@@ -16,7 +16,7 @@ const products_trending = [
     reviews: "320",
     delivery: "Fast Delivery",
     priceTag: "Best Price",
-    qty: "10ml | 100ml"
+    qty: "60ml | 100ml"
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const products_trending = [
     reviews: "455",
     delivery: "Same Day Delivery",
     priceTag: "Limited Offer",
-    qty: "10ml | 100ml"
+    qty: "10 x 10"
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ const products_trending = [
     reviews: "389",
     delivery: "Fast Delivery",
     priceTag: "Best Price",
-    qty: "10ml | 100ml"
+    qty: "200ml"
   },
   {
     id: 4,
@@ -55,7 +55,7 @@ const products_trending = [
     reviews: "210",
     delivery: "Express Shipping",
     priceTag: "Special Discount",
-    qty: "10ml | 100ml"
+    qty: "30ml"
   },
   {
     id: 5,
@@ -68,7 +68,7 @@ const products_trending = [
     reviews: "530",
     delivery: "Fast Delivery",
     priceTag: "Exclusive Offer",
-    qty: "10ml | 100ml"
+    qty: "10 caps x 3"
   }
 ];
 
@@ -84,7 +84,7 @@ const products_healthy = [
     reviews: "380",
     delivery: "Fast Delivery",
     priceTag: "Best Price",
-    qty: "10ml | 100ml"
+    qty: "500gm"
   },
   {
     id: 7,
@@ -97,7 +97,7 @@ const products_healthy = [
     reviews: "290",
     delivery: "Same Day Delivery",
     priceTag: "Limited Offer",
-    qty: "10ml | 100ml"
+    qty: "200ml"
   },
   {
     id: 8,
@@ -110,7 +110,7 @@ const products_healthy = [
     reviews: "410",
     delivery: "Fast Delivery",
     priceTag: "Best Price",
-    qty: "10ml | 100ml"
+    qty: "500gm"
   },
   {
     id: 9,
@@ -123,7 +123,7 @@ const products_healthy = [
     reviews: "220",
     delivery: "Express Shipping",
     priceTag: "Special Discount",
-    qty: "10ml | 100ml"
+    qty: "100gm"
   },
   {
     id: 10,
@@ -136,7 +136,7 @@ const products_healthy = [
     reviews: "490",
     delivery: "Fast Delivery",
     priceTag: "Exclusive Offer",
-    qty: "10ml | 100ml"
+    qty: "30 tabs"
   }
 ];
 
