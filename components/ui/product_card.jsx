@@ -6,6 +6,8 @@ import { LucidePlusCircle, LucideMinusCircle } from "lucide-react";
 import gsap from "gsap";
 import Link from "next/link";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { toast } from "sonner";
+
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -98,11 +100,12 @@ const ProductCard = ({ product }) => {
         <div className="flex items-center mt-2 border-2 rounded-lg p-1">
           <button onClick={() => decrementQuantity(product.id)} className=""><LucideMinusCircle /></button>
           <span className="mx-2">{cartItem.quantity}</span> {/* Quantity Counter */}
-          <button onClick={() => incrementQuantity(product.id)} className=""><LucidePlusCircle /></button>
+          <button onClick={() => {incrementQuantity(product.id); toast.success("Product Added To Cart !")}} className=""><LucidePlusCircle /></button>
         </div>
       ) : (
-        <button onClick={() => addToCart(product)} className="p-2 bg-blue-500 text-white mt-2">
+        <button onClick={() => {addToCart(product); toast.success("Product Added To Cart !");}} className="p-2 bg-blue-500 text-white mt-2">
           Add to Cart
+          
         </button>
       )}
       </div>

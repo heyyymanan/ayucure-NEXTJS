@@ -5,10 +5,12 @@ import Image from 'next/image';
 
 const page = () => {
     const { cart, incrementQuantity, decrementQuantity, removeFromCart, clearCart, getTotalPrice} = useCart();
-    const delivery=100;
-    const savings=100;
+    let delivery;
+    let savings;
     const total_of_items=getTotalPrice();
     const tax=Math.round((total_of_items/100)*18);
+    cart.length==0?( savings=0.00, delivery=0.00): (savings=100.00,delivery=100.00);
+
     
 
 
@@ -25,7 +27,9 @@ const page = () => {
 
 
                             {/* //start product */}
-                            {cart.length === 0 ? (
+
+                            {cart.length === 0 ?(
+                                
                                 <p>Your cart is empty.</p>
                             ) : (
                                 cart.map((item) => (
@@ -145,7 +149,7 @@ const page = () => {
                                             Savings
                                         </dt>
                                         <dd className="text-base font-medium text-green-600">
-                                            -₹100.00
+                                           - ₹ {savings}
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -153,7 +157,7 @@ const page = () => {
                                             Delivery Charges
                                         </dt>
                                         <dd className="text-base font-medium text-gray-900 dark:text-white">
-                                        {"₹"+delivery}
+                                        {"₹ "+delivery}
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -161,7 +165,7 @@ const page = () => {
                                             Tax
                                         </dt>
                                         <dd className="text-base font-medium text-gray-900 dark:text-white">
-                                            {"18% GST - ₹"+tax}
+                                            {"18% GST - ₹ "+tax}
                                         </dd>
                                     </dl>
                                 </div>
@@ -170,7 +174,7 @@ const page = () => {
                                         Total
                                     </dt>
                                     <dd className="text-base font-bold text-gray-900 dark:text-white">
-                                    {"₹"+((delivery+tax+total_of_items)-savings)}
+                                    {"₹ "+((delivery+tax+total_of_items)-savings)}
                                     </dd>
                                 </dl>
                             </div>
