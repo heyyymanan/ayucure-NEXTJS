@@ -159,7 +159,7 @@ export default function Home() {
       <hr className=" border-t border-gray-400" />
 
 
-        <h1 className="text-center text-5xl mt-10 font-serif"> Products</h1>
+        <h1 className="text-center text-5xl mt-10 font-serif">Trending Products</h1>
         <div className="trending-products flex p-10 justify-evenly">
           {products_trending.map((product) => (
             <ProductCard key={product.id} product={product} />
