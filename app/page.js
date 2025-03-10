@@ -1,5 +1,5 @@
 "use client"
-import Hero from "@/components/Hero.jsx"
+import Hero from "@/components/hero.jsx"
 import Category from "@/components/category.jsx"
 import ProductCard from "@/components/ui/product_card.jsx";
 
