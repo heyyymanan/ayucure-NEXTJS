@@ -1,7 +1,7 @@
 "use client"
-import Hero from "@/components/Hero"
-import Category from "@/components/category"
-import ProductCard from "@/components/ui/product_card";
+import Hero from "@/components/Hero.jsx"
+import Category from "@/components/category.jsx"
+import ProductCard from "@/components/ui/product_card.jsx";
 
 
 const products_trending = [

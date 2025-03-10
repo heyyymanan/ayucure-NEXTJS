@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/CartContext.jsx";
 import Image from 'next/image';
 
 const page = () => {
