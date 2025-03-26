@@ -103,7 +103,7 @@ const ProductCard = ({ product }) => {
           <button onClick={() => {incrementQuantity(product.id); toast.success("Product Added To Cart !")}} className=""><LucidePlusCircle /></button>
         </div>
       ) : (
-        <button onClick={() => {addToCart(product); toast.success("Product Added To Cart !");}} className="p-2 bg-blue-500 text-white mt-2">
+        <button onClick={() => {addToCart(product); toast.success("Product Added To Cart !");}} className="p-2 bg-blue-500 text-white mt-2 rounded-md">
           Add to Cart
           
         </button>
