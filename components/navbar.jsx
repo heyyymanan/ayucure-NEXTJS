@@ -73,7 +73,7 @@ const Navbar = () => {
                     <Separator orientation="vertical" />
                     <Link href="#" className='hover:-translate-y-1'>About Us</Link>
                     <Separator orientation="vertical" />
-                    <Link href="#" className='hover:-translate-y-1'>Contact Us</Link>
+                    <Link href="/test" className='hover:-translate-y-1'>Contact Us</Link>
                     <Separator orientation="vertical" />
                     <Link href="#" className='hover:-translate-y-1'>Consult a Doctor</Link>
                 </div>
