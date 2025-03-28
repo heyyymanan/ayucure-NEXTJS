@@ -12,6 +12,17 @@ import Image from 'next/image';
 import { Separator } from '@/components/ui/separator';
 import PhoneNumberInput from './ui/phone_no_input';
 
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+
 export default function AuthForm() {
   const ServerPath = "http://localhost:5000/api/v1";
   const UserPaths = {
@@ -21,7 +32,7 @@ export default function AuthForm() {
   };
 
   const [tab, setTab] = useState('login');
-  
+
   const {
     control,
     handleSubmit,
@@ -50,11 +61,11 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="mx-auto h-auto w-max p-10">
-      <Card className="w-full max-w-4xl bg-white shadow-lg rounded-md flex">
-        <div className="hidden md:flex w-1/2 items-center justify-center">
-          <Image src="/Login-animate.svg" alt="Auth-Illustration" width={450} height={200} />
-        </div>
+    <Dialog>
+      <DialogTrigger>Open</DialogTrigger>
+      <DialogContent>
+
+
         <div className="w-full md:w-1/2 p-6">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-4 text-center">
             {tab === "login" ? "User Login" : "Register User"}
@@ -140,7 +151,8 @@ export default function AuthForm() {
             </TabsContent>
           </Tabs>
         </div>
-      </Card>
-    </div>
+      </DialogContent>
+
+    </Dialog>
   );
 }
