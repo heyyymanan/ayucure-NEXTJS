@@ -7,12 +7,12 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBDvhu4qEXE4fS74XdCYvP4Ktx3o-YVN2g",
-  authDomain: "bynatablet-in.firebaseapp.com",
-  projectId: "bynatablet-in",
-  storageBucket: "bynatablet-in.firebasestorage.app",
-  messagingSenderId: "1059784443046",
-  appId: "1:1059784443046:web:c73177ae690f29c41be067",
+  apiKey: "AIzaSyC7_bntcSZBAxu5CRyCRAsjS3S0WJz5iQM",
+  authDomain: "bynatablet-in-6db78.firebaseapp.com",
+  projectId: "bynatablet-in-6db78",
+  storageBucket: "bynatablet-in-6db78.firebasestorage.app",
+  messagingSenderId: "662058488438",
+  appId: "1:662058488438:web:90ef4a24a71bbfbb628557",
   // measurementId: "G-CMKSRTSM2D"
 };
 
