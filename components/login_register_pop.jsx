@@ -41,16 +41,21 @@ const Login_register_pop = () => {
             },
         });
     };
+    const appVerifier = window.recaptchaVerifier;
 
     const sendOtp = async (phone) => {
         try {
             setupRecaptcha();
-            const confirmation = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+            const confirmation = await signInWithPhoneNumber(auth, phone, appVerifier);
             setConfirmationResult(confirmation);
+            window.confirmationResult = confirmationResult;
             setMessage('OTP Sent! Check your phone.');
         } catch (error) {
             console.error('Error sending OTP:', error);
             setMessage('Failed to send OTP. Try again.'+phone);
+            window.recaptchaVerifier.render().then(function(widgetId) {
+                grecaptcha.reset(widgetId);
+              });
         }
     };
 
