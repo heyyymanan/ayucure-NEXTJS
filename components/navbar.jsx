@@ -28,7 +28,7 @@ const Navbar = () => {
     var Name = "Manan";
 
 
-    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor'];
+    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor', 'FireBase'];
 
     return (
         <nav className="bg-[#222831] text-white w-100  flex-col sticky top-0 z-10">

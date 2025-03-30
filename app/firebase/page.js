@@ -3,22 +3,25 @@
 import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { app } from '@/app/firebase/app';
+import {app} from '@/app/firebase/app';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent } from '@/components/ui/tabs';
-import PhoneNumberInput from './ui/phone_no_input';
-
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Separator } from '@/components/ui/separator';
+import PhoneNumberInput from '../../components/ui/phone_no_input';
+import { FaGoogle } from 'react-icons/fa';
 import {
     DialogContent,
+    DialogHeader,
 } from "@/components/ui/dialog";
-import { DialogTitle } from '@radix-ui/react-dialog';
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { Dialog } from "radix-ui";
 
-const Login_register_pop = () => {
+const  Login_register_pop = () => {
     const auth = getAuth(app);
-    
+    const [tab, setTab] = useState('login');
     const [confirmationResult, setConfirmationResult] = useState(null);
     const [otp, setOtp] = useState('');
     const [message, setMessage] = useState('');
@@ -26,10 +29,16 @@ const Login_register_pop = () => {
     const {
         control,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         defaultValues: {
+            first_name: '',
+            last_name: '',
+            email: '',
+            password: '',
             phone_number: '',
+            terms: false,
         },
     });
 
@@ -65,19 +74,20 @@ const Login_register_pop = () => {
     };
 
     return (
-        <DialogContent >
-            <VisuallyHidden>
-                <DialogTitle className="DialogTitle ">Login/Singup</DialogTitle>
-            </VisuallyHidden>
+        
             <div className="w-full px-10">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-10 mt-4 text-center">
                     Welcome To BynaTablet.in!
                 </h2>
-                
-                   
-                   
+                <Tabs value={tab} onValueChange={(val) => { setTab(val); reset(); }} className="w-full">
+                    <TabsList className="flex justify-center space-x-11 mb-8 mx-6 bg-[#222831] rounded-lg h-11 text-white">
+                        <TabsTrigger value="login">Login</TabsTrigger>
+                        <Separator orientation="vertical" />
+                        <TabsTrigger value="register">Register</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="login">
                         <CardContent className="mt-10">
-                            <form onSubmit={handleSubmit(({ phone_number }) => sendOtp("+" + phone_number))}>
+                            <form onSubmit={handleSubmit(({ phone_number }) => sendOtp("+"+phone_number))}>
                                 <Controller
                                     name="phone_number"
                                     control={control}
@@ -85,16 +95,8 @@ const Login_register_pop = () => {
                                     render={({ field }) => <PhoneNumberInput {...field} />}
                                 />
                                 {errors.phone_number && <p className="text-red-500">{errors.phone_number.message}</p>}
-
-                                {!confirmationResult && (
-                                    <>
-                                    
-                                    <Button type="submit" className="w-full bg-red-500 hover:bg-red-600 mt-8 text-lg">Send OTP</Button>
-                                    </>
-                                )}
-
+                                <Button type="submit" className="w-full bg-red-500 hover:bg-red-600 mt-8 text-lg">Send OTP</Button>
                                 <div id="recaptcha-container"></div>
-
                                 {confirmationResult && (
                                     <>
                                         <Input
@@ -102,7 +104,7 @@ const Login_register_pop = () => {
                                             placeholder='Enter OTP'
                                             value={otp}
                                             onChange={(e) => setOtp(e.target.value)}
-                                            className='border p-2 w-full mb-2 mt-5 rounded'
+                                            className='border p-2 w-full mb-2 rounded'
                                         />
                                         <Button onClick={verifyOtp} className="w-full bg-green-500 hover:bg-green-600 text-lg">Verify OTP</Button>
                                     </>
@@ -110,12 +112,11 @@ const Login_register_pop = () => {
                                 {message && <p className="text-red-500 mt-2">{message}</p>}
                             </form>
                         </CardContent>
-                    
-                
+                    </TabsContent>
+                </Tabs>
             </div>
-            </DialogContent>
-
-            );
+        
+    );
 };
 
-            export  {Login_register_pop};
+export default Login_register_pop;
