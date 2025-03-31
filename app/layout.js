@@ -5,6 +5,18 @@ import Footer from "@/components/footer.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { Toaster } from "@/components/ui/sonner.jsx"
 
+
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
+
+ 
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,6 +34,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <ClerkProvider>
+    <SignedOut>
+      <SignInButton />
+    </SignedOut>
+    <SignedIn>
+      <UserButton />
+    </SignedIn>
+    
     <CartProvider >
 
     <html lang="en">
@@ -35,5 +55,6 @@ export default function RootLayout({ children }) {
       </body>
     </html>
         </CartProvider>
+          </ClerkProvider>
   );
 }
