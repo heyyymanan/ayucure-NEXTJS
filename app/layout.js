@@ -35,12 +35,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-    <SignedOut>
+    {/* <SignedOut>
       <SignInButton />
     </SignedOut>
     <SignedIn>
       <UserButton />
-    </SignedIn>
+    </SignedIn> */}
+    
+
     
     <CartProvider >
 

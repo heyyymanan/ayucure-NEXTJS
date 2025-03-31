@@ -76,72 +76,15 @@ const Login_register_pop = () => {
                         Welcome To BynaTablet.in !
                     </h2>
 
-                    <Tabs value={tab} onValueChange={(val) => { setTab(val); reset(); }} className="w-full ">
-                        <TabsList className="flex justify-center space-x-11 mb-8 mx-6 bg-[#222831] rounded-lg h-11 text-white">
-                            <TabsTrigger value="login">Login</TabsTrigger>
-                            <Separator orientation="vertical" />
-                            <TabsTrigger value="register">Register</TabsTrigger>
-                        </TabsList>
-
-                        <TabsContent value="login">
-                            <CardContent className="mt-10">
-
-                                <form onSubmit={handleSubmit(onSubmit)} className="">
-
-
-                                    <Controller
-                                        name="phone_number"
-                                        control={control}
-                                        rules={{ required: 'Phone number is required' }}
-                                        render={({ field }) => <PhoneNumberInput {...field} />}
-                                    />
-                                    {errors.phone_number && <p className="text-red-500 ">{errors.phone_number.message}</p>}
-
-
-
-                                    <Button type="submit" className="w-full bg-red-500 hover:bg-red-600 mt-8 text-lg">Login</Button>
-
-
-
-
-
-                                    <div className="loingoogle flex flex-col w-full gap-5 mt-5 text-center items-center justify-center h-full">
-                                        <h4 className="text-gray-500 text-center">Or</h4>
-                                        <button className="flex items-center justify-center gap-2 px-6 py-1.5 bg-white outline text-gray-700 font-semibold rounded-2xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
-                                            <FaGoogle className="text-red-500" size={20} />
-                                            Login with Google
-                                        </button>
-                                    </div>
-
-
-                                </form>
-                            </CardContent>
-                        </TabsContent>
-
-                        <TabsContent value="register" className="">
                             <CardContent>
                                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                                    <Controller
-                                        name="first_name"
-                                        control={control}
-                                        rules={{ required: 'First Name is required' }}
-                                        render={({ field }) => <Input {...field} placeholder="First Name" type="text" />}
-                                    />
-                                    {errors.first_name && <p className="text-red-500">{errors.first_name.message}</p>}
-
-                                    <Controller
-                                        name="last_name"
-                                        control={control}
-                                        rules={{ required: 'Last Name is required' }}
-                                        render={({ field }) => <Input {...field} placeholder="Last Name" type="text" />}
-                                    />
-                                    {errors.last_name && <p className="text-red-500">{errors.last_name.message}</p>}
+                                    
 
                                     <Controller
                                         name="email"
                                         control={control}
                                         rules={{ required: 'Email is required' }}
-                                        render={({ field }) => <Input {...field} placeholder="Email (Optional)" type="email" />}
+                                        render={({ field }) => <Input {...field} placeholder="Email" type="email" />}
                                     />
                                     {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
@@ -153,19 +96,15 @@ const Login_register_pop = () => {
                                     />
                                     {errors.password && <p className="text-red-500">{errors.password.message}</p>}
 
-                                    <Controller
-                                        name="phone_number"
-                                        control={control}
-                                        rules={{ required: 'Phone number is required' }}
-                                        render={({ field }) => <PhoneNumberInput {...field} />}
-                                    />
-                                    {errors.phone_number && <p className="text-red-500">{errors.phone_number.message}</p>}
+                                   
 
-                                    <Button type="submit" className="w-full bg-red-500 hover:bg-red-600  text-lg">Register</Button>
+                                    <button onClick={handleSignIn}>Sign In</button>
+                                    {error && <p style={{ color: "red" }}>{error}</p>}
+                                    
                                 </form>
                             </CardContent>
-                        </TabsContent>
-                    </Tabs>
+                        
+                    
                 </div>
             </DialogContent>
 

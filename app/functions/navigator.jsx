@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { useRouter } from "next/navigation"
  
 function ActiveLink({ children, href }) {
   const router = useRouter()

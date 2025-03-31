@@ -13,7 +13,15 @@ import { ChevronDown } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {Login_register_pop} from '../components/login_register_pop';
+import { Login_register_pop } from '../components/login_register_pop';
+
+import ActiveLink from '@/app/functions/navigator';
+import {
+    SignInButton,
+    SignedIn,
+    SignedOut,
+    UserButton
+} from '@clerk/nextjs'
 
 import {
     Dialog,
@@ -22,13 +30,14 @@ import {
 } from "@/components/ui/dialog"
 
 
+
 const Navbar = () => {
 
-    var IsVerfied = false;
+
     var Name = "Manan";
 
 
-    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor', 'FireBase'];
+    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor', 'FireBase', 'test'];
 
     return (
         <nav className="bg-[#222831] text-white w-100  flex-col sticky top-0 z-10">
@@ -46,7 +55,7 @@ const Navbar = () => {
                     <Link href='#'>Welcome ! Get 10% OFF On Your First Purchase. | Shop Now</Link>
                 </div>
                 <div className=""></div>
-                
+
             </div>
             <hr className=" border-t border-gray-700" />
 
@@ -103,57 +112,68 @@ const Navbar = () => {
 
                         </div>
                     </Link>
-                    {IsVerfied ?
-                        <div className="cart flex gap-2">
-                            <DropdownMenu >
-                                <DropdownMenuTrigger className='flex gap-1 items-center'>
+                    <div className="user flex justify-center items-center gap-2">
+
+                        <SignedIn >
+
+
+
+                            <div className="cart flex gap-5">
+                                <DropdownMenu >
+
+
+                                    <DropdownMenuTrigger>
+                                        <p className='flex items-center font-bold text-base'>My Account<ChevronDown className='h-5' /></p>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="bg-[#222831] text-white">
+                                        <DropdownMenuLabel>{"Hey! " + Name}</DropdownMenuLabel>
+                                        <DropdownMenuSeparator className="bg-white" />
+                                        <DropdownMenuItem>My Account</DropdownMenuItem>
+                                        <DropdownMenuItem>My Wishlist</DropdownMenuItem>
+                                        <DropdownMenuItem>My Cart</DropdownMenuItem>
+                                        <DropdownMenuItem>My Orders</DropdownMenuItem>
+                                    </DropdownMenuContent>
+
+                                </DropdownMenu>
+
+                                <UserButton />
+
+                            </div>
+
+
+                        </SignedIn>
+
+                        <SignedOut>
+
+
+                            <SignInButton forceRedirectUrl="https://accounts.bynatablet.in/sign-in" className="flex  gap-2 justify-center items-center hover:cursor-pointer">
+
+                                <div className="login flex gap-2 text-white items-center">
+
+
                                     <HugeiconsIcon
                                         icon={User03Icon}
                                         size={20}
                                         color="currentColor"
                                         strokeWidth={1}
                                     />
-                                
-                                
-                                    <p className='flex items-center font-bold text-base'>My Account<ChevronDown className='h-5' /></p>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent className="bg-[#222831] text-white">
-                                    <DropdownMenuLabel>{"Hey! " + Name}</DropdownMenuLabel>
-                                    <DropdownMenuSeparator className="bg-white" />
-                                    <DropdownMenuItem>My Account</DropdownMenuItem>
-                                    <DropdownMenuItem>My Wishlist</DropdownMenuItem>
-                                    <DropdownMenuItem>My Cart</DropdownMenuItem>
-                                    <DropdownMenuItem>My Orders</DropdownMenuItem>
-                                </DropdownMenuContent>
 
-                            </DropdownMenu>
-                        </div>
-                        :
-                        <Dialog>
-                            <DialogTrigger className='flex gap-1 items-center'>
-                                <HugeiconsIcon
-                                        icon={User03Icon}
-                                        size={20}
-                                        color="currentColor"
-                                        strokeWidth={1}/>
 
-                            <p className='flex items-center font-bold text-lg  mr-5'>Login</p>
-                            
-                            </DialogTrigger>
-                                    
-                            <DialogContent>
+                                    <p className='flex items-center font-bold text-base'>Login</p>
 
-                                <Login_register_pop/>
+                                </div>
+                            </SignInButton>
 
-                            </DialogContent>
-                        </Dialog>
 
-                    }
+                        </SignedOut>
+
+                    </div>
+
 
                 </div>
-            </div>
+            </div >
             <hr className=" border-t border-gray-700" />
-        </nav>
+        </nav >
     );
 };
 
