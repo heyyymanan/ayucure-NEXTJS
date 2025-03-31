@@ -146,7 +146,7 @@ const Navbar = () => {
                         <SignedOut>
 
 
-                            <SignInButton forceRedirectUrl="https://accounts.bynatablet.in/sign-in" className="flex  gap-2 justify-center items-center hover:cursor-pointer">
+                            <SignInButton  className="flex  gap-2 justify-center items-center hover:cursor-pointer">
 
                                 <div className="login flex gap-2 text-white items-center">
 
