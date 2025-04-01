@@ -19,12 +19,12 @@ const page = () => {
 
     return (
         <section  Name="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-            <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+            <div className="mx-auto mt-10 max-w-screen-xl px-4 2xl:px-0">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
                     Shopping Cart
                 </h2>
                 <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
-                    <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+                    <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl md:justify-center">
                         <div className="space-y-5">
 
 
@@ -64,7 +64,7 @@ const page = () => {
                                                 </div>
 
 
-                                                <div className="text-end md:order-4 md:w-32">
+                                                <div className="text-end md:order-4 md:w-32 mr-">
                                                     <p className="text-xl font-bold text-gray-900 dark:text-white">
                                                         {"₹"+item.p_price*item.quantity}
                                                     </p>

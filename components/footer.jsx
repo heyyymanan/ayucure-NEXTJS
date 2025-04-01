@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center">
                 {/* Left Section */}
                 <div className="mb-6 md:mb-0 flex gap-5 items-center justify-center">  
-                    <Image src="/logo.png" alt="Shreeji Remedies" width={60 } height={60 } />
+                    <Image src="/icons/logo.png" alt="Shreeji Remedies" width={60 } height={60 } />
                     <div className="text ">
 
                     <h2 className="font-bold text-3xl mt-2">BynaTablet.in</h2>
@@ -22,9 +22,9 @@ const Footer = () => {
                     <h3 className="font-semibold mb-2 text-lg">Socials</h3>
                     <ul className="space-y-1">
 
-                        <li className="flex items-center"><Image src="/instagram.png" alt="Instagram" width={20} height={20} className="mr-2" /> Instagram</li>
-                        <li className="flex items-center"><Image src="/facebook.png" alt="Facebook" width={20} height={20} className="mr-2" /> FaceBook</li>
-                        <li className="flex items-center"><Image src="/whatsapp.png" alt="WhatsApp" width={20} height={20} className="mr-2" /> WhatsApp</li>
+                        <li className="flex items-center"><Image src="/icons/instagram.png" alt="Instagram" width={20} height={20} className="mr-2" /> Instagram</li>
+                        <li className="flex items-center"><Image src="/icons/facebook.png" alt="Facebook" width={20} height={20} className="mr-2" /> FaceBook</li>
+                        <li className="flex items-center"><Image src="/icons/whatsapp.png" alt="WhatsApp" width={20} height={20} className="mr-2" /> WhatsApp</li>
                     </ul>
                 </div>
 
@@ -41,7 +41,7 @@ const Footer = () => {
                     <h3 className="font-semibold mb-5 text-lg text-center ">Get The App (Upcoming)</h3>
                     <button className='bg-[#D3D3D3] p-3 rounded-lg'> 
 
-                        <li className="flex items-center"><Image src="/playstore.png" alt="Instagram" width={20} height={20} className="mr-2" />Download Now</li>
+                        <li className="flex items-center"><Image src="/icons/playstore.png" alt="Instagram" width={20} height={20} className="mr-2" />Download Now</li>
 
                     </button>
                 </div>
