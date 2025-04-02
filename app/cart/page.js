@@ -18,7 +18,7 @@ const page = () => {
 
 
     return (
-        <section  Name="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+        <section  className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
             <div className="mx-auto mt-10 max-w-screen-xl px-4 2xl:px-0">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
                     Shopping Cart

@@ -13,31 +13,25 @@ import { ChevronDown } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Login_register_pop } from '../components/login_register_pop';
 
-import ActiveLink from '@/app/functions/navigator';
 import {
     SignInButton,
     SignedIn,
     SignedOut,
-    UserButton
+    UserButton,
+    useUser
 } from '@clerk/nextjs'
 
-import {
-    Dialog,
-    DialogContent,
-    DialogTrigger,
-} from "@/components/ui/dialog"
 
 
 
 const Navbar = () => {
 
+    const { user } = useUser();
+    const name = user?.firstName;
 
-    var Name = "Manan";
 
-
-    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor', 'FireBase', 'test'];
+    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor'];
 
     return (
         <nav className="bg-[#222831] text-white w-100  flex-col sticky top-0 z-10">
@@ -126,7 +120,7 @@ const Navbar = () => {
                                         <p className='flex items-center font-bold text-base'>My Account<ChevronDown className='h-5' /></p>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="bg-[#222831] text-white">
-                                        <DropdownMenuLabel>{"Hey! " + Name}</DropdownMenuLabel>
+                                        <DropdownMenuLabel>{"Hey! " + name}</DropdownMenuLabel>
                                         <DropdownMenuSeparator className="bg-white" />
                                         <DropdownMenuItem>My Account</DropdownMenuItem>
                                         <DropdownMenuItem>My Wishlist</DropdownMenuItem>
