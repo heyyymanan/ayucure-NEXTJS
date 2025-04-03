@@ -32,7 +32,7 @@ const Hero = () => {
   
           <div ref={textRef} className="hero-text md:text-center flex-col justify-start">
   
-            <h1 id='hero-text' className="lg:text-7xl md:text-4xl md:text-center text-white font-bold">Meet Our Heros !</h1>
+            <h1 id='hero-text' className="lg:text-4xl xl:text-7xl md:text-3xl md:text-center text-white font-bold">Meet Our Heros !</h1>
   
             <h3 className="text-white text-2xl md:mt-1 ">& Say Goodbye To Joint Pains.</h3>
   
@@ -50,7 +50,7 @@ const Hero = () => {
               alt="byna medicine"
               width={1029}
               height={492}
-              className="hero-img md:h-[250px] md:w-[600px] xl:w-[960px] xl:h-[440px]  "
+              className="hero-img md:h-[250px] md:w-[600px] lg:w-[800px] lg:h-[380px] xl:w-[960px] xl:h-[440px]  "
               ref={pngRef}
             />
           </div>
