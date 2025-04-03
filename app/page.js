@@ -153,20 +153,20 @@ export default function Home() {
 
       <hr className=" border-t border-gray-500" />
 
-    {/* <Checkout_side_pannel/> */}
+    
 
       <Category />
       <hr className=" border-t border-gray-400" />
 
 
-        <h1 className="text-center text-5xl mt-10 font-serif">Trending Products</h1>
+        <h1 className="text-center lg:text-5xl text-4xl mt-5 lg:mt-10 font-serif">Trending Products</h1>
         <div className="trending-products flex  overflow-x-auto whitespace-nowrap gap-x-5  gap-y-5 p-4 md:p-10  justify-evenly">
           {products_trending.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        <h1 className="text-center text-5xl font-serif">Want A Healthy Life?</h1>
+        <h1 className="text-center lg:text-5xl text-4xl mt-5 lg:mt-10 font-serif">Want A Healthy Life?</h1>
         <div className="trending-products-trending flex  overflow-x-auto whitespace-nowrap gap-x-5  gap-y-5 p-4 md:p-10  justify-evenly">
           {products_healthy.map((product) => (
             <ProductCard key={product.id} product={product} />

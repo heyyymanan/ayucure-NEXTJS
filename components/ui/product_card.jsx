@@ -50,13 +50,13 @@ const ProductCard = ({ product }) => {
   }, [product]);
 
   return (
-    <div ref={cardRef} className="border rounded-lg shadow-md max-w-xs sm:max-w-md md:max-w-md bg-white border-black p-3 mx-0 sm:p-4">
-      <div className="relative flex justify-center w-full h-36 sm:h-48">
+    <div ref={cardRef} className="border rounded-lg shadow-md max-w-xs sm:max-w-md md:max-w-md md:align-i bg-white border-black p-3  sm:p-4">
+      <div className="relative flex justify-center  h-36 sm:h-48">
         <Image 
           src={product.p_img} 
           alt={product.p_name} 
-          width={200} 
-          height={200} 
+          width={200}
+          height={200}
           style={{ objectFit: "contain" }} 
         />
       </div>

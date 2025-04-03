@@ -34,8 +34,8 @@ const Navbar = () => {
     const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor'];
 
     return (
-        <nav className="bg-[#222831] text-white w-screen  flex-col  sticky top-0 z-10">
-            <div className="bar-1 md:flex justify-between ml-4 p-1 hidden md:w-screen">
+        <nav className="bg-[#222831] text-white max-w-screen  flex-col  sticky top-0 z-10">
+            <div className="bar-1 lg:flex justify-between ml-4 p-1">
                 <div className="call flex  items-center gap-1 ">
                     <HugeiconsIcon
                         icon={Call02FreeIcons}
@@ -45,7 +45,7 @@ const Navbar = () => {
                     />
                     <p>+91-9928077671</p>
                 </div>
-                <div className="welcome-text text-sm flex mr-52  items-center ">
+                <div className="welcome-text text-sm hidden lg:flex mr-48 lg:mr-24 items-center ">
                     <Link href='#'>Welcome ! Get 10% OFF On Your First Purchase. | Shop Now</Link>
                 </div>
                 <div className=""></div>
@@ -53,26 +53,26 @@ const Navbar = () => {
             </div>
             <hr className=" border-t border-gray-700" />
 
-            <div className="bar-2 p-2 flex justify-between items-center ">
+            <div className="bar-2 p-2 flex  justify-between items-center ">
 
                 <Link href={'/'}>
 
-                    <div className="logo md:size-15 size-[50px]  flex items-center gap-2 px-2">
+                    <div className="logo lg:size-15 size-[50px]  flex items-center gap-2  px-2">
 
                         <Image
-                            src="/logo.png"
+                            src="/icons/logo.png"
                             alt="logo Image"
                             width={50}
                             height={40}
                             priority
                         />
-                        <h1 className='md:text-4xl text-2xl font-serif'>BynaTablet.in</h1>
+                        <h1 className='lg:text-2xl text-2xl font-serif'>BynaTablet.in</h1>
 
                     </div>
                 </Link>
 
 
-                <div className="md:flex h-5 items-center hidden md:w-max  text-xl font-serif">
+                <div className="lg:flex h-5 items-center hidden lg:ml-32 lg:text-xl font-serif">
 
 
                     <ul className="flex items-center justify-evenly gap-3">
@@ -142,7 +142,7 @@ const Navbar = () => {
                         <SignedOut>
 
 
-                            <SignInButton  className="md:flex hidden gap-2 justify-center items-center hover:cursor-pointer">
+                            <SignInButton  className="md:flex hidden lg:mr-2 md:mr-5 gap-2 justify-center items-center hover:cursor-pointer">
 
                                 <div className="login flex gap-2 text-white items-center">
 
