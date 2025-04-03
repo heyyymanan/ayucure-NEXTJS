@@ -34,8 +34,8 @@ const Navbar = () => {
     const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor'];
 
     return (
-        <nav className="bg-[#222831] text-white w-100  flex-col sticky top-0 z-10">
-            <div className="bar-1 flex justify-between ml-7 p-1">
+        <nav className="bg-[#222831] text-white w-screen  flex-col  sticky top-0 z-10">
+            <div className="bar-1 md:flex justify-between ml-4 p-1 hidden md:w-screen">
                 <div className="call flex  items-center gap-1 ">
                     <HugeiconsIcon
                         icon={Call02FreeIcons}
@@ -45,7 +45,7 @@ const Navbar = () => {
                     />
                     <p>+91-9928077671</p>
                 </div>
-                <div className="welcome-text text-sm flex items-center ">
+                <div className="welcome-text text-sm flex mr-52  items-center ">
                     <Link href='#'>Welcome ! Get 10% OFF On Your First Purchase. | Shop Now</Link>
                 </div>
                 <div className=""></div>
@@ -53,11 +53,11 @@ const Navbar = () => {
             </div>
             <hr className=" border-t border-gray-700" />
 
-            <div className="bar-2 p-2 flex items-center justify-between">
+            <div className="bar-2 p-2 flex justify-between items-center ">
 
                 <Link href={'/'}>
 
-                    <div className="logo flex items-center gap-2 px-2">
+                    <div className="logo md:size-15 size-[50px]  flex items-center gap-2 px-2">
 
                         <Image
                             src="/logo.png"
@@ -66,13 +66,13 @@ const Navbar = () => {
                             height={40}
                             priority
                         />
-                        <h1 className='text-4xl font-serif'>BynaTablet.in</h1>
+                        <h1 className='md:text-4xl text-2xl font-serif'>BynaTablet.in</h1>
 
                     </div>
                 </Link>
 
 
-                <div className="flex h-5 items-center space-x-4 text-xl font-serif">
+                <div className="md:flex h-5 items-center hidden md:w-max  text-xl font-serif">
 
 
                     <ul className="flex items-center justify-evenly gap-3">
@@ -93,7 +93,8 @@ const Navbar = () => {
 
                 </div>
 
-                <div className="user flex justify-center items-center gap-5 px-2">
+                <div className="user md:flex hidden justify-center items-center gap-5 px-2">
+                <SignedIn >
                     <Link href={"/cart"}>
                         <div className="cart flex gap-2">
                             <HugeiconsIcon
@@ -101,11 +102,12 @@ const Navbar = () => {
                                 size={20}
                                 color="currentColor"
                                 strokeWidth={1}
-                            />
+                                />
                             <p className='flex items-center font-bold text-base'>My Cart</p>
 
                         </div>
                     </Link>
+                                </SignedIn>
                     <div className="user flex justify-center items-center gap-2">
 
                         <SignedIn >
@@ -140,7 +142,7 @@ const Navbar = () => {
                         <SignedOut>
 
 
-                            <SignInButton  className="flex  gap-2 justify-center items-center hover:cursor-pointer">
+                            <SignInButton  className="md:flex hidden gap-2 justify-center items-center hover:cursor-pointer">
 
                                 <div className="login flex gap-2 text-white items-center">
 
