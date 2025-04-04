@@ -99,8 +99,18 @@ const Navbar = () => {
                     
                     
                     <div className="user flex justify-center items-center md:gap-2 gap-4">
+                        <span onClick={console.log("clicked")} className='md:hidden'>
+                            <HugeiconsIcon
+                                icon={Menu01FreeIcons}
+                                size={20}
+                                color="currentColor"
+                                strokeWidth={1}
+                            />
+                        </span>
 
                         <SignedIn >
+                            <div className=" flex gap-4 items-center">
+
 
                         <Link href={"/cart"}>
                             <div className="cart flex gap-2">
@@ -109,14 +119,14 @@ const Navbar = () => {
                                     size={20}
                                     color="currentColor"
                                     strokeWidth={1}
-                                />
+                                    />
                                 <p className='md:flex hidden items-center font-bold text-base'>My Cart</p>
 
                             </div>
                         </Link>
 
 
-                            <div className="cart flex gap-5">
+                            <div className="cart md:flex hidden gap-5">
                                 <DropdownMenu >
 
 
@@ -134,11 +144,13 @@ const Navbar = () => {
 
                                 </DropdownMenu>
 
-                                <UserButton />
 
                             </div>
+                            
+                                <UserButton />
 
 
+                                    </div>
                         </SignedIn>
 
 
@@ -166,14 +178,6 @@ const Navbar = () => {
 
                         </SignedOut>
 
-                        <span onClick={console.log("clicked")} className='md:hidden'>
-                            <HugeiconsIcon
-                                icon={Menu01FreeIcons}
-                                size={20}
-                                color="currentColor"
-                                strokeWidth={1}
-                            />
-                        </span>
 
                     </div>
 
