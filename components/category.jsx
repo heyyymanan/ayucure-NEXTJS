@@ -42,7 +42,7 @@ export default function HealthCategories() {
               className="size-160 hover:shadow-2xl rounded-full"
             />
           </div>
-          <p className="lg:mt-2 lg:text-2xl text-base mt-2 font-semibold text-white">{category.title}</p>
+          <p className="lg:mt-2 lg:text-2xl text-sm mt-2 font-semibold text-white">{category.title}</p>
         </div>
       ))}
     </div>
