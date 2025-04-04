@@ -26,7 +26,7 @@ export default function HealthCategories() {
   }, []);
 
   return (
-    <div className="flex justify-center p-4 gap-x-5 lg:gap-10 lg:mt-9 lg:mb-7">
+    <div className="flex justify-center p-4 gap-x-5 2xl:gap-15 lg:gap-10 lg:mt-5 lg:mb-7 ">
       {Categories.map((category, index) => (
         <div
           key={index}
@@ -42,7 +42,7 @@ export default function HealthCategories() {
               className="size-160 hover:shadow-2xl rounded-full"
             />
           </div>
-          <p className="lg:mt-2 lg:text-2xl text-sm mt-2 font-semibold text-white">{category.title}</p>
+          <p className="lg:mt-2 lg:text-2xl text-[12px] mt-2 font-semibold text-white">{category.title}</p>
         </div>
       ))}
     </div>
