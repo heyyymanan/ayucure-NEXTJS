@@ -14,6 +14,10 @@ const nextConfig = {
         source: "/api/:path*",
         destination: "https://your-backend.com/api/:path*",
       },
+      {
+        source: "/home",
+        destination: "/",
+      },
     ];
   },
 };

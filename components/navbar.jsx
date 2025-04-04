@@ -1,6 +1,6 @@
 "use client"
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Call02FreeIcons, Trolley01FreeIcons, User03Icon, } from '@hugeicons/core-free-icons/index';
+import { Call02FreeIcons, Hamburger01FreeIcons, Hamburger02FreeIcons, HamburgerIconFreeIcons, Menu01FreeIcons, Trolley01FreeIcons, User03Icon, } from '@hugeicons/core-free-icons/index';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,6 +21,7 @@ import {
     UserButton,
     useUser
 } from '@clerk/nextjs'
+import { FaHamburger } from 'react-icons/fa';
 
 
 
@@ -34,9 +35,9 @@ const Navbar = () => {
     const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor'];
 
     return (
-        <nav className="bg-[#222831] text-white max-w-screen  flex-col  sticky top-0 z-10">
-            <div className="bar-1 lg:flex justify-between ml-4 p-1">
-                <div className="call flex  items-center gap-1 ">
+        <nav className="bg-[#222831] text-white max-w-screen  flex-col sticky top-0 z-10">
+            <div className="bar-1 lg:flex md:justify-between max-w-screen ml-4 md:p-1">
+                <div className="call flex md:justify-normal justify-center text-sm items-center gap-1 ">
                     <HugeiconsIcon
                         icon={Call02FreeIcons}
                         size={20}
@@ -53,11 +54,11 @@ const Navbar = () => {
             </div>
             <hr className=" border-t border-gray-700" />
 
-            <div className="bar-2 p-2 flex  justify-between items-center ">
+            <div className="bar-2 md:p-2 h-16 flex justify-between items-center ">
 
                 <Link href={'/'}>
 
-                    <div className="logo lg:size-15 size-[50px]  flex items-center gap-2  px-2">
+                    <div className="logo lg:size-15 size-[50px]   flex items-center gap-2  px-2">
 
                         <Image
                             src="/icons/logo.png"
@@ -65,8 +66,9 @@ const Navbar = () => {
                             width={50}
                             height={40}
                             priority
+                            className=' '
                         />
-                        <h1 className='lg:text-2xl text-2xl font-serif'>BynaTablet.in</h1>
+                        <h1 className='lg:text-2xl text-xl font-serif'>BynaTablet.in</h1>
 
                     </div>
                 </Link>
@@ -93,25 +95,25 @@ const Navbar = () => {
 
                 </div>
 
-                <div className="user md:flex hidden justify-center items-center gap-5 px-2">
-                <SignedIn >
-                    <Link href={"/cart"}>
-                        <div className="cart flex gap-2">
-                            <HugeiconsIcon
-                                icon={Trolley01FreeIcons}
-                                size={20}
-                                color="currentColor"
-                                strokeWidth={1}
-                                />
-                            <p className='flex items-center font-bold text-base'>My Cart</p>
-
-                        </div>
-                    </Link>
-                                </SignedIn>
-                    <div className="user flex justify-center items-center gap-2">
+                <div className="user md:flex flex justify-center items-center gap-5 md:px-2 p-4">
+                    
+                    
+                    <div className="user flex justify-center items-center md:gap-2 gap-4">
 
                         <SignedIn >
 
+                        <Link href={"/cart"}>
+                            <div className="cart flex gap-2">
+                                <HugeiconsIcon
+                                    icon={Trolley01FreeIcons}
+                                    size={20}
+                                    color="currentColor"
+                                    strokeWidth={1}
+                                />
+                                <p className='md:flex hidden items-center font-bold text-base'>My Cart</p>
+
+                            </div>
+                        </Link>
 
 
                             <div className="cart flex gap-5">
@@ -139,10 +141,11 @@ const Navbar = () => {
 
                         </SignedIn>
 
+
                         <SignedOut>
 
 
-                            <SignInButton  className="md:flex hidden lg:mr-2 md:mr-5 gap-2 justify-center items-center hover:cursor-pointer">
+                            <SignInButton className="md:flex  lg:mr-2 md:mr-5 gap-2 justify-center items-center hover:cursor-pointer">
 
                                 <div className="login flex gap-2 text-white items-center">
 
@@ -155,13 +158,22 @@ const Navbar = () => {
                                     />
 
 
-                                    <p className='flex items-center font-bold text-base'>Login</p>
+                                    <p className='md:flex hidden items-center font-bold text-base'>Login</p>
 
                                 </div>
                             </SignInButton>
 
 
                         </SignedOut>
+
+                        <span onClick={console.log("clicked")} className='md:hidden'>
+                            <HugeiconsIcon
+                                icon={Menu01FreeIcons}
+                                size={20}
+                                color="currentColor"
+                                strokeWidth={1}
+                            />
+                        </span>
 
                     </div>
 
