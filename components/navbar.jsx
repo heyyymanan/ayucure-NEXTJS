@@ -32,7 +32,7 @@ const Navbar = () => {
     const name = user?.firstName;
 
 
-    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor'];
+    const navItems = ['Home', 'Shop', 'About Us', 'Contact Us', 'Consult a Doctor', 'test'];
 
     return (
         <nav className="bg-[#222831] text-white max-w-screen  flex-col sticky top-0 z-10">

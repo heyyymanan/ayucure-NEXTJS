@@ -42,7 +42,7 @@ const Hero = () => {
 
 
         <>
-        <button className="bg-lime-400 xl:text-4xl lg:text-5xl md:text-2xl hidden md:flex md:px-5 text-xl p-2  font-serif rounded-3xl lg:mt-16 md:mt-8 transition-transform duration-200 hover:scale-105 hover:bg-lime-300  ">Shop Now</button>
+        <button className="bg-lime-400 xl:text-4xl lg:text-5xl md:text-2xl hidden md:flex md:px-5 text-xl p-2 2xl:text-5xl font-serif rounded-3xl lg:mt-16 md:mt-8 transition-transform duration-200 hover:scale-105 hover:bg-lime-300  ">Shop Now</button>
         </>
 
       </div>
