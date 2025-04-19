@@ -14,7 +14,7 @@ node_modules
 /idea
 # testing
 /coverage
-/public
+
 # next.js
 /.next/
 /out/
