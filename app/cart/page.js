@@ -9,7 +9,7 @@ const page = () => {
     let savings;
     const total_of_items=getTotalPrice();
     const tax=Math.round((total_of_items/100)*18);
-    cart.length==0?( savings=0.00, delivery=0.00): (savings=100.00,delivery=100.00);
+    cart.length==0?( savings=0.00, delivery=0.00): (savings=10,delivery=100.00);
 
     
 
@@ -36,13 +36,13 @@ const page = () => {
                             ) : (
                                 cart.map((item) => (
 
-                                    <div key={item.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                                    <div key={item._id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                                         <div className="space-y-5 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                             <a href="#" className="w-20 shrink-0 md:order-1">
 
-                                                <Image src={item.p_img} alt={item.p_name} width={250} height={250} objectFit="contain" className='size-250' />
+                                                <Image src={item.images[0]} alt={item.name} width={250} height={250} objectFit="contain" className='size-250' />
 
-                                                {/* <Image src={item.p_img} alt={item.p_name} width={200} height={200} objectFit="contain" /> */}
+                                                
 
                                             </a>
                                             <div className="flex items-center justify-between md:order-3 md:justify-end">
@@ -55,9 +55,9 @@ const page = () => {
                                                         <p className='text-base'>
                                                             Choose quantity :
                                                         </p>
-                                                        <button onClick={() => decrementQuantity(item.id)} className="p-2 border">-</button>
+                                                        <button onClick={() => decrementQuantity(item._id)} className="p-2 border">-</button>
                                                         <span className="mx-2">{item.quantity}</span>
-                                                        <button onClick={() => incrementQuantity(item.id)} className="p-2 border">+</button>
+                                                        <button onClick={() => incrementQuantity(item._id)} className="p-2 border">+</button>
                                                     </div>
 
 
@@ -66,7 +66,7 @@ const page = () => {
 
                                                 <div className="text-end md:order-4 md:w-32 mr-">
                                                     <p className="text-xl font-bold text-gray-900 dark:text-white">
-                                                        {"₹"+item.p_price*item.quantity}
+                                                        {"₹"+item.variants[0].price*item.quantity}
                                                     </p>
                                                 </div>
 
@@ -79,7 +79,7 @@ const page = () => {
                                                     href="#"
                                                     className="text-xl font-semibold uppercase text-gray-900 hover:underline dark:text-white"
                                                 >
-                                                    {item.p_name+" - "+item.qty}
+                                                    {item.name+" - "+item.variants[0].size}
                                                 </a>
 
 
@@ -87,7 +87,7 @@ const page = () => {
                                                 <div className=" gap-4">
 
                                                     <button
-                                                        onClick={() => removeFromCart(item.id)}
+                                                        onClick={() => removeFromCart(item._id)}
                                                         type="button"
                                                         className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
                                                     >
@@ -151,7 +151,7 @@ const page = () => {
                                             Savings
                                         </dt>
                                         <dd className="text-base font-medium text-green-600">
-                                           - ₹ {savings}
+                                           - {savings} %
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
@@ -176,7 +176,7 @@ const page = () => {
                                         Total
                                     </dt>
                                     <dd className="text-base font-bold text-gray-900 dark:text-white">
-                                    {"₹ "+((delivery+tax+total_of_items)-savings)}
+                                    {"₹ "+Math.floor(((delivery+tax+total_of_items)-(((delivery+tax+total_of_items)/100)*savings)))}
                                     </dd>
                                 </dl>
                             </div>

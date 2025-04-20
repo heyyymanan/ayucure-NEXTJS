@@ -108,12 +108,8 @@ const Navbar = () => {
                             />
                         </span>
 
-                        <SignedIn >
-                            <div className=" flex gap-4 items-center">
-
-
                         <Link href={"/cart"}>
-                            <div className="cart flex gap-2">
+                            <div className="cart flex mr-4 gap-2">
                                 <HugeiconsIcon
                                     icon={Trolley01FreeIcons}
                                     size={20}
@@ -124,6 +120,11 @@ const Navbar = () => {
 
                             </div>
                         </Link>
+
+                        <SignedIn >
+                            <div className=" flex gap-4 items-center">
+
+
 
 
                             <div className="cart md:flex hidden gap-5">
