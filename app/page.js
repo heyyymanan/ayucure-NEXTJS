@@ -9,16 +9,20 @@ import { fetchProducts } from "@/lib/api/products.js";
 export default function Home() {
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [healthyProducts, setHealthyProducts] = useState([]);
+  const [sexualWellness, setSexualWellness] = useState([]);
 
   useEffect(() => {
     async function loadProducts() {
       try {
         const trending = await fetchProducts({ tag: "trending", limit: 5 });
         const healthy = await fetchProducts({ tag: "healthy", limit: 5 });
+        const sexualWellness = await fetchProducts({ tag: "sexual-wellness", limit: 5 });
+          
         console.log(trending);
         
         setTrendingProducts(trending);
         setHealthyProducts(healthy);
+        setSexualWellness(sexualWellness);
       } catch (error) {
         console.error("Failed to load products:", error);
       }
@@ -41,6 +45,15 @@ export default function Home() {
       </h1>
       <div className="flex overflow-x-auto whitespace-nowrap gap-x-5 gap-y-5 p-4 md:p-10 justify-evenly">
         {trendingProducts.map((product) => (
+          <ProductCard key={product._id} product={product} />
+        ))}
+      </div>
+
+      <h1 className="text-center lg:text-5xl text-3xl mt-5 lg:mt-10 font-serif">
+        Sexual Wellness
+      </h1>
+      <div className="flex overflow-x-auto whitespace-nowrap gap-x-5 gap-y-5 p-4 md:p-10 justify-evenly">
+        {sexualWellness.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
