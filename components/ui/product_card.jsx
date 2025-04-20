@@ -32,25 +32,7 @@ const ProductCard = ({ product }) => {
     }
   }, [cartItem?.quantity]);
 
-  useEffect(() => {
-    if (cardRef.current) {
-      gsap.fromTo(
-        cardRef.current,
-        { x: 100, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: "top 100%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }
-  }, [product]);
+
 
   const handleAddToCart = () => {
     addToCart(product);
@@ -69,8 +51,8 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-      ref={cardRef}
-      className="border rounded-2xl shadow-md max-w-xs sm:max-w-sm md:max-w-md bg-white p-5 transition-transform hover:scale-105"
+      
+      className="border rounded-2xl shadow-md max-w-xs sm:max-w-sm md:max-w-md bg-white px-4 pb-3 sm:p-5 transition-transform hover:scale-105 hover:cursor-pointer"
     >
       <div className="relative flex justify-center w-full h-56 sm:h-64">
         <Image
@@ -82,7 +64,7 @@ const ProductCard = ({ product }) => {
         />
       </div>
 
-      <div className="mt-4">
+      <div className="mt-1">
         <div className="flex justify-between items-center">
           {product.variants[0].discount > 0 && (
             <span className="bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded-full">
@@ -129,7 +111,7 @@ const ProductCard = ({ product }) => {
         </div>
 
         {cartItem ? (
-          <div ref={buttonRef} className="flex items-center mt-4 gap-4">
+          <div ref={buttonRef} className="flex border-2 py-2 border-lime-500 rounded-lg  items-center justify-evenly  mt-4 sm:gap-4">
             <button onClick={handleDecrement} className="text-gray-700 hover:text-gray-900">
               <LucideMinusCircle size={24} />
             </button>

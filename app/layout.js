@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
               {children}
             
             <Footer />
-            <Toaster richColors closeButton expand={true} />
+            <Toaster richColors closeButton expand={false} />
           </body>
         </html>
       </CartProvider>
