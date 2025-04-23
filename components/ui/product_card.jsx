@@ -52,21 +52,23 @@ const ProductCard = ({ product }) => {
 
   return (
 
-    <Link href={`/products/${product.variants[0].sku}`}>
+    
 
 
       <div
-        className="border rounded-2xl  shadow-md max-w-xs h-auto sm:max-w-sm md:max-w-md bg-white p-1 pb-3 sm:p-4 transition-transform hover:scale-105 hover:cursor-pointer"
+        className="border rounded-2xl  shadow-md max-w-xs h-auto sm:max-w-sm md:max-w-md bg-white p-1 pb-3 sm:p-4 transition-transform hover:scale-105 "
       >
-        <div className="relative flex justify-center w-full h-auto sm:h-64">
+        <Link href={`/products/${product.variants[0].sku}`}>
+        <div className="relative flex justify-center w-full h-auto sm:h-64 hover:cursor-pointer">
           <Image
             src={product.images[0]}
             alt={product.name}
             width={200}
             height={200}
             className="rounded-lg object-contain w-[187px] h-[187px] sm:w-[250px] sm:h-[250px]"
-          />
+            />
         </div>
+            </Link>
 
         <div className="mt-1 sm:space-y-4">
           <div className="flex  justify-between items-center">
@@ -147,7 +149,7 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
       </div>
-    </Link>
+    
   );
 };
 
