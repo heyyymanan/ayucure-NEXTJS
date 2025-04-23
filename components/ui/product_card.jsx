@@ -60,7 +60,7 @@ const ProductCard = ({ product }) => {
           alt={product.name}
           width={200}
           height={200}
-          className="rounded-lg object-contain w-[187px] h-[187px] sm:w-[230px] sm:h-[230px]"
+          className="rounded-lg object-contain w-[187px] h-[187px] sm:w-[250px] sm:h-[250px]"
         />
       </div>
 
