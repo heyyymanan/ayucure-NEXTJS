@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { use } from "react";
 
-// Fetch the product by SKU (or whatever identifier you're using)
 async function getProductBySKU(sku) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/general/products/${sku}`, {
-    cache: 'no-store', // Ensure the data is fresh
+    cache: 'no-store',
   });
 
   if (!res.ok) {
@@ -18,22 +18,26 @@ async function getProductBySKU(sku) {
 }
 
 export default function ProductPage({ params }) {
+  const unwrappedParams = use(params);
   const [product, setProduct] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedVariant, setSelectedVariant] = useState(null);
 
-  // Fetch product data when the component mounts
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const productData = await getProductBySKU(params.sku);
-        setProduct(productData);  // Set the product data to the state
+        const productData = await getProductBySKU(unwrappedParams.sku);
+        setProduct(productData);
+        // Find the variant based on SKU
+        const foundVariant = productData.variants.find(v => v.sku === unwrappedParams.sku);
+        setSelectedVariant(foundVariant);
       } catch (error) {
         console.error("Error fetching product:", error);
       }
     };
 
     fetchProduct();
-  }, [params.sku]);
+  }, [unwrappedParams.sku]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
@@ -43,8 +47,8 @@ export default function ProductPage({ params }) {
     setCurrentIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
   };
 
-  if (!product) {
-    return <div>Loading...</div>;  // Show loading state until product data is fetched
+  if (!product || !selectedVariant) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -104,54 +108,41 @@ export default function ProductPage({ params }) {
             ))}
           </div>
         </div>
-
       </div>
 
       {/* Product Details */}
       <div className="flex flex-col gap-6 w-full md:w-1/3">
-        <ProductInfo product={product} />
-        <OffersList offers={product.offers} />
-        <WhyLoveList whyLove={product.whyLove} />
+        <ProductInfo product={product} variant={selectedVariant} />
+        <RemedyList remedies={product.remedy_for} />
         <AddToCartButton />
       </div>
     </section>
   );
 }
 
-function ProductInfo({ product }) {
+function ProductInfo({ product, variant }) {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-2">{product.name}</h1>
-      <p className="text-orange-600 font-semibold text-lg">₹{product.price}</p>
+      <p className="text-gray-600 mb-1">By {product.company}</p>
+      <p className="text-orange-600 font-semibold text-lg">₹{variant.price}</p>
       <div className="flex items-center gap-2 mt-1">
         <Star className="text-yellow-400 fill-yellow-400" size={18} />
-        <span className="font-medium">{product.rating}</span>
-        <span className="text-gray-500 text-sm">({product.reviews} reviews)</span>
+        <span className="font-medium">{product.rating.toFixed(1)}</span>
+        <span className="text-gray-500 text-sm">({product.reviews.length} reviews)</span>
       </div>
+      <p className="text-gray-700 mt-4 text-sm">{product.description}</p>
     </div>
   );
 }
 
-function OffersList({ offers }) {
-  return (
-    <div className="bg-gray-100 p-4 rounded-xl">
-      <h2 className="font-semibold text-lg mb-2">Active Offers</h2>
-      <ul className="list-disc list-inside text-sm">
-        {offers.map((offer, idx) => (
-          <li key={idx}>{offer}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function WhyLoveList({ whyLove }) {
+function RemedyList({ remedies }) {
   return (
     <div className="bg-blue-50 p-4 rounded-xl">
-      <h2 className="font-semibold text-lg mb-2">Why you'll love it?</h2>
+      <h2 className="font-semibold text-lg mb-2">Helps With</h2>
       <ul className="list-disc list-inside text-sm">
-        {whyLove.map((reason, idx) => (
-          <li key={idx}>{reason}</li>
+        {remedies.map((remedy, idx) => (
+          <li key={idx}>{remedy}</li>
         ))}
       </ul>
     </div>
