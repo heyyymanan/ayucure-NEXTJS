@@ -5,6 +5,14 @@ import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { use } from "react";
 
+// Helper function to decode HTML entities
+function decodeHtmlEntities(str) {
+  if (typeof window === "undefined") return str; // Safety for server
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = str;
+  return textarea.value;
+}
+
 async function getProductBySKU(sku) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/general/products/${sku}`, {
     cache: 'no-store',
@@ -15,6 +23,29 @@ async function getProductBySKU(sku) {
   }
 
   return res.json();
+}
+
+function ProductDescription({ description }) {
+  return (
+    <div
+      className="prose prose-sm sm:prose lg:prose-lg max-w-none"
+      dangerouslySetInnerHTML={{ __html: description }}
+    />
+  );
+}
+
+function SkeletonLoader() {
+  return (
+    <div className="animate-pulse p-6 md:px-24 md:py-12">
+      <div className="h-80 bg-gray-300 rounded-lg mb-4"></div>
+      <div className="space-y-4">
+        <div className="h-8 bg-gray-300 rounded mb-2"></div>
+        <div className="h-6 bg-gray-300 rounded mb-2"></div>
+        <div className="h-6 bg-gray-300 rounded mb-2"></div>
+        <div className="h-6 bg-gray-300 rounded mb-2"></div>
+      </div>
+    </div>
+  );
 }
 
 export default function ProductPage({ params }) {
@@ -28,7 +59,6 @@ export default function ProductPage({ params }) {
       try {
         const productData = await getProductBySKU(unwrappedParams.sku);
         setProduct(productData);
-        // Find the variant based on SKU
         const foundVariant = productData.variants.find(v => v.sku === unwrappedParams.sku);
         setSelectedVariant(foundVariant);
       } catch (error) {
@@ -48,7 +78,7 @@ export default function ProductPage({ params }) {
   };
 
   if (!product || !selectedVariant) {
-    return <div>Loading...</div>;
+    return <SkeletonLoader />;
   }
 
   return (
@@ -103,8 +133,7 @@ export default function ProductPage({ params }) {
               <div
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`w-2.5 h-2.5 rounded-full cursor-pointer ${currentIndex === idx ? "bg-orange-500" : "bg-gray-300"}`}
-              ></div>
+                className={`w-2.5 h-2.5 rounded-full cursor-pointer ${currentIndex === idx ? "bg-orange-500" : "bg-gray-300"}`}></div>
             ))}
           </div>
         </div>
@@ -131,7 +160,8 @@ function ProductInfo({ product, variant }) {
         <span className="font-medium">{product.rating.toFixed(1)}</span>
         <span className="text-gray-500 text-sm">({product.reviews.length} reviews)</span>
       </div>
-      <p className="text-gray-700 mt-4 text-sm">{product.description}</p>
+      {/* Decode and render the description */}
+      <ProductDescription description={decodeHtmlEntities(product.description)} />
     </div>
   );
 }
