@@ -18,7 +18,7 @@ export default function Home() {
         const healthy = await fetchProducts({ tag: "healthy", limit: 5 });
         const sexualWellness = await fetchProducts({ tag: "sexual-wellness", limit: 5 });
           
-        console.log(trending);
+        
         
         setTrendingProducts(trending);
         setHealthyProducts(healthy);

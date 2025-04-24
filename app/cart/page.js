@@ -16,7 +16,7 @@ const page = () => {
     let delivery;
     let savings;
     const total_of_items = getTotalPrice();
-    const tax = Math.round((total_of_items / 100) * 18);
+    const tax = Math.round((total_of_items / 100) * 12);
     cart.length === 0 ? (savings = 0.00, delivery = 0.00) : (savings = 10, delivery = 100.00);
 
     // Skeleton Loader component
@@ -133,15 +133,15 @@ const page = () => {
                                             {"₹ " + delivery}
                                         </dd>
                                     </dl>
-                                    <dl className="flex items-center justify-between gap-4">
+                                    {/* <dl className="flex items-center justify-between gap-4">
                                         <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
                                         <dd className="text-base font-medium text-gray-900 dark:text-white">
-                                            {"18% GST - ₹ " + tax}
+                                            {"12% GST - Inlucsive In The Product MRP."}
                                         </dd>
-                                    </dl>
+                                    </dl> */}
                                 </div>
                                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-                                    <dt className="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                                    <dt className="text-base font-bold text-gray-900 dark:text-white">Total (Inclucive Tax)</dt>
                                     <dd className="text-base font-bold text-gray-900 dark:text-white">
                                         {"₹ " + Math.floor((delivery + tax + total_of_items) - (((delivery + tax + total_of_items) / 100) * savings))}
                                     </dd>

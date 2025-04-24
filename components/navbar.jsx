@@ -99,14 +99,7 @@ const Navbar = () => {
                     
                     
                     <div className="user flex justify-center items-center md:gap-2 gap-4">
-                        <span onClick={console.log("clicked")} className='md:hidden'>
-                            <HugeiconsIcon
-                                icon={Menu01FreeIcons}
-                                size={20}
-                                color="currentColor"
-                                strokeWidth={1}
-                            />
-                        </span>
+                        
 
                         <Link href={"/cart"}>
                             <div className="cart flex mr-4 gap-2">
