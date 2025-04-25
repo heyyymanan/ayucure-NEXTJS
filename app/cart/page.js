@@ -1,25 +1,29 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { useCart } from "../context/CartContext.jsx";
 import Image from 'next/image';
 
-const page = () => {
+const CartPage = () => {
     const { cart, incrementQuantity, decrementQuantity, removeFromCart, clearCart, getTotalPrice } = useCart();
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true); // Default loading state set to true
 
     useEffect(() => {
-        // Simulating a loading state (can be removed when actual data fetching is done)
+        // Simulating loading state (you can replace this with real data fetching logic)
         setTimeout(() => setIsLoading(false), 100); // Simulate loading delay
     }, []);
 
-    let delivery;
-    let savings;
+    let delivery = 0.00;
+    let savings = 0.00;
     const total_of_items = getTotalPrice();
     const tax = Math.round((total_of_items / 100) * 12);
-    cart.length === 0 ? (savings = 0.00, delivery = 0.00) : (savings = 10, delivery = 100.00);
 
-    // Skeleton Loader component
+    if (cart.length > 0) {
+        savings = 10;  // Applying a 10% savings as an example
+        delivery = 100.00;  // Flat delivery charge
+    }
+
+    // Skeleton Loader component for displaying during loading state
     const SkeletonLoader = () => (
         <div className="animate-pulse space-y-10">
             <div className="flex space-x-4">
@@ -55,56 +59,40 @@ const page = () => {
                                 <p>Your cart is empty.</p>
                             ) : (
                                 cart.map((item) => (
-                                    <div key={item._id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
-
-                                        <div  className="flex w-full justify-end ">
-
-                                            <div className="justify-end gap-4">
-                                                <button
-                                                    onClick={() => removeFromCart(item._id)}
-                                                    type="button"
-                                                    className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
-                                                >
-                                                    <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18 17.94 6M18 18 6.06 6" />
-                                                    </svg>
-                                                    
-                                                </button>
-                                            </div>
-
+                                    <div key={item.variantSku} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                                        <div className="flex w-full justify-end">
+                                            <button
+                                                onClick={() => removeFromCart(item.variantSku)}
+                                                type="button"
+                                                className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
+                                            >
+                                                <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18 17.94 6M18 18 6.06 6" />
+                                                </svg>
+                                            </button>
                                         </div>
-
                                         <div className="space-y-5 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                             <a href="#" className="w-20 shrink-0 md:order-1">
-                                                <Image src={item.images[0]} alt={item.name} width={250} height={250} objectFit="contain" className="size-250" />
+                                                <Image src={item.image} alt={item.name} width={250} height={250} objectFit="contain" className="size-250" />
                                             </a>
-
                                             <div className="w-full min-w-0 flex-1 space-y-4 sm:order-2 md:max-w-md">
                                                 <a href="#" className="text-xl font-semibold uppercase text-gray-900 hover:underline dark:text-white">
-                                                    {item.name + " - " + item.variants[0].size}
+                                                    {item.name + " - " + item.size}
                                                 </a>
-
                                             </div>
-
-                                            <div className="flex  items-center justify-between  sm:justify-between md:order-3 md:justify-end">
-
-
+                                            <div className="flex items-center justify-between sm:justify-between md:order-3 md:justify-end">
                                                 <div className="flex order-2 sm:order-1 items-center gap-3">
                                                     <p className="text-base hidden sm:block">Choose quantity :</p>
-                                                    <button onClick={() => decrementQuantity(item._id)} className="p-2 text-base font-bold border">➖</button>
+                                                    <button onClick={() => decrementQuantity(item.variantSku)} className="p-2 text-base font-bold border">➖</button>
                                                     <span className="mx-2 text-lg">{item.quantity}</span>
-                                                    <button onClick={() => incrementQuantity(item._id)} className="p-2 text-base  font-bold border">➕ </button>
+                                                    <button onClick={() => incrementQuantity(item.variantSku)} className="p-2 text-base font-bold border">➕</button>
                                                 </div>
-
-
                                                 <div className="text-end order-1 sm:order-2 md:order-4 md:w-32 mr-0">
                                                     <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                                                        {"₹ " + item.variants[0].price * item.quantity}
+                                                        {"₹ " + item.price * item.quantity}
                                                     </p>
                                                 </div>
-
                                             </div>
-                                            
                                         </div>
                                     </div>
                                 ))
@@ -114,11 +102,11 @@ const page = () => {
 
                     <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
                         <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
-                            <p className="text-xl font-semibold text-gray-900 dark:text-white">Order summary</p>
+                            <p className="text-xl font-semibold text-gray-900 dark:text-white">Order Summary</p>
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <dl className="flex items-center justify-between gap-4">
-                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Total price</dt>
+                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Total Price</dt>
                                         <dd className="text-base font-medium text-gray-900 dark:text-white">
                                             ₹ {total_of_items}
                                         </dd>
@@ -133,15 +121,9 @@ const page = () => {
                                             {"₹ " + delivery}
                                         </dd>
                                     </dl>
-                                    {/* <dl className="flex items-center justify-between gap-4">
-                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
-                                        <dd className="text-base font-medium text-gray-900 dark:text-white">
-                                            {"12% GST - Inlucsive In The Product MRP."}
-                                        </dd>
-                                    </dl> */}
                                 </div>
                                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-                                    <dt className="text-base font-bold text-gray-900 dark:text-white">Total (Inclucive Tax)</dt>
+                                    <dt className="text-base font-bold text-gray-900 dark:text-white">Total (Inclusive Tax)</dt>
                                     <dd className="text-base font-bold text-gray-900 dark:text-white">
                                         {"₹ " + Math.floor((delivery + tax + total_of_items) - (((delivery + tax + total_of_items) / 100) * savings))}
                                     </dd>
@@ -167,4 +149,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default CartPage;

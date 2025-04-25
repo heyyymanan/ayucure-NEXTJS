@@ -9,19 +9,21 @@ import { toast } from "sonner";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Link from "next/link";
+import AddToCartButton from "./addToCartBtn";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ProductCard = ({ product }) => {
-  const { cart, addToCart, incrementQuantity, decrementQuantity } = useCart();
-  const cartItem = cart.find((item) => item._id === product._id);
 
   const fullStars = Math.floor(product.rating);
   const hasHalfStar = product.rating % 1 !== 0;
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   const buttonRef = useRef(null);
-  const cardRef = useRef(null);
+
+  const { cart } = useCart();
+  const cartItem = cart.find((item) => item.variantSku === product.variants[0].sku);
+  
 
   useEffect(() => {
     if (buttonRef.current && cartItem?.quantity) {
@@ -32,23 +34,6 @@ const ProductCard = ({ product }) => {
       );
     }
   }, [cartItem?.quantity]);
-
-
-
-  const handleAddToCart = () => {
-    addToCart(product);
-    toast.success("Product added to cart!");
-  };
-
-  const handleIncrement = () => {
-    incrementQuantity(product._id);
-    toast.success("Quantity increased!");
-  };
-
-  const handleDecrement = () => {
-    decrementQuantity(product._id);
-    toast.success("Quantity decreased!");
-  };
 
   return (
 
@@ -117,35 +102,9 @@ const ProductCard = ({ product }) => {
               </span>
             </div>
 
-            {cartItem ? (
-              <div ref={buttonRef} className="flex border-2 px-2 py-2 border-lime-500 rounded-lg  items-center justify-evenly gap-3 sm:gap-4">
-                <button onClick={handleDecrement} className="text-gray-700 mx-1 hover:text-gray-900">
-                  <LucideMinusCircle size={24} />
-                </button>
-                <span className="sm:text-lg text-base font-medium">{cartItem.quantity}</span>
-                <button onClick={handleIncrement} className="text-gray-700 mx-1 hover:text-gray-900">
-                  <LucidePlusCircle size={24} />
-                </button>
-              </div>
-            ) : (
-              <div className="addToCart w-full flex justify-center mt-1">
+            {/* cart here */}
+            <AddToCartButton ref={buttonRef} product={product} variantSku={product.variants[0].sku} />
 
-                <button
-                  onClick={handleAddToCart}
-                  className="px-2 py-2 sm:text-xl bg-lime-500 text-white flex items-center justify-center rounded-lg hover:bg-blue-700 transition-all"
-                >
-                  <HugeiconsIcon
-                    icon={PlusSignCircleFreeIcons}
-                    size={20}
-                    className="mr-2 hidden sm:block"
-                    color="currentColor"
-                    strokeWidth={1}
-                  />
-                  <span>Add to Cart</span>
-                </button>
-
-              </div>
-            )}
           </div>
         </div>
       </div>

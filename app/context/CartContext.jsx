@@ -1,21 +1,13 @@
-"use client"
-
-
+"use client";
 
 import { createContext, useState, useContext, useEffect } from "react";
-
-
-
-
-
-
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // Load cart from local storage when the component mounts
+  // Load cart from local storage
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
@@ -23,64 +15,87 @@ export const CartProvider = ({ children }) => {
     }
   }, []);
 
-  // Save cart to local storage whenever it changes
+  // Save cart to local storage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // Add product to cart or increase quantity
-  const addToCart = (product) => {
+  // Add product with specific variant SKU
+  const addToCart = (product, variantSku) => {
+    const variant = product.variants.find((v) => v.sku === variantSku);
+    if (!variant) return;
+
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item._id === product._id);
+      const existingItem = prevCart.find((item) => item.variantSku === variantSku);
       if (existingItem) {
         return prevCart.map((item) =>
-          item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
+          item.variantSku === variantSku ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [
+          ...prevCart,
+          {
+            productId: product._id,
+            variantSku: variant.sku,
+            name: product.name,
+            company: product.company,
+            image: product.images[0], // you can include multiple if needed
+            size: variant.size,
+            price: variant.price,
+            quantity: 1,
+          },
+        ];
       }
     });
   };
 
   // Increment quantity
-  const incrementQuantity = (productId) => {
+  const incrementQuantity = (variantSku) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item._id === productId ? { ...item, quantity: item.quantity + 1 } : item
+        item.variantSku === variantSku ? { ...item, quantity: item.quantity + 1 } : item
       )
     );
   };
 
   // Decrement quantity
-  const decrementQuantity = (productId) => {
+  const decrementQuantity = (variantSku) => {
     setCart((prevCart) =>
       prevCart
         .map((item) =>
-          item._id === productId ? { ...item, quantity: item.quantity - 1 } : item
+          item.variantSku === variantSku ? { ...item, quantity: item.quantity - 1 } : item
         )
-        .filter((item) => item.quantity > 0) // Remove item if quantity is 0
+        .filter((item) => item.quantity > 0)
     );
   };
 
-  // Remove item from cart
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
+  // Remove item
+  const removeFromCart = (variantSku) => {
+    setCart((prevCart) => prevCart.filter((item) => item.variantSku !== variantSku));
   };
 
-  // **Clear entire cart**
+  // Clear entire cart
   const clearCart = () => {
-    setCart([]); // Empty cart
-    localStorage.removeItem("cart"); // Remove from local storage
+    setCart([]);
+    localStorage.removeItem("cart");
   };
 
+  // Total price
   const getTotalPrice = () => {
-    return cart.reduce((total, item) => total + item.variants[0].price * item.quantity, 0);
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-  
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, incrementQuantity, decrementQuantity, removeFromCart, clearCart, getTotalPrice }}
+      value={{
+        cart,
+        addToCart,
+        incrementQuantity,
+        decrementQuantity,
+        removeFromCart,
+        clearCart,
+        getTotalPrice,
+      }}
     >
       {children}
     </CartContext.Provider>

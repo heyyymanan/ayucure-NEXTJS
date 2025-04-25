@@ -2,11 +2,16 @@
 const nextConfig = {
   images: {
 
-    domains: ['your-backend-domain.com', 'res.cloudinary.com'],
+    
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn-icons-png.flaticon.com",
+        hostname: "cdn-icons-png.flaticon.com",//allows CDN
+      },
+      {
+        protocol: 'http',
+        hostname: 'res.cloudinary.com',//allows CDN
+        pathname: '/ayucure/**',
       },
     ],
   },
@@ -14,11 +19,11 @@ const nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://your-backend.com/api/:path*",
+        destination: "https://your-backend.com/api/:path*",//example
       },
       {
         source: "/home",
-        destination: "/",
+        destination: "/", // syncs '/' & '/home'
       },
     ];
   },
