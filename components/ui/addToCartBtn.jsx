@@ -31,7 +31,7 @@ const AddToCartButton = ({ product, variantSku,ref }) => {
   return (
     <>
       {cartItem ? (
-        <div ref={ref} className="flex border-2 px-5 py-4 h-10 border-lime-500 rounded-lg items-center justify-evenly gap-3 md:gap-6">
+        <div ref={ref} className="flex border-2 p-2  border-lime-500 rounded-lg items-center justify-evenly gap-3 sm:gap-4">
           <button
             onClick={handleDecrement}
             className="text-gray-700 mx-1 hover:text-gray-900"
@@ -52,7 +52,7 @@ const AddToCartButton = ({ product, variantSku,ref }) => {
         <div className="addToCart flex justify-center mt-1">
           <button
             onClick={handleAddToCart}
-            className="px-5 py-4 h-10 text-xl font-serif sm:text-xl bg-lime-500 text-white flex items-center justify-center rounded-lg hover:bg-blue-700 transition-all"
+            className="p-2  text-xl font-serif sm:text-xl bg-lime-500 text-white flex items-center justify-center rounded-lg hover:bg-blue-700 transition-all"
           >
             <HugeiconsIcon
               icon={PlusSignCircleFreeIcons}

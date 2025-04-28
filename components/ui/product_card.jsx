@@ -83,7 +83,7 @@ const ProductCard = ({ product }) => {
           </div>
 
           {product.remedy_for.length ? (
-            <div className="flex flex-wrap gap-2 mt-3">
+            <div className="flex flex-row gap-2 mt-3">
               {product.remedy_for.map((remedy, idx) => (
                 <span
                   key={idx}
@@ -103,7 +103,10 @@ const ProductCard = ({ product }) => {
             </div>
 
             {/* cart here */}
+            <div className="div h-auto w-fit">
+
             <AddToCartButton ref={buttonRef} product={product} variantSku={product.variants[0].sku} />
+            </div>
 
           </div>
         </div>

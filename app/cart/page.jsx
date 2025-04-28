@@ -60,26 +60,36 @@ const CartPage = () => {
                             ) : (
                                 cart.map((item) => (
                                     <div key={item.variantSku} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
-                                        <div className="flex w-full justify-end">
-                                            <button
-                                                onClick={() => removeFromCart(item.variantSku)}
-                                                type="button"
-                                                className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
-                                            >
-                                                <svg className="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18 17.94 6M18 18 6.06 6" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div className="space-y-5 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                            <a href="#" className="w-20 shrink-0 md:order-1">
-                                                <Image src={item.image} alt={item.name} width={250} height={250} objectFit="contain" className="size-250" />
-                                            </a>
-                                            <div className="w-full min-w-0 flex-1 space-y-4 sm:order-2 md:max-w-md">
-                                                <a href="#" className="text-xl font-semibold uppercase text-gray-900 hover:underline dark:text-white">
-                                                    {item.name + " - " + item.size}
-                                                </a>
+
+                                        <div class="div flex md:flex-col justify-start">
+
+                                            <div className="flex order-2 items-start md:w-full justify-end">
+                                                <button
+                                                    onClick={() => removeFromCart(item.variantSku)}
+                                                    type="button"
+                                                    className="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"
+                                                >
+                                                    <svg className="me-1.5 h-5 w-4 md:w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18 17.94 6M18 18 6.06 6" />
+                                                    </svg>
+                                                </button>
                                             </div>
+                                            <div className="md:order-2 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+
+                                                <div class="div flex items-center gap-5">
+
+                                                    <a href={`/products/${item.variantSku}`} className="w-20 shrink-0 md:order-1">
+                                                        <Image src={item.image} alt={item.name} width={250} height={250} objectFit="contain" className="size-20" />
+                                                    </a>
+                                                    <div className="w-full min-w-0 flex-1 space-y-4 sm:order-2 md:max-w-md">
+                                                        <a href={`/products/${item.variantSku}`} className="text-xl font-semibold uppercase text-gray-900 hover:underline dark:text-white">
+                                                            {item.name + " - " + item.size}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                             <div className="flex items-center justify-between sm:justify-between md:order-3 md:justify-end">
                                                 <div className="flex order-2 sm:order-1 items-center gap-3">
                                                     <p className="text-base hidden sm:block">Choose quantity :</p>
@@ -88,12 +98,11 @@ const CartPage = () => {
                                                     <button onClick={() => incrementQuantity(item.variantSku)} className="p-2 text-base font-bold border">➕</button>
                                                 </div>
                                                 <div className="text-end order-1 sm:order-2 md:order-4 md:w-32 mr-0">
-                                                    <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                                                    <p className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
                                                         {"₹ " + item.price * item.quantity}
                                                     </p>
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                 ))
                             )}
@@ -134,7 +143,7 @@ const CartPage = () => {
                             </a>
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-sm font-normal text-gray-500 dark:text-gray-400">or</span>
-                                <a href="#" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
+                                <a href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
                                     Continue Shopping
                                     <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 12H5m14 0-4 4m4-4-4-4" />
