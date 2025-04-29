@@ -5,7 +5,7 @@ import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const ContactUs = () => {
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+        <div className="min-h-screen bg-gradient-to-t from-slate-100 to-[#222831] flex items-center justify-center p-6">
             <div className="bg-white rounded-2xl shadow-lg p-8 max-w-4xl w-full">
 
                 {/* Contact Information Section */}
@@ -43,7 +43,7 @@ const ContactUs = () => {
                         </a>
                     </div>
                 </div>
-                <div class="br h-[2px] w-full bg-black my-5"></div>
+                <div className="br h-[2px] w-full bg-black my-5"></div>
                 <h3 className="text-2xl font-bold text-center text-gray-700 mb-6">OR</h3>
                 <div class="br h-[2px] w-full bg-black my-5"></div>
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Contact Us</h2>

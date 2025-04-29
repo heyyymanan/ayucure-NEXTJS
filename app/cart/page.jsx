@@ -44,8 +44,8 @@ const CartPage = () => {
     );
 
     return (
-        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-            <div className="mx-auto mt-10 max-w-screen-xl px-4 2xl:px-0">
+        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16 pt-0">
+            <div className="mx-auto mt-5 max-w-screen-xl px-4 2xl:px-0">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
                     Shopping Cart
                 </h2>
@@ -59,7 +59,7 @@ const CartPage = () => {
                                 <p>Your cart is empty.</p>
                             ) : (
                                 cart.map((item) => (
-                                    <div key={item.variantSku} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                                    <div key={item.variantSku} className="rounded-lg border border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-800 md:p-6">
 
                                         <div class="div flex md:flex-col justify-start">
 

@@ -10,6 +10,7 @@ import {
   ClerkProvider,
 
 } from '@clerk/nextjs'
+import ScrollToTop from "./functions/scrollToTop";
 
 
 
@@ -41,9 +42,11 @@ export default function RootLayout({ children }) {
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
             <Navbar />
-            
-              {children}
-            
+
+            <ScrollToTop />
+
+            {children}
+
             <Footer />
             <Toaster richColors closeButton expand={false} />
           </body>

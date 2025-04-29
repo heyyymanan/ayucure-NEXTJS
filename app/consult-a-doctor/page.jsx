@@ -38,7 +38,7 @@ export default function DoctorConsultantForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-t from-slate-100 to-[#222831] p-6">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-lg"

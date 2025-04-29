@@ -32,7 +32,7 @@ const Navbar = () => {
     const name = user?.firstName;
 
 
-    const navItems = ['Home', 'Shop All', 'About Us', 'Contact Us', 'Consult a Doctor'];
+    const navItems = ['Home', 'Shop All', 'Consult a Doctor', 'About Us', 'Contact Us'];
 
     return (
         <nav className="bg-[#222831] text-white max-w-screen  flex-col sticky top-0 z-10">
@@ -47,7 +47,7 @@ const Navbar = () => {
                     <p>+91-9928077671</p>
                 </div>
                 <div className="welcome-text text-sm hidden lg:flex mr-48 lg:mr-24 items-center ">
-                    <Link href='#'>Welcome ! Get 10% OFF On Your First Purchase. | Shop Now</Link>
+                    <Link href='#'>Welcome ! Get 10% OFF On All Your Purchase. | Shop Now</Link>
                 </div>
                 <div className=""></div>
 
@@ -81,7 +81,7 @@ const Navbar = () => {
                         {navItems.map((item, index) => (
                             <li key={item} className="flex items-center">
                                 <Link
-                                    href={`/${item.toLowerCase()}`}
+                                    href={`/${item.replace(/ /g, '-').toLowerCase()}`}
                                     className="relative text-white hover:text-gray-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-white after:transition-all after:duration-300 hover:after:w-full"
                                 >
                                     {item}
