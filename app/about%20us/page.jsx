@@ -1,4 +1,8 @@
-export default function Services() {
+"use client"
+
+import React from 'react'
+
+const page = () => {
   return (
     <div className="min-h-screen  bg-center text-white flex flex-col items-center py-10 px-4">
       <h1 className="text-4xl font-bold mb-10">Our Services</h1>
@@ -34,5 +38,8 @@ export default function Services() {
         </div>
       </div>
     </div>
-  );
+  )
 }
+
+export default page
+

@@ -1,6 +1,7 @@
+"use client"
 import Image from 'next/image';
 import React from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaInstagramSquare } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const ContactUs = () => {
     return (
