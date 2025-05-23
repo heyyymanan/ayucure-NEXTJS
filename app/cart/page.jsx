@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from "../context/CartContext.jsx";
 import Image from 'next/image';
+import Link from 'next/link.js';
 
 const CartPage = () => {
     const { cart, incrementQuantity, decrementQuantity, removeFromCart, clearCart, getTotalPrice } = useCart();
@@ -80,13 +81,13 @@ const CartPage = () => {
 
                                                 <div className="div flex items-center gap-5">
 
-                                                    <a href={`/products/${item.variantSku}`} className="w-20 shrink-0 md:order-1">
+                                                    <Link href={`/products/${item.variantSku}`} className="w-20 shrink-0 md:order-1">
                                                         <Image src={item.image} alt={item.name} width={250} height={250} objectFit="contain" className="size-20" />
-                                                    </a>
+                                                    </Link>
                                                     <div className="w-full min-w-0 flex-1 space-y-4 sm:order-2 md:max-w-md">
-                                                        <a href={`/products/${item.variantSku}`} className="text-xl font-semibold uppercase text-gray-900 hover:underline dark:text-white">
+                                                        <Link href={`/products/${item.variantSku}`} className="text-xl font-semibold uppercase text-gray-900 hover:underline dark:text-white">
                                                             {item.name + " - " + item.size}
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,17 +141,17 @@ const CartPage = () => {
                                     </dd>
                                 </dl>
                             </div>
-                            <a href="/checkout" className="flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold">
+                            <Link href="/checkout" className="flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold">
                                 Proceed to Checkout
-                            </a>
+                            </Link>
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-sm font-normal text-gray-500 dark:text-gray-400">or</span>
-                                <a href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
+                                <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
                                     Continue Shopping
                                     <svg className="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 12H5m14 0-4 4m4-4-4-4" />
                                     </svg>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

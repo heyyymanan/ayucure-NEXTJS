@@ -2,6 +2,7 @@
 import CartList from "@/components/ui/cart_list";
 import React, { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
+import Link from "next/link";
 
 export default function CheckoutPage() {
     const { getTotalPrice } = useCart();
@@ -262,12 +263,12 @@ export default function CheckoutPage() {
                         </button>
                         <div className="flex items-center justify-center gap-2">
                             <span className="text-sm font-normal text-gray-500">or</span>
-                            <a href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
+                            <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
                                 Continue Shopping
                                 <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 12H5m14 0-4 4m4-4-4-4" />
                                 </svg>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>

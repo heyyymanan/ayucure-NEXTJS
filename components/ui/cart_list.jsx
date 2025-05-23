@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const CartList = () => {
@@ -13,7 +14,9 @@ const CartList = () => {
       {cartItems.map((item, index) => (
         <div key={item.productId + item.variantSku} className="flex items-center gap-3 border-b py-4 relative">
           <div className="w-14 h-14 relative shrink-0">
-            <img
+            <Image
+              height={20}
+              width={20}
               src={item.image}
               alt={item.name}
               className="w-full h-full object-cover rounded"

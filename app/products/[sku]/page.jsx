@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from "react";
 import { Star } from "lucide-react";
 import AddToCartButton from "@/components/ui/addToCartBtn"; // Import your AddToCartButton component
+import Image from "next/image";
 
 function decodeHtmlEntities(str) {
   if (typeof window === "undefined") return str;
@@ -91,7 +92,9 @@ export default function ProductPage({ params }) {
         <div className="flex flex-col md:flex-row w-full md:w-2/3 gap-6">
           <div className="hidden md:flex flex-col gap-4">
             {product.images.map((img, idx) => (
-              <img
+              <Image
+                height={20}
+                width={20}
                 key={idx}
                 src={img}
                 alt={`Thumbnail ${idx}`}
@@ -103,12 +106,12 @@ export default function ProductPage({ params }) {
           </div>
 
           <div className="hidden md:flex flex-1 justify-center items-start">
-            <img src={product.images[currentIndex]} alt="Main Product" className="rounded-2xl object-contain max-h-[26rem] border" />
+            <Image src={product.images[currentIndex]} alt="Main Product" className="rounded-2xl object-contain max-h-[26rem] border" />
           </div>
 
           <div className="md:hidden w-full relative">
             <div className="relative overflow-hidden rounded-2xl w-full h-72 border flex items-center justify-center">
-              <img
+              <Image
                 src={product.images[currentIndex]}
                 alt="Product"
                 className="w-full h-full object-contain"

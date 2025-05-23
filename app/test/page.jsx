@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 // Fetch the product by SKU (or whatever identifier you're using)
 async function getProductBySKU(sku) {
@@ -54,7 +55,9 @@ export default function ProductPage({ params }) {
         {/* Desktop Thumbnails */}
         <div className="hidden md:flex flex-col gap-4">
           {product.images.map((img, idx) => (
-            <img
+            <Image
+              height={20}
+              width={20}
               key={idx}
               src={img}
               alt={`Thumbnail ${idx}`}
@@ -66,13 +69,16 @@ export default function ProductPage({ params }) {
 
         {/* Main Image Desktop */}
         <div className="hidden md:flex flex-1 justify-center items-center">
-          <img src={product.images[currentIndex]} alt="Main Product" className="rounded-2xl object-contain max-h-[26rem] border" />
+          <Image height={20}
+            width={20} src={product.images[currentIndex]} alt="Main Product" className="rounded-2xl object-contain max-h-[26rem] border" />
         </div>
 
         {/* Mobile Slider */}
         <div className="md:hidden w-full relative">
           <div className="relative overflow-hidden rounded-2xl w-full h-72 border flex items-center justify-center">
-            <img
+            <Image
+              height={20}
+              width={20}
               src={product.images[currentIndex]}
               alt="Product"
               className="w-full h-full object-contain"
@@ -148,7 +154,7 @@ function OffersList({ offers }) {
 function WhyLoveList({ whyLove }) {
   return (
     <div className="bg-blue-50 p-4 rounded-xl">
-      <h2 className="font-semibold text-lg mb-2">Why you'll love it?</h2>
+      <h2 className="font-semibold text-lg mb-2">Why you&apos;ll love it?</h2>
       <ul className="list-disc list-inside text-sm">
         {whyLove.map((reason, idx) => (
           <li key={idx}>{reason}</li>
