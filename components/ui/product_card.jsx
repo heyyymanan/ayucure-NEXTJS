@@ -69,7 +69,7 @@ const ProductCard = ({ product }) => {
 
           <h3 className="mt-1 text-base ml-1 sm:text-xl font-bold text-gray-900">{product.name}</h3>
 
-          <div className="flex h-4 sm:h-auto items-center mx-1 mt-2">
+          <div className="hidden md:flex h-4 sm:h-auto items-center mx-1 mt-2">
             {[...Array(fullStars)].map((_, i) => (
               <Star key={`full-${i}`} className="text-yellow-500 w-5 h-5" />
             ))}
@@ -82,19 +82,35 @@ const ProductCard = ({ product }) => {
             </span>
           </div>
 
-          {product.remedy_for.length ? (
+          {product.remedy_for.length>2 ? (
             <div className="flex flex-row gap-2 mt-3">
-              {product.remedy_for.map((remedy, idx) => (
+              
                 <span
-                  key={idx}
-                  className="text-xs sm:text-sm mx-1 text-gray-700 bg-gray-100 rounded-full px-2 py-1"
+                  className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-100 rounded-full px-2 py-1"
                 >
-                  💊 {remedy}
+                  💊 {product.remedy_for[0]}
                 </span>
-              ))}
+                <span
+                  className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-100 rounded-full px-2 py-1"
+                >
+                  💊...& More
+                </span>
+
+              
             </div>
-          ) : null}
-          <div className="btm flex items-center mt-2 sm:gap-3 justify-around">
+          ) 
+          : 
+          <div className="flex flex-row gap-2 mt-3">
+          {product.remedy_for.map((remedy, idx) => (
+            <span
+              key={idx}
+              className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-100 rounded-full px-2 py-1"
+            >
+              💊 {remedy}
+            </span>
+          ))}
+        </div>}
+          <div className="btm flex  gap-2  items-center mt-2 sm:gap-3 justify-around">
 
             <div className="flex mx-1 items-center">
               <span className="text-2xl sm:text-3xl font-semibold text-gray-900">

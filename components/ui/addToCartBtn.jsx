@@ -49,19 +49,13 @@ const AddToCartButton = ({ product, variantSku,ref }) => {
           </button>
         </div>
       ) : (
-        <div className="addToCart flex justify-center mt-1">
+        <div className="addToCart flex justify-center mt-1 ">
           <button
             onClick={handleAddToCart}
-            className="p-2  text-xl font-serif sm:text-xl bg-lime-500 text-white flex items-center justify-center rounded-lg hover:bg-blue-700 transition-all"
+            className="p-2 gap-2 text-lg font-serif sm:text-xl bg-lime-500 text-white flex items-center justify-center rounded-lg hover:bg-blue-700 transition-all"
           >
-            <HugeiconsIcon
-              icon={PlusSignCircleFreeIcons}
-              size={20}
-              className="mr-2 hidden sm:block"
-              color="currentColor"
-              strokeWidth={1}
-            />
-            <span>Add to Cart</span>
+          
+            <span className=" ">Add to Cart</span>
           </button>
         </div>
       )}

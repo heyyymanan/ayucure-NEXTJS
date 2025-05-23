@@ -36,7 +36,7 @@ const Hero = () => {
 
         <h1 id='hero-text' className="lg:text-4xl xl:text-6xl md:text-3xl md:font-semibold md:text-center font-serif text-white  font-bold">Meet Our Heros !</h1>
 
-        <h3 className="text-white text-base md:text-2xl md:mt-5  ">& Say Goodbye To Joint Pains.</h3>
+        <h3 className="text-white text-base md:text-2xl md:mt-5  ">& Say Goodbye To Joint & Muscle Pains.</h3>
 
         </div>
 

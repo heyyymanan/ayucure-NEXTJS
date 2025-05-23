@@ -1,16 +1,26 @@
 "use client";
 import { useEffect, useState } from "react";
-import ProductCard from "@/components/ui/product_card"; // adjust path as needed
+import { useSearchParams, useRouter } from "next/navigation";
+import ProductCard from "@/components/ui/product_card";
 
 export default function ShopAll() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
-  const limit = 8; // items per page
-  const [filters, setFilters] = useState({ remedy_for: "", price: "" }); // Example filters
+  const limit = 10;
 
-  const fetchProducts = async ({ limit = 8, page = 1, filters }) => {
+  const initialFilters = {
+    remedy_for: searchParams.get("remedy_for") || "",
+    price: searchParams.get("price") || "",
+  };
+
+  const [filters, setFilters] = useState(initialFilters);
+
+  const fetchProducts = async ({ limit = 10, page = 1, filters }) => {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/general/shop-all?page=${page}&limit=${limit}&remedy_for=${filters.remedy_for}&price=${filters.price}`
     );
@@ -49,28 +59,36 @@ export default function ShopAll() {
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters((prev) => ({
-      ...prev,
+    const newFilters = {
+      ...filters,
       [name]: value,
-    }));
+    };
+    setFilters(newFilters);
+    setPage(1); // Reset to page 1 when filters change
+
+    // Update URL query params
+    const query = new URLSearchParams();
+    if (newFilters.remedy_for) query.set("remedy_for", newFilters.remedy_for);
+    if (newFilters.price) query.set("price", newFilters.price);
+    router.push(`/shop-all?${query.toString()}`);
   };
 
   const remedyOptions = [
     "PILES / HEMORRHOIDS",
     "Digestive Health",
-    "Diarrhea (Kabz)",
+    "Diarrhea (Dast)",
     "Mouth Ulcers",
     "Cold Relief",
     "Fever Relief",
     "Cough Relief",
     "Respiratory Care",
-    "Joint & Bone Health",
-    "Joint & Muscle Pain",
+    "Joint And Muscle Pain",
+    "Bone Health",
     "Skin Care",
     "Hair Care",
     "Liver Care",
     "Cardiac Health",
-    "Stress & Sleep",
+    "Stress And Sleep",
     "Diabetes Management",
     "Immunity Boosters",
     "Weight Management",
@@ -79,13 +97,13 @@ export default function ShopAll() {
     "Baby Health",
     "Menstrual Health",
     "Men's Health Tonic",
-    "Kidney & Urinary Health",
+    "Kidney And Urinary Health",
     "Dental Care",
-    "Detox & Panchakarma",
+    "Detox And Panchakarma",
     "Rasayana (Rejuvenation)",
-    "Daily Tonic",
+    "General Tonic",
     "Herbal Tea & Kadha",
-    "Beauty & Personal Care",
+    "Beauty And Personal Care",
     "Wellness Kit & Combo",
   ];
 
@@ -136,7 +154,7 @@ export default function ShopAll() {
         {loading ? (
           <div className="text-center py-10 text-gray-500">Loading...</div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
             {products.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}

@@ -20,8 +20,10 @@ const CartPage = () => {
 
     if (cart.length > 0) {
         savings = 10;  // Applying a 10% savings as an example
-        delivery = 100.00;  // Flat delivery charge
+        delivery = 'Calculated At The Checkout';  // Flat delivery charge
     }
+
+    
 
     // Skeleton Loader component for displaying during loading state
     const SkeletonLoader = () => (
@@ -61,7 +63,7 @@ const CartPage = () => {
                                 cart.map((item) => (
                                     <div key={item.variantSku} className="rounded-lg border border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-800 md:p-6">
 
-                                        <div class="div flex md:flex-col justify-start">
+                                        <div className="div flex md:flex-col justify-start">
 
                                             <div className="flex order-2 items-start md:w-full justify-end">
                                                 <button
@@ -76,7 +78,7 @@ const CartPage = () => {
                                             </div>
                                             <div className="md:order-2 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
 
-                                                <div class="div flex items-center gap-5">
+                                                <div className="div flex items-center gap-5">
 
                                                     <a href={`/products/${item.variantSku}`} className="w-20 shrink-0 md:order-1">
                                                         <Image src={item.image} alt={item.name} width={250} height={250} objectFit="contain" className="size-20" />
@@ -115,30 +117,30 @@ const CartPage = () => {
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <dl className="flex items-center justify-between gap-4">
-                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Total Price</dt>
+                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Total Price :</dt>
                                         <dd className="text-base font-medium text-gray-900 dark:text-white">
                                             ₹ {total_of_items}
                                         </dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
-                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
+                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Savings :</dt>
                                         <dd className="text-base font-medium text-green-600">- {savings} %</dd>
                                     </dl>
                                     <dl className="flex items-center justify-between gap-4">
-                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Delivery Charges</dt>
-                                        <dd className="text-base font-medium text-gray-900 dark:text-white">
-                                            {"₹ " + delivery}
+                                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Delivery Charges :</dt>
+                                        <dd className="text-[12px] font-medium text-gray-900 dark:text-white">
+                                            {delivery}
                                         </dd>
                                     </dl>
                                 </div>
                                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                                     <dt className="text-base font-bold text-gray-900 dark:text-white">Total (Inclusive Tax)</dt>
                                     <dd className="text-base font-bold text-gray-900 dark:text-white">
-                                        {"₹ " + Math.floor((delivery + tax + total_of_items) - (((delivery + tax + total_of_items) / 100) * savings))}
+                                        {"₹ " + Math.floor((tax + total_of_items) - (((tax + total_of_items) / 100) * savings))}
                                     </dd>
                                 </dl>
                             </div>
-                            <a href="#" className="flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold">
+                            <a href="/checkout" className="flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold">
                                 Proceed to Checkout
                             </a>
                             <div className="flex items-center justify-center gap-2">
