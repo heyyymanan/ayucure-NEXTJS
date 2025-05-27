@@ -93,8 +93,8 @@ export default function ProductPage({ params }) {
           <div className="hidden md:flex flex-col gap-4">
             {product.images.map((img, idx) => (
               <Image
-                height={20}
-                width={20}
+                height={300}
+                width={300}
                 key={idx}
                 src={img}
                 alt={`Thumbnail ${idx}`}
@@ -106,12 +106,15 @@ export default function ProductPage({ params }) {
           </div>
 
           <div className="hidden md:flex flex-1 justify-center items-start">
-            <Image src={product.images[currentIndex]} alt="Main Product" className="rounded-2xl object-contain max-h-[26rem] border" />
+            <Image height={500}
+              width={500} src={product.images[currentIndex]} alt="Main Product" className="rounded-2xl object-contain max-h-[26rem] border" />
           </div>
 
           <div className="md:hidden w-full relative">
             <div className="relative overflow-hidden rounded-2xl w-full h-72 border flex items-center justify-center">
               <Image
+                height={200}
+                width={200}
                 src={product.images[currentIndex]}
                 alt="Product"
                 className="w-full h-full object-contain"
@@ -171,9 +174,9 @@ function ProductInfo({ product, variant, onVariantChange }) {
         <p className="text-[12px] md:text-base text-gray-600 mb-1">- By {product.company}</p>
       </div>
 
-      <div className="flex gap-5 mb-5">
-        <p className="text-orange-600 font-semibold text-2xl md:text-3xl mt-1">
-          ₹ {variant?.price}
+      <div className="flex gap-5 mb-5 items-center">
+        <p className="text-orange-600 font-semibold text-2xl md:text-3xl mt-1 ">
+          ₹ {variant?.price} <span className="text-base text-center">(MRP Inclusive Of All Taxes)</span>
         </p>
         <div className="flex items-center gap-2 mt-1">
           <Star className="text-yellow-400 fill-yellow-400" size={18} />
@@ -210,7 +213,7 @@ function ProductInfo({ product, variant, onVariantChange }) {
           </select>
         </div>
 
-      <AddToCartButton product={product} variantSku={variant.sku} />
+        <AddToCartButton product={product} variantSku={variant.sku} />
 
       </div>
 
@@ -221,7 +224,7 @@ function ProductInfo({ product, variant, onVariantChange }) {
         <ProductDescription description={decodeHtmlEntities(product.description)} />
       </div>
 
-      
+
 
     </div>
   );

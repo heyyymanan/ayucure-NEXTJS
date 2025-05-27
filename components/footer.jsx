@@ -53,11 +53,12 @@ const Footer = () => {
 
             {/* Bottom Section */}
             <div className="bg-lime-500 text-gray-900 text-center  py-3 mt-6 mb-0">
-                <p>&copy; Inc. All rights reserved.</p>
+                {/* <p>&copy; Inc. All rights reserved.</p> */}
                 <div className="flex justify-center space-x-4 mt-1">
-                    <a href="#" className="text-sm hover:underline">Terms of Service</a>
-                    <a href="#" className="text-sm hover:underline">Privacy Policy</a>
-                    <a href="#" className="text-sm hover:underline">Cookies</a>
+                    <a href="/terms-of-services" className="text-sm hover:underline">Terms of Service</a>
+                    <a href="/privacy-policy" className="text-sm hover:underline">Privacy Policy</a>
+                    <a href="/cancellation-and-refund-policy" className="text-sm hover:underline">Cancellation/Refund Policy</a>
+                    {/* <a href="#" className="text-sm hover:underline">Cookies</a> */}
                 </div>
             </div>
         </footer>
