@@ -17,7 +17,7 @@ const TermsOfService = () => {
 
                 <h2 className="text-2xl font-semibold">Wholesale Disclaimer</h2>
                 <p>
-                    Shreeji Remedies operates solely as a wholesale distributor. Our products are intended for resale or professional use. We do not sell directly to end consumers or offer consumer warranties.
+                    Shreeji Remedies operates solely as a wholesale distributor Both Offline (At Our Store) And Online (At bynatablet.in).
                 </p>
                 
 
