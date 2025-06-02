@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 const CartList = () => {
+  
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -15,8 +16,8 @@ const CartList = () => {
         <div key={item.productId + item.variantSku} className="flex items-center gap-3 border-b py-4 relative">
           <div className="w-14 h-14 relative shrink-0">
             <Image
-              height={20}
-              width={20}
+              height={50}
+              width={50}
               src={item.image}
               alt={item.name}
               className="w-full h-full object-cover rounded"
