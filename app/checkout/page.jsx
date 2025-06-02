@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CartList from "@/components/ui/cart_list";
 import axios from 'axios';
-import { load } from '@cashfreepayments/cashfree-js'
+
 import { useCart } from "../context/CartContext";
 
 export default function CheckoutPage() {
