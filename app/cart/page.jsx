@@ -4,8 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { useCart } from "../context/CartContext.jsx";
 import Image from 'next/image';
 import Link from 'next/link.js';
+import { getOrCreateGuestSessionId } from '@/lib/utils/getSessionId.jsx';
+import { Button } from '@/components/ui/button.jsx';
+import { useRouter } from 'next/navigation.js';
 
 const CartPage = () => {
+    const router = useRouter();
     const { cart, incrementQuantity, decrementQuantity, removeFromCart, clearCart, getTotalPrice } = useCart();
     const [isLoading, setIsLoading] = useState(true); // Default loading state set to true
 
@@ -59,7 +63,7 @@ const CartPage = () => {
                             {isLoading ? (
                                 <SkeletonLoader />
                             ) : cart.length === 0 ? (
-                                <p>Your cart is empty.</p>
+                                <p className='text-2xl font-serif text-center'>Your cart is empty.</p>
                             ) : (
                                 cart.map((item) => (
                                     <div key={item.variantSku} className="rounded-lg border border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-800 md:p-6">
@@ -141,9 +145,14 @@ const CartPage = () => {
                                     </dd>
                                 </dl>
                             </div>
-                            <Link href="/checkout" className="flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold">
+
+                            <Button
+                                disabled={cart.length===0}
+                                onClick={() => router.push(`/checkout/${getOrCreateGuestSessionId()}`)}
+                                className="flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold"
+                            >
                                 Proceed to Checkout
-                            </Link>
+                            </Button>
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-sm font-normal text-gray-500 dark:text-gray-400">or</span>
                                 <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">

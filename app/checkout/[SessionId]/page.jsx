@@ -4,11 +4,50 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CartList from "@/components/ui/cart_list";
 import axios from 'axios';
+import { useCart } from "../../context/CartContext";
+import { Button } from "@/components/ui/button";
+import CheckoutForm from "@/components/deliveryForm";
+import { useRouter } from "next/navigation";
 
-import { useCart } from "../context/CartContext";
+
+const isValidEmail = (email) => {
+    return /^[\w.-]+@[\w.-]+\.\w{2,}$/.test(email);
+};
+
+const FormCheck = (formData, cart) => {
+    if (!formData || !cart) return false;
+
+    const {
+        contact: { email },
+        delivery: {
+            firstName,
+            lastName,
+            fullAddress,
+            city,
+            state,
+            pincode,
+            phone,
+        },
+        preferences: { paymentMethod },
+    } = formData;
+    return (
+        isValidEmail(email?.trim()) &&
+        firstName?.trim() !== "" &&
+        lastName?.trim() !== "" &&
+        fullAddress?.trim() !== "" &&
+        city?.trim() !== "" &&
+        state?.trim() !== "" &&
+        pincode?.trim() !== "" && pincode?.length!=7 &&
+        phone?.trim() !== "" && phone?.length>9 &&
+        (paymentMethod === "Online" || paymentMethod === "COD") &&
+        cart.length > 0
+    );
+};
+
 
 export default function CheckoutPage() {
 
+    const router = useRouter();
     const { cart, getTotalPrice } = useCart();
 
     const [formData, setFormData] = useState({
@@ -22,10 +61,17 @@ export default function CheckoutPage() {
             state: "",
             pincode: "",
             phone: "",
-            country: "",
+            country: "India",
         },
-        preferences: { saveAddress: false, paymentMethod: "Online" },
+        preferences: { saveAddress: false, paymentMethod: "" },
     });
+
+    const [isFormValid, setIsFormValid] = useState(false);
+
+    useEffect(() => {
+        const valid = FormCheck(formData, cart);
+        setIsFormValid(valid);
+    }, [formData, cart]);
 
     useEffect(() => {
         // ✅ Runs only on the client
@@ -51,12 +97,12 @@ export default function CheckoutPage() {
 
 
 
-
+    const OnlineAvailable = false;
     var itemTotal = getTotalPrice();
-    const [savings, setSavings] = useState(10); // In Percent
-    const [deliveryCharge, setDeliveryCharge] = useState(100); // In Rs
+    const savings = cart.length === 0 ? 0 : 10; // In Percent
+    const deliveryCharge = cart.length === 0 ? 0 : 100; // In Rs
     const [CODCharge, setCODCharge] = useState(
-        formData.preferences.paymentMethod === "COD" ? 99 : 0 // In Rs
+        (formData.preferences.paymentMethod === "COD") && (cart.length > 0) ? 99 : 0 // In Rs
     );
     const orderTotal = ((itemTotal - ((itemTotal / 100) * savings)) + deliveryCharge + CODCharge)
 
@@ -89,7 +135,7 @@ export default function CheckoutPage() {
             ...prev,
             preferences: { ...prev.preferences, paymentMethod: method },
         }));
-        setCODCharge(method === "COD" ? 99 : 0);
+        setCODCharge(method === "COD" && cart.length > 0 ? 99 : 0);
     };
 
     const transformToOrderDetails = () => {
@@ -153,7 +199,7 @@ export default function CheckoutPage() {
             );
 
             const data = response.data;
-            console.log(data)
+
 
             // 🧾 Check if backend responded with success
             if (!data.success) {
@@ -183,10 +229,10 @@ export default function CheckoutPage() {
                 //     redirectTarget: '_self'
                 // });
 
-            } else if (data.order) {
+            } else if (data.order.orderId && data.success) {
                 // ✅ COD successful
-                console.log('🛒 COD Order Placed:', data.order);
-                alert('Your COD order has been placed successfully!');
+                const orderId = data.order.orderId
+                router.push(`/thank-you?orderId=${orderId}`)
             }
 
             return data;
@@ -206,26 +252,26 @@ export default function CheckoutPage() {
         placeOrder(transformToOrderDetails()) //Creates Order In DataBase
 
         e.preventDefault()
-        if (formData.preferences.paymentMethod === 'Online') {
+        // if (formData.preferences.paymentMethod === 'Online') {
 
-            try {
-                let checkoutOptions = {
-                    paymentSessionId: session_id,
-                    redirectTarget: "_modal",
-                }
+        //     try {
+        //         let checkoutOptions = {
+        //             paymentSessionId: session_id,
+        //             redirectTarget: "_modal",
+        //         }
 
-                cashfree.checkout(checkoutOptions).then((res) => {
-                    console.log("payment initialized")
-
-
-                })
+        //         cashfree.checkout(checkoutOptions).then((res) => {
+        //             console.log("payment initialized")
 
 
-            } catch (error) {
-                console.log(error)
-            }
+        //         })
 
-        } else return;
+
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+
+        // } else return;
 
     };
     const states = [
@@ -236,167 +282,89 @@ export default function CheckoutPage() {
         "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
     ];
 
+    const fetchCityState = async (pincode) => {
+        try {
+            const res = await axios.get(`https://api.postalpincode.in/pincode/${pincode}`);
+            const data = res.data[0];
+
+            if (data.Status === "Success") {
+                const postOffice = data.PostOffice[0];
+                return {
+                    city: postOffice.District,
+                    state: postOffice.State,
+                };
+            } else {
+                throw new Error("Invalid Pincode");
+            }
+        } catch (error) {
+            throw new Error("Failed to fetch data");
+        }
+    };
+
+
+    useEffect(() => {
+        const pincode = formData.delivery.pincode;
+
+        // Only trigger fetch if exactly 6 digits
+        if (pincode.length === 6) {
+            const getCityState = async () => {
+                try {
+                    const data = await fetchCityState(pincode);
+                    setFormData((prev) => ({
+                        ...prev,
+                        delivery: {
+                            ...prev.delivery,
+                            city: data.city,
+                            state: data.state,
+                        },
+                    }));
+                } catch (error) {
+                    alert("Invalid pincode", error);
+                    setFormData((prev) => ({
+                        ...prev,
+                        delivery: {
+                            ...prev.delivery,
+                            city: "",
+                            state: "",
+                        },
+                    }));
+                }
+            };
+
+            getCityState();
+        } else {
+            // Clear city & state if pincode is not complete
+            setFormData((prev) => ({
+                ...prev,
+                delivery: {
+                    ...prev.delivery,
+                    city: "",
+                    state: "",
+                },
+            }));
+        }
+    }, [formData.delivery.pincode]);
+
+
+
+
+
     return (
         <div className="flex flex-col lg:flex-row p-4 gap-6 max-w-7xl mx-auto font-sans">
             {/* Left section */}
-            <div className="flex-1 space-y-6">
-                {/* Contact */}
-                <div>
-                    <h2 className="font-semibold text-lg mb-2">Contact</h2>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={formData.contact.email}
-                        onChange={handleInputChange("contact", "email")}
-                        className="w-full border p-2 rounded"
-                        required
-                    />
-                </div>
-
-                {/* Delivery */}
-                <div className="space-y-2">
-                    <h2 className="font-semibold text-lg mb-2">
-                        Delivery Address (Currently Only Shipping PAN-INDIA)
-                    </h2>
-                    <div className="grid grid-cols-2 gap-2">
-                        <input
-                            type="text"
-                            placeholder="First name"
-                            value={formData.delivery.firstName}
-                            onChange={handleInputChange("delivery", "firstName")}
-                            className="border p-2 rounded"
-                        />
-                        <input
-                            type="text"
-                            placeholder="Last name"
-                            value={formData.delivery.lastName}
-                            onChange={handleInputChange("delivery", "lastName")}
-                            className="border p-2 rounded"
-                        />
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Full Address"
-                        value={formData.delivery.fullAddress}
-                        onChange={handleInputChange("delivery", "fullAddress")}
-                        className="w-full border p-2 rounded"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Landmark (Optional)"
-                        value={formData.delivery.landmark}
-                        onChange={handleInputChange("delivery", "landmark")}
-                        className="w-full border p-2 rounded"
-                    />
-                    <div className="grid grid-cols-4 gap-2">
-                        <input
-                            type="text"
-                            placeholder="City"
-                            value={formData.delivery.city}
-                            onChange={handleInputChange("delivery", "city")}
-                            className="border p-2 rounded"
-                        />
-                        <select
-                            name="state"
-                            id="state"
-                            value={formData.delivery.state}
-                            onChange={handleInputChange("delivery", "state")}
-                            className="border p-2 rounded"
-                        >
-                            <option value="">Select a state</option>
-                            {states.map((state) => (
-                                <option key={state} value={state}>
-                                    {state}
-                                </option>
-                            ))}
-                        </select>
-
-                        <input
-                            type="text"
-                            placeholder="Pincode"
-                            value={formData.delivery.pincode}
-                            onChange={handleInputChange("delivery", "pincode")}
-                            className="border p-2 rounded"
-                        />
-                        <select
-                            value={formData.delivery.country}
-                            onChange={handleInputChange("delivery", "country")}
-                            className="border p-2 rounded"
-                        >
-                            <option value="India">India</option>
-                        </select>
-                    </div>
-                    <input
-                        type="text"
-                        placeholder="Phone"
-                        value={formData.delivery.phone}
-                        onChange={handleInputChange("delivery", "phone")}
-                        className="w-full border p-2 rounded"
-                    />
-                    <label className="flex items-center gap-2 text-sm">
-                        <input
-                            type="checkbox"
-                            defaultChecked={formData.preferences.saveAddress}
-                            onChange={handleCheckboxChange("preferences", "saveAddress")}
-                        />
-                        Save this information for next time
-                    </label>
-                </div>
-
-                {/* Payment Options */}
-                <div>
-                    <h2 className="font-semibold text-lg mb-2">Payment Method : Online or COD</h2>
-                    <div className="space-y-2">
-                        <label className="flex items-center justify-between border rounded p-2 cursor-pointer">
-                            <div>
-                                <input
-                                    type="radio"
-                                    onClick={() => handlePaymentChange("Online")}
-                                    name="payment"
-                                    defaultChecked={formData.preferences.paymentMethod === "Online"}
-                                    className="mr-2"
-                                />
-                                Online <span className="text-xs text-green-600 ml-2"> Priority Shipping</span>
-                            </div>
-                            <span className="font-bold">FREE</span>
-                        </label>
-                        <label className="flex items-center justify-between border rounded p-2 cursor-pointer">
-                            <div>
-                                <input
-                                    type="radio"
-                                    onClick={() => handlePaymentChange("COD")}
-                                    name="payment"
-                                    defaultChecked={formData.preferences.paymentMethod === "COD"}
-                                    className="mr-2"
-                                />
-                                COD: <span className="text-xs text-yellow-600 ml-2">Pay Online & Save Rs. 99</span>
-                            </div>
-                            <span className="font-bold">₹ 99.00</span>
-                        </label>
-                    </div>
-                </div>
-
-                {/* Payment Method Description */}
-                {formData.preferences.paymentMethod === "Online" ? (
-                    <div className="border rounded p-4">
-                        <h2 className="font-semibold mb-2">Online Payment :</h2>
-                        <p className="text-sm mb-2 text-gray-600">
-                            All Transactions Are Secure And Encrypted.
-                        </p>
-                    </div>
-                ) : (
-                    <div className="border rounded p-4">
-                        <h2 className="font-semibold mb-2">Cash On Delivery :</h2>
-                        <p className="text-sm mb-2 text-gray-600">
-                            Handeling Charges, Pay Online To Save COD Charges.
-                        </p>
-                    </div>
-                )}
-            </div>
-
+            <>
+                <CheckoutForm cart={cart} formData={formData} handleInputChange={handleInputChange} handleCheckboxChange={handleCheckboxChange} handlePaymentChange={handlePaymentChange} states={states} OnlineAvailable={OnlineAvailable} />
+            </>
             {/* Right section: Summary */}
             <div className="w-full lg:w-1/3 border rounded p-4 space-y-4 bg-gray-50">
-                <CartList />
+                {
+                    cart.length > 0 ?
+                        <CartList />
+                        :
+                        <div className="div text-lg font-bold text-center font-serif    ">
+                            <p>Please Add Items To Your Cart First</p>
+                        </div>
+                }
 
                 <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
                     <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
@@ -426,12 +394,17 @@ export default function CheckoutPage() {
                                 </dd>
                             </dl>
                         </div>
-                        <button
+                        <Button
+                            type="submit"
+                            disabled={!isFormValid}
                             onClick={redirectToPaymentPage}
-                            className="flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold"
+                            className={`flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold  ${isFormValid
+                                ? "bg-green-600 text-white"
+                                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                }`}
                         >
                             {formData.preferences.paymentMethod === "Online" ? "Pay Now" : "Complete Order"}
-                        </button>
+                        </Button>
                         <div className="flex items-center justify-center gap-2">
                             <span className="text-sm font-normal text-gray-500">or</span>
                             <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
