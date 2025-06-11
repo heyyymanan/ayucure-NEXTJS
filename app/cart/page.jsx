@@ -127,10 +127,10 @@ const CartPage = () => {
                                             ₹ {total_of_items}
                                         </dd>
                                     </dl>
-                                    <dl className="flex items-center justify-between gap-4">
+                                    {/* <dl className="flex items-center justify-between gap-4">
                                         <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Savings :</dt>
                                         <dd className="text-base font-medium text-green-600">- {savings} %</dd>
-                                    </dl>
+                                    </dl> */}
                                     <dl className="flex items-center justify-between gap-4">
                                         <dt className="text-base font-normal text-gray-500 dark:text-gray-400">Delivery Charges :</dt>
                                         <dd className="text-[12px] font-medium text-gray-900 dark:text-white">
@@ -141,7 +141,7 @@ const CartPage = () => {
                                 <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                                     <dt className="text-base font-bold text-gray-900 dark:text-white">Total (Inclusive Tax)</dt>
                                     <dd className="text-base font-bold text-gray-900 dark:text-white">
-                                        {"₹ " + Math.floor((tax + total_of_items) - (((tax + total_of_items) / 100) * savings))}
+                                        {"₹ " + Math.floor(( total_of_items))}
                                     </dd>
                                 </dl>
                             </div>
