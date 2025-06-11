@@ -27,9 +27,43 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "BynaTablet.in",
-  description: "site to buy ayurvedic medicines",
+  title: "BynaTablet.in | Ayurvedic Medicine Online",
+  description: "Buy trusted Ayurvedic medicines online at BynaTablet.in. Quality herbal solutions for your wellness needs, delivered across India.",
+  keywords: ["Ayurvedic medicine", "buy ayurveda online", "herbal tablets", "Byna Tablet", "natural treatment"],
+  metadataBase: new URL("https://bynatablet.in"), // <-- use your actual domain
+  openGraph: {
+    title: "BynaTablet.in | Ayurvedic Medicine Online",
+    description: "Your one-stop destination for trusted Ayurvedic and herbal remedies.",
+    url: "https://bynatablet.in",
+    siteName: "BynaTablet.in",
+    images: [
+      {
+        url: "https://bynatablet.in/og-image.jpg", // make sure this exists
+        width: 1200,
+        height: 630,
+        alt: "BynaTablet.in Banner",
+      },
+    ],
+    type: "website",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
+
 
 export default function RootLayout({ children }) {
   return (
