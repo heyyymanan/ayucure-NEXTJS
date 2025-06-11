@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bynatablet.in/
+
+# Sitemaps
+Sitemap: https://bynatablet.in/sitemap.xml

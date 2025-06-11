@@ -3,9 +3,18 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-const Hero = () => {
+const Hero = ({sectionRef}) => {
   const textRef = useRef(null);
   const pngRef = useRef(null);
+  
+
+  const handleScroll = () => {
+    if (sectionRef && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.warn("sectionRef is undefined");
+    }
+  };
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -42,7 +51,7 @@ const Hero = () => {
 
 
         <>
-        <button className="bg-lime-400 xl:text-4xl lg:text-5xl md:text-2xl hidden md:flex md:px-5 text-xl p-2 2xl:text-5xl font-serif rounded-3xl lg:mt-16 md:mt-8 transition-transform duration-200 hover:scale-105 hover:bg-lime-300  ">Shop Now</button>
+        <button  onClick={handleScroll} className="bg-lime-400 xl:text-4xl lg:text-5xl md:text-2xl hidden md:flex md:px-5 text-xl p-2 2xl:text-5xl font-serif rounded-3xl lg:mt-16 md:mt-8 transition-transform duration-200 hover:scale-105 hover:bg-lime-300  ">Shop Now</button>
         </>
 
       </div>

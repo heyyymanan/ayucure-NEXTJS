@@ -1,16 +1,17 @@
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   images: {
-
-    
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "cdn-icons-png.flaticon.com",//allows CDN
+        protocol: 'https',
+        hostname: 'cdn-icons-png.flaticon.com',
       },
       {
         protocol: 'http',
-        hostname: 'res.cloudinary.com',//allows CDN
+        hostname: 'res.cloudinary.com',
         pathname: '/ayucure/**',
       },
     ],
@@ -18,15 +19,15 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "https://your-backend.com/api/:path*",//example
-      },
-      {
-        source: "/home",
-        destination: "/", // syncs '/' & '/home'
+        source: '/home',
+        destination: '/',
       },
     ];
   },
 };
 
-export default nextConfig;
+const withAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+export default withAnalyzer(nextConfig);

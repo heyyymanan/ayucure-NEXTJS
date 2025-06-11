@@ -41,11 +41,11 @@ const Footer = () => {
                 </div>
 
                 {/* Get The App */}
-                <div className='flex-col '>
+                <div className='flex-col grayscale'>
                     <h3 className="font-semibold mb-5 text-lg text-center ">Get The App (Upcoming)</h3>
-                    <button className='bg-[#D3D3D3] p-3 rounded-lg'> 
+                    <button className='bg-[#D3D3D3] p-3 rounded-lg hover:cursor-not-allowed'> 
 
-                        <li className="flex items-center"><Image src="/icons/playstore.png" alt="Instagram" width={20} height={20} className="mr-2" />Download Now</li>
+                        <li className="flex items-center"><Image src="/icons/playstore.png" alt="Instagram" width={20} height={20} className="mr-2 " />Download Now</li>
 
                     </button>
                 </div>
