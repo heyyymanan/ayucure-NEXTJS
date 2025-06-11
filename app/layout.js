@@ -4,6 +4,7 @@ import Navbar from "@/components/navbar.jsx";
 import Footer from "@/components/footer.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { Toaster } from "@/components/ui/sonner.jsx"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 import {
@@ -81,6 +82,7 @@ export default function RootLayout({ children }) {
             <ScrollToTop />
 
             {children}
+            <SpeedInsights />
 
             <Footer />
             <Toaster richColors closeButton expand={false} />
