@@ -5,6 +5,7 @@ import Footer from "@/components/footer.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { Toaster } from "@/components/ui/sonner.jsx"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 
 import {
