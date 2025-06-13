@@ -83,6 +83,7 @@ export default function RootLayout({ children }) {
             <ScrollToTop />
 
             {children}
+            <Analytics />
             <SpeedInsights />
 
             <Footer />

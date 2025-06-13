@@ -19,7 +19,7 @@ const page = () => {
 
           </p>
           <p className="font-semibold mb-6">( Managed By Mr. Jyoti Mitra Vyas )</p>
-          <a href="/contact%20us" className="bg-lime-500 hover:bg-lime-600 text-black font-bold py-2 px-6 rounded-full text-lg transition">
+          <a href="/contact-us" className="bg-lime-500 hover:bg-lime-600 text-black font-bold py-2 px-6 rounded-full text-lg transition">
             Contact Us
           </a>
         </div>
@@ -37,7 +37,7 @@ const page = () => {
           <p className="text-xs mb-6">
             Ex Director Of Dept. Of Ayurveda (Rajasthan) | Gynecology Specialist | Ex Principal M.M.M Gov. College, Udaipur (Raj.)
           </p>
-          <a href="/consult a doctor" className="bg-lime-500 hover:bg-lime-600 text-black font-bold py-2 px-6 rounded-full text-lg transition">
+          <a href="/consult-a-doctor" className="bg-lime-500 hover:bg-lime-600 text-black font-bold py-2 px-6 rounded-full text-lg transition">
             Book Appointment
           </a>
         </div>
