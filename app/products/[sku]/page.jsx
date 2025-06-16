@@ -2,7 +2,7 @@
 
 import { useState, useEffect, use } from "react";
 import { Star } from "lucide-react";
-import AddToCartButton from "@/components/ui/addToCartBtn"; // Import your AddToCartButton component
+import AddToCartButton from "@/components/ui/addToCartBtn";
 import Image from "next/image";
 
 function decodeHtmlEntities(str) {
@@ -52,16 +52,27 @@ export default function ProductPage({ params }) {
   const [product, setProduct] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const productData = await getProductBySKU(unwrappedParams.sku);
-        setProduct(productData);
         const foundVariant = productData.variants.find(v => v.sku === unwrappedParams.sku);
+
+        if (!productData || !foundVariant) {
+          setIsError(true);
+          return;
+        }
+
+        setProduct(productData);
         setSelectedVariant(foundVariant);
       } catch (error) {
         console.error("Error fetching product:", error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -82,8 +93,29 @@ export default function ProductPage({ params }) {
     setSelectedVariant(variant);
   };
 
-  if (!product || !selectedVariant) {
+  if (isLoading) {
     return <SkeletonLoader />;
+  }
+
+  if (isError || !product || !selectedVariant) {
+    return (
+      <>
+        <head>
+          <meta name="robots" content="noindex, nofollow" />
+          <title>Product Not Found - BynaTablet.in</title>
+        </head>
+        <div className="text-center py-20 px-4">
+          <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
+          <p className="text-gray-600 mb-6">The product you're looking for doesn't exist or is currently unavailable.</p>
+          <button
+            onClick={() => window.location.href = "/shop-all"}
+            className="px-5 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
+          >
+            Browse All Products
+          </button>
+        </div>
+      </>
+    );
   }
 
   return (
@@ -106,8 +138,13 @@ export default function ProductPage({ params }) {
           </div>
 
           <div className="hidden md:flex flex-1 justify-center items-start">
-            <Image height={500}
-              width={500} src={product.images[currentIndex]} alt="Main Product" className="rounded-2xl object-contain max-h-[26rem] border" />
+            <Image
+              height={500}
+              width={500}
+              src={product.images[currentIndex]}
+              alt="Main Product"
+              className="rounded-2xl object-contain max-h-[26rem] border"
+            />
           </div>
 
           <div className="md:hidden w-full relative">
@@ -187,17 +224,11 @@ function ProductInfo({ product, variant, onVariantChange }) {
         </div>
       </div>
 
-      <RemedyList
-        remedies={product.remedy_for.map((i) => (
-          <span key={i}>{i}</span>
-        ))}
-      />
+      <RemedyList remedies={product.remedy_for} />
 
       <div className="w-full bg-black h-[1px] mt-5 mb-5 rounded-md"></div>
 
       <div className="hidden md:flex h-auto items-center justify-evenly">
-
-        {/* Variant Size Selector */}
         <div className="w-fit">
           <select
             id="variant-selector"
@@ -212,20 +243,14 @@ function ProductInfo({ product, variant, onVariantChange }) {
             ))}
           </select>
         </div>
-
         <AddToCartButton product={product} variantSku={variant.sku} />
-
       </div>
-
 
       <div className="hidden md:block w-full bg-black h-[1px] mt-5 mb-5 rounded-md"></div>
 
       <div className="mt-5">
         <ProductDescription description={decodeHtmlEntities(product.description)} />
       </div>
-
-
-
     </div>
   );
 }

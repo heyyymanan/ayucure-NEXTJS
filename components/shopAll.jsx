@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import ProductCard from "@/components/ui/product_card";
+import SkeletonCard from "./ui/skeleton-card"; // 👈 your skeleton component
+// import { notFound } from "next/navigation"; // used if you ever want to hard 404
 
 export default function ShopAll() {
   const searchParams = useSearchParams();
@@ -11,6 +13,8 @@ export default function ShopAll() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [noProducts, setNoProducts] = useState(false);
+
   const limit = 10;
 
   const initialFilters = {
@@ -24,13 +28,17 @@ export default function ShopAll() {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/general/shop-all?page=${page}&limit=${limit}&remedy_for=${filters.remedy_for}&price=${filters.price}`
     );
-    if (!res.ok) throw new Error("Failed to fetch products");
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
     return res.json();
   };
 
   useEffect(() => {
     const loadProducts = async () => {
       setLoading(true);
+      setNoProducts(false);
+
       try {
         const { products, totalCount } = await fetchProducts({
           limit,
@@ -39,8 +47,14 @@ export default function ShopAll() {
         });
         setProducts(products);
         setTotalPages(Math.ceil(totalCount / limit));
+
+        // ⚠️ Soft 404 condition
+        if (products.length === 0 || !products) {
+          setNoProducts(true);
+        }
       } catch (error) {
         console.error("Error fetching products:", error);
+        setNoProducts(true);
       } finally {
         setLoading(false);
       }
@@ -74,37 +88,13 @@ export default function ShopAll() {
   };
 
   const remedyOptions = [
-    "PILES / HEMORRHOIDS",
-    "Digestive Health",
-    "Diarrhea (Dast)",
-    "Mouth Ulcers",
-    "Cold Relief",
-    "Fever Relief",
-    "Cough Relief",
-    "Respiratory Care",
-    "Joint And Muscle Pain",
-    "Bone Health",
-    "Skin Care",
-    "Hair Care",
-    "Liver Care",
-    "Cardiac Health",
-    "Stress And Sleep",
-    "Diabetes Management",
-    "Immunity Boosters",
-    "Weight Management",
-    "Sexual Wellness",
-    "Women's Health Tonic",
-    "Baby Health",
-    "Menstrual Health",
-    "Men's Health Tonic",
-    "Kidney And Urinary Health",
-    "Dental Care",
-    "Detox And Panchakarma",
-    "Rasayana (Rejuvenation)",
-    "General Tonic",
-    "Herbal Tea & Kadha",
-    "Beauty And Personal Care",
-    "Wellness Kit & Combo",
+    "PILES / HEMORRHOIDS", "Digestive Health", "Diarrhea (Dast)", "Mouth Ulcers", "Cold Relief",
+    "Fever Relief", "Cough Relief", "Respiratory Care", "Joint And Muscle Pain", "Bone Health",
+    "Skin Care", "Hair Care", "Liver Care", "Cardiac Health", "Stress And Sleep", "Diabetes Management",
+    "Immunity Boosters", "Weight Management", "Sexual Wellness", "Women's Health Tonic", "Baby Health",
+    "Menstrual Health", "Men's Health Tonic", "Kidney And Urinary Health", "Dental Care",
+    "Detox And Panchakarma", "Rasayana (Rejuvenation)", "General Tonic", "Herbal Tea & Kadha",
+    "Beauty And Personal Care", "Wellness Kit & Combo",
   ];
 
   return (
@@ -151,38 +141,54 @@ export default function ShopAll() {
       <div className="w-full md:w-3/4 lg:w-4/5">
         <h1 className="text-2xl font-bold mb-6 text-center">Shop All Products</h1>
 
+        {/* 🌀 Loading Skeleton */}
         {loading ? (
-          <div className="text-center py-10 text-gray-500">Loading...</div>
-        ) : (
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
-            {products.map((product) => (
-              <ProductCard key={product._id} product={product} />
+            {Array.from({ length: 10 }).map((_, i) => (
+              <SkeletonCard key={i} />
             ))}
           </div>
+        ) : noProducts ? (
+          <>
+            {/* 🚫 Soft 404: No Products */}
+            <div className="text-center py-10 text-gray-600">
+              <p className="text-lg mb-2 font-medium">No products found 😕</p>
+              <p>Try changing your filters or check back later.</p>
+            </div>
+
+            {/* Add noindex meta tag (optional) */}
+            <meta name="robots" content="noindex" />
+          </>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-6">
+              {products.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="flex justify-center items-center gap-4 mt-10">
+              <button
+                className="px-4 py-2 border rounded hover:bg-gray-200 disabled:opacity-50"
+                onClick={handlePrev}
+                disabled={page === 1}
+              >
+                Previous
+              </button>
+              <span className="text-gray-600">
+                Page {page} of {totalPages}
+              </span>
+              <button
+                className="px-4 py-2 border rounded hover:bg-gray-200 disabled:opacity-50"
+                onClick={handleNext}
+                disabled={page === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          </>
         )}
-
-        {/* Pagination */}
-        <div className="flex justify-center items-center gap-4 mt-10">
-          <button
-            className="px-4 py-2 border rounded hover:bg-gray-200 disabled:opacity-50"
-            onClick={handlePrev}
-            disabled={page === 1}
-          >
-            Previous
-          </button>
-
-          <span className="text-gray-600">
-            Page {page} of {totalPages}
-          </span>
-
-          <button
-            className="px-4 py-2 border rounded hover:bg-gray-200 disabled:opacity-50"
-            onClick={handleNext}
-            disabled={page === totalPages}
-          >
-            Next
-          </button>
-        </div>
       </div>
     </div>
   );
