@@ -440,12 +440,22 @@ const PrivacyPolicy = () => {
                 information provided by you in connection with this Policy or
                 other privacy concerns, you can email us at <b>support@bynatablet.in</b>.
             </p>
-            <p><strong>Contact Information:</strong><br />
+            <h2 className="text-2xl font-semibold">Shipping & Delivery Policy :</h2>
+            <p>For International buyers, orders are shipped and delivered through registered international courier companies and/or International speed post only. For domestic buyers, orders are shipped through registered domestic courier companies and /or speed post only. Orders are shipped within 3-5 days or as per the delivery date agreed at the time of order confirmation and delivering of the shipment subject to Courier Company / post office norms. Shreeji Remedies is not liable for any delay in delivery by the courier company / postal authorities and only guarantees to hand over the consignment to the courier company or postal authorities within 3-5 days rom the date of the order and payment or as per the delivery date agreed at the time of order confirmation. Delivery of all orders will be to the address provided by the buyer. Delivery of our services will be confirmed on your mail ID as specified during registration. For any issues in utilizing our services you may contact our helpdesk on or shreejiremedies25@gmail.com</p>
+            <br />
+            <h2 className="text-2xl font-semibold">Contact US :</h2>
+            <p>
+
                 If you have any questions or comments about these our Terms of Service as outlined above, you can contact us at:<br />
                 <strong>Shreeji Remedies</strong><br />
                 37 Gyan Marg, Near R.M.V. School,<br />
                 Surajpole, Udaipur, Rajasthan, 313001<br />
                 <a href="mailto:support@bynatablet.in" className="text-blue-600 underline">support@bynatablet.in</a>
+                <br /><br />
+                <p>Merchant Legal entity name: Shreeji Remedies
+                    Registered Address: 37,Gayn Marg, Near RMV School,Inside Surajpole, Udaipur Udaipur RAJASTHAN 313001
+                    Operational Address: 37,Gayn Marg, Near RMV School,Inside Surajpole, Udaipur Udaipur RAJASTHAN 313001
+                    E-Mail ID: shreejiremedies25@gmail.com</p>
             </p>
         </div>
     );
