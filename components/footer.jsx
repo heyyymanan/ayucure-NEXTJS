@@ -57,7 +57,7 @@ const Footer = () => {
                 <div className="flex justify-center space-x-4 mt-1">
                     <a href="/terms-and-conditions" className="text-sm hover:underline">Terms And Conditions</a>
                     <a href="/privacy-policy" className="text-sm hover:underline">Privacy Policy</a>
-                    <a href="/cancellation-and-refund-policy" className="text-sm hover:underline">Cancellation/Refund Policy</a>
+                    <a href="/shipping-and-refund-policy" className="text-sm hover:underline">Shipping/Refund Policy</a>
                     {/* <a href="#" className="text-sm hover:underline">Cookies</a> */}
                 </div>
             </div>
