@@ -32,7 +32,7 @@ const Navbar = () => {
     const name = user?.firstName;
 
 
-    const navItems = ['Home', 'Shop All', 'Consult a Doctor', 'About Us', 'Contact Us'];
+    const navItems = ['Home', 'Shop All', 'About Us', 'Contact Us'];
 
     return (
         <nav className="bg-[#222831] text-white max-w-screen  flex-col sticky top-0 z-10">
@@ -114,7 +114,7 @@ const Navbar = () => {
                             </div>
                         </Link>
 
-                        <SignedIn >
+                        {/* <SignedIn >
                             <div className=" flex gap-4 items-center">
 
 
@@ -170,7 +170,7 @@ const Navbar = () => {
                             </SignInButton>
 
 
-                        </SignedOut>
+                        </SignedOut> */}
 
 
                     </div>

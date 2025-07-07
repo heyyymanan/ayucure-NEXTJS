@@ -26,7 +26,7 @@ const Footer = () => {
                         </li>
                         <li className="flex items-center"><a className="flex items-center" href="https://www.facebook.com/bynatablet" target="_blank"><Image src="/icons/facebook.png" alt="facebook" width={20} height={20} className="mr-2" /> FaceBook</a>
                         </li>
-                        <li className="flex items-center"><a className="flex items-center" href="https://wa.me/919928077671?text=Hello%20there!" target="_blank"><Image src="/icons/whatsapp.png" alt="whatsapp" width={20} height={20} className="mr-2" /> WhatsApp</a>
+                        <li className="flex items-center"><a className="flex items-center" href="https://wa.me/919928077671?text=Hello" target="_blank"><Image src="/icons/whatsapp.png" alt="whatsapp" width={20} height={20} className="mr-2" /> WhatsApp</a>
                         </li>
                     </ul>
                 </div>

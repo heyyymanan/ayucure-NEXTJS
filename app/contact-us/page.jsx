@@ -43,11 +43,11 @@ const ContactUs = () => {
                         </a>
                     </div>
                 </div>
+                {/* <div className="br h-[2px] w-full bg-black my-5"></div> */}
+                {/* <h3 className="text-2xl font-bold text-center text-gray-700 mb-6">OR</h3>
                 <div className="br h-[2px] w-full bg-black my-5"></div>
-                <h3 className="text-2xl font-bold text-center text-gray-700 mb-6">OR</h3>
-                <div className="br h-[2px] w-full bg-black my-5"></div>
-                <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Contact Us</h2>
-                <form className="space-y-6">
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Contact Us</h2> */}
+                {/* <form className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-gray-700 mb-2" htmlFor="firstName">First Name</label>
@@ -97,7 +97,7 @@ const ContactUs = () => {
                             Send Message
                         </button>
                     </div>
-                </form>
+                </form> */}
 
 
             </div>

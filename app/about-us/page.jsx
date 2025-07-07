@@ -25,7 +25,7 @@ const page = () => {
         </div>
 
         {/* Doctor Consultancy Card */}
-        <div className="flex-1 bg-black/70 border border-white rounded-lg p-8 flex flex-col items-center text-center">
+        {/* <div className="flex-1 bg-black/70 border border-white rounded-lg p-8 flex flex-col items-center text-center">
           <Image height={50}
             width={50} src="/kpvyas.png" alt="Dr. Kp Vyas" className="w-20 h-20 object-cover rounded-full mb-2" />
           <h3 className="text-md font-semibold">Dr. K.P. Vyas</h3>
@@ -40,7 +40,7 @@ const page = () => {
           <a href="/consult-a-doctor" className="bg-lime-500 hover:bg-lime-600 text-black font-bold py-2 px-6 rounded-full text-lg transition">
             Book Appointment
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   )
