@@ -126,13 +126,6 @@ const CancellationRefundPolicy = () => {
         <strong>Note:</strong> Shreeji Remedies reserves the right to cancel any order at any time without prior notice and may confirm orders via call or message.
       </p>
 
-      <h2 className="text-2xl font-semibold mb-3">Refund Timelines</h2>
-      <ul className="list-disc ml-6 mb-6 space-y-1">
-        <li>For prepaid orders: refund to original method in <strong>7 business days</strong>.</li>
-        <li>For COD returns: bank details required, refund in <strong>7 working days</strong>.</li>
-        <li>For returned items: refund takes up to <strong>14 days</strong> post-pickup and quality check.</li>
-      </ul>
-
       <p className="text-sm text-gray-600">
         For more help, contact us at <strong>support@bynatablet.in</strong> or Use the <a href="/contact-us" className="text-blue-600 underline">Contact Page</a> to raise a request.
       </p>
