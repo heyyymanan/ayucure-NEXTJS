@@ -20,7 +20,7 @@ const PaymentProcessing = () => {
     const checkStatus = async () => {
       try {
         const res = await fetch(
-          process.env.NEXT_PUBLIC_API_URL_PROD+'/verify-payment?merchantOrderId=${orderId}&raw=true'
+          process.env.NEXT_PUBLIC_API_URL_PROD+`/verify-payment?merchantOrderId=${orderId}&raw=true`
         );
         const data = await res.json();
 
