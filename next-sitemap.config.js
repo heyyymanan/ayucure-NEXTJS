@@ -4,6 +4,9 @@ module.exports = {
   generateRobotsTxt: true,
   exclude: [
     '/cart',
-    '/thank-you'
+    '/thank-you',
+    '/payment-failed',
+    '/payment-pending',
+    '/order-success'
   ],
 }

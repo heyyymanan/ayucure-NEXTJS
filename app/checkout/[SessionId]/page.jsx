@@ -37,8 +37,8 @@ const FormCheck = (formData, cart) => {
         fullAddress?.trim() !== "" &&
         city?.trim() !== "" &&
         state?.trim() !== "" &&
-        pincode?.trim() !== "" && pincode?.length!=7 &&
-        phone?.trim() !== "" && phone?.length>9 &&
+        pincode?.trim() !== "" && pincode?.length != 7 &&
+        phone?.trim() !== "" && phone?.length > 9 &&
         (paymentMethod === "Online" || paymentMethod === "COD") &&
         cart.length > 0
     );
@@ -74,7 +74,7 @@ export default function CheckoutPage() {
     }, [formData, cart]);
 
     useEffect(() => {
-        // ✅ Runs only on the client
+        //  Runs only on the client
         const saved = localStorage.getItem("userAddr");
         if (saved) {
             const savedFormData = JSON.parse(saved);
@@ -88,16 +88,25 @@ export default function CheckoutPage() {
     }, []);
 
     // Save to localStorage when saveAddress is true
-    useEffect(() => {
-        if (formData.preferences.saveAddress) {
-            localStorage.setItem("userAddr", JSON.stringify(formData));
-        }
-    }, [formData]);
+   useEffect(() => {
+    if (formData.preferences.saveAddress) {
+        // Create a copy of formData without paymentMethod
+        const { preferences, ...rest } = formData;
+        const dataToStore = {
+            ...rest,
+            preferences: {
+                ...preferences,
+                paymentMethod: "", // or you can simply omit this line if you want to totally remove it
+            },
+        };
+        localStorage.setItem("userAddr", JSON.stringify(dataToStore));
+    }
+}, [formData]);
 
 
 
 
-    const OnlineAvailable = false;
+    const OnlineAvailable = true;
     var itemTotal = getTotalPrice();
     const savings = cart.length === 0 ? 0 : 10; // In Percent
     const deliveryCharge = cart.length === 0 ? 0 : 100; // In Rs
@@ -160,7 +169,7 @@ export default function CheckoutPage() {
                 pincode: formData.delivery.pincode,
                 phone: formData.delivery.phone,
             },
-            orderItems: cart, // ← You can fill this based on your cart or item list
+            orderItems: cart, 
             paymentMethod: formData.preferences.paymentMethod,
             order_amount: order_amount,
 
@@ -169,22 +178,9 @@ export default function CheckoutPage() {
         return OrderDetails;
     };
 
-
-    // let cashfree;
-
-    // let insitialzeSDK = async function () {
-
-    //     cashfree = await load({
-    //         mode: "sandbox",
-    //     })
-    // }
-
-    // insitialzeSDK()
-
-
-    const [session_id, setsession_id] = useState("")
-
     const placeOrder = async (orderDetailsObj) => {
+        let data = null; 
+
         try {
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_API_URL}/general/create-order`,
@@ -198,49 +194,21 @@ export default function CheckoutPage() {
                 }
             );
 
-            const data = response.data;
+            data = response.data;
+            
 
-
-            // 🧾 Check if backend responded with success
-            if (!data.success) {
-                throw new Error(data.message || 'Order failed on server');
-            }
-
-            if (data.cashfree_order) {
-                // 💳 Payment method is Online - redirect or show Cashfree SDK
-                const { payment_session_id } = data.cashfree_order;
-
-                setsession_id(payment_session_id)
-
-                // console.log('✅ Cashfree Payment Session:', payment_session_id);
-
-                // 👉 OPTION 1: Redirect to Cashfree checkout page (if available)
-
-                // window.location.href = `https://sandbox.cashfree.com/pgapp/v1/session/${payment_session_id}`;//test
-
-                // window.location.href = `https://payments.cashfree.com/pg/orders/${payment_session_id}`;//production
-
-
-                // 👉 OPTION 2: Use Drop-in SDK (recommended)
-                // Example:
-                // Cashfree.initDropin({
-                //     paymentSessionId: payment_session_id,
-                //     returnUrl: 'https://yourdomain.com/payment-success',
-                //     redirectTarget: '_self'
-                // });
-
-            } else if (data.order.orderId && data.success) {
-                // ✅ COD successful
-                const orderId = data.order.orderId
-                router.push(`/thank-you?orderId=${orderId}`)
-            }
-
-            return data;
         } catch (error) {
             console.error('❌ Order Error:', error.response?.data?.message || error.message);
             alert('Failed to place order: ' + (error.response?.data?.message || error.message));
+        } finally {
+            if (data?.success) {
+                router.push(data.phonepe_checkout_url);
+            } else {
+                alert("An error occurred");
+            }
         }
     };
+
 
 
 
@@ -252,26 +220,6 @@ export default function CheckoutPage() {
         placeOrder(transformToOrderDetails()) //Creates Order In DataBase
 
         e.preventDefault()
-        // if (formData.preferences.paymentMethod === 'Online') {
-
-        //     try {
-        //         let checkoutOptions = {
-        //             paymentSessionId: session_id,
-        //             redirectTarget: "_modal",
-        //         }
-
-        //         cashfree.checkout(checkoutOptions).then((res) => {
-        //             console.log("payment initialized")
-
-
-        //         })
-
-
-        //     } catch (error) {
-        //         console.log(error)
-        //     }
-
-        // } else return;
 
     };
     const states = [

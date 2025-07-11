@@ -36,7 +36,7 @@ export default function Home() {
 
   const ProductSection = ({ title, products }) => (
     <>
-      <h1 className="text-center lg:text-5xl text-3xl mt-5 lg:mt-10 font-serif">
+      <h1 className="text-center text-white lg:text-5xl text-3xl mt-5 lg:mt-10 font-serif">
         {title}
       </h1>
       <div className="flex overflow-x-auto whitespace-nowrap gap-x-5 gap-y-5 p-4 md:p-10 justify-evenly">
@@ -60,7 +60,7 @@ export default function Home() {
       <Category />
       <hr className="border-t border-gray-400" />
 
-      {/* 🔥 Trending Section */}
+      
       <div className="flex items-center justify-center mt-5">
         <Fire />
         <h1
@@ -81,7 +81,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* 🎯 Other Sections */}
+      
       <ProductSection title="Sexual Wellness" products={sexualWellness} />
       <ProductSection title="Skin Care" products={skinCare} />
       <ProductSection title="Want A Healthy Life?" products={healthyProducts} />
