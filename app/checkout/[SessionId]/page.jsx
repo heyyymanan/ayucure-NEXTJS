@@ -206,7 +206,7 @@ export default function CheckoutPage() {
                 router.push(data.phonepe_checkout_url);
             } 
             if (data?.success&&data?.order.paymentMethod==="COD") {
-                router.push(`/order-success?orderId=${data?.orderId}`);
+                router.push(`/order-success?orderId=${data?.order.orderId}`);
             } 
             else {
                 alert("An error occurred");
