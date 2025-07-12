@@ -195,7 +195,7 @@ export default function CheckoutPage() {
             );
 
             data = response.data;
-            console.log(data)
+            
             
 
         } catch (error) {
