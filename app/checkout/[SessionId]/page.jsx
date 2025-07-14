@@ -195,17 +195,14 @@ export default function CheckoutPage() {
             );
 
             data = response.data;
-            
-            
-
         } catch (error) {
             console.error('❌ Order Error:', error.response?.data?.message || error.message);
             alert('Failed to place order: ' + (error.response?.data?.message || error.message));
         } finally {
-            if (data?.success&&data?.order.paymentMethod==="Online") {
+            if (data?.success&&data?.order.paymentMethod=="Online") {
                 router.push(data.phonepe_checkout_url);
             } 
-            if (data?.success&&data?.order.paymentMethod==="COD") {
+            else if (data?.success&&data?.order.paymentMethod=="COD") {
                 router.push(`/order-success?orderId=${data?.order.orderId}`);
             } 
             else {
