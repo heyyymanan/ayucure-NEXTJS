@@ -7,6 +7,7 @@ import { useEffect, useState, useRef } from "react";
 import { fetchProducts } from "@/lib/api/products.js";
 import { Fire } from "@/components/ui/fire";
 
+
 export default function Home() {
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [healthyProducts, setHealthyProducts] = useState([]);
@@ -71,6 +72,7 @@ export default function Home() {
         </h1>
         <Fire />
       </div>
+      
       <div className="flex overflow-x-auto whitespace-nowrap gap-x-5 gap-y-5 p-4 md:p-10 justify-evenly">
         {trendingProducts.length === 0 ? (
           <div className="text-white italic text-lg">No trending products available.</div>

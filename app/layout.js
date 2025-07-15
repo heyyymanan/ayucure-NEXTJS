@@ -13,6 +13,7 @@ import {
 
 } from '@clerk/nextjs'
 import ScrollToTop from "./functions/scrollToTop";
+import FloatingCart from "@/components/ui/floating_cart";
 
 
 
@@ -85,6 +86,7 @@ export default function RootLayout({ children }) {
             {children}
             <Analytics />
             <SpeedInsights />
+            <FloatingCart/>
 
             <Footer />
             <Toaster richColors closeButton expand={false} />
