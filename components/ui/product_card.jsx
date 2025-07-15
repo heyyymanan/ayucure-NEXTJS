@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Link from "next/link";
 import AddToCartButton from "./addToCartBtn";
+import { useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +35,19 @@ const ProductCard = ({ product }) => {
       );
     }
   }, [cartItem?.quantity]);
+
+  const [Isphone, setIsphone] = useState(true);
+  useEffect(() => {
+      const handleResize = () => {
+        const Isphone = window.innerWidth > 768 ? false : true;
+        setIsphone(Isphone);
+      };
+  
+      handleResize(); // set size on mount
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
   return (
 
@@ -112,16 +126,17 @@ const ProductCard = ({ product }) => {
         </div>}
           <div className="btm flex  gap-2  items-center mt-2 sm:gap-3 justify-around">
 
-            <div className="flex mx-1 items-center">
-              <span className="text-2xl sm:text-3xl font-semibold text-gray-900">
+            <div className={`flex mx-1 gap-1 md:gap-4 ${Isphone?'flex-col':''} items-center`}>
+
+              <span className={`sm:text-3xl ${Isphone?'text-[27px]':''} font-semibold text-gray-900`}>
                 ₹{product.variants[0].price}
               </span>
-            </div>
 
             {/* cart here */}
             <div className="div h-auto w-fit">
 
             <AddToCartButton ref={buttonRef} product={product} variantSku={product.variants[0].sku} />
+            </div>
             </div>
 
           </div>

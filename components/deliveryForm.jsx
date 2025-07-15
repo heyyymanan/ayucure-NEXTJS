@@ -315,7 +315,7 @@ export default function CheckoutForm({
       {/* Payment Options */}
       <div>
         <h2 className="font-semibold text-lg mb-2">
-          Payment Method : COD {!OnlineAvailable && "(Online Payment Currently Unavailable)"}
+          Payment Method : {formData.preferences.paymentMethod} {!OnlineAvailable && "(Online Payment Currently Unavailable)"}
         </h2>
 
         <div className="space-y-2">

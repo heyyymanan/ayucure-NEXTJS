@@ -203,7 +203,7 @@ export default function CheckoutPage() {
                 router.push(data.phonepe_checkout_url);
             } 
             else if (data?.success&&data?.order.paymentMethod=="COD") {
-                router.push(`/order-success?orderId=${data?.order.orderId}`);
+                router.push(`/order-success?orderId=${data?.order.orderNum}`);
             } 
             else {
                 alert("An error occurred");

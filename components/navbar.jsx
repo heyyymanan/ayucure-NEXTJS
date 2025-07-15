@@ -1,6 +1,11 @@
 "use client"
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Call02FreeIcons, Hamburger01FreeIcons, Hamburger02FreeIcons, HamburgerIconFreeIcons, Menu01FreeIcons, Trolley01FreeIcons, User03Icon, } from '@hugeicons/core-free-icons/index';
+import {
+    Call02FreeIcons,
+    Trolley01FreeIcons,
+    User03Icon
+} from '@hugeicons/core-free-icons/index';
+
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,11 +13,14 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+
 import { ChevronDown } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { useState } from 'react';
+import { FaBars } from 'react-icons/fa';
+import { IoClose } from 'react-icons/io5';
 
 import {
     SignInButton,
@@ -20,63 +28,42 @@ import {
     SignedOut,
     UserButton,
     useUser
-} from '@clerk/nextjs'
-import { FaHamburger } from 'react-icons/fa';
-
-
-
+} from '@clerk/nextjs';
 
 const Navbar = () => {
-
     const { user } = useUser();
     const name = user?.firstName;
 
-
     const navItems = ['Home', 'Shop All', 'About Us', 'Contact Us'];
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     return (
-        <nav className="bg-[#222831] text-white max-w-screen  flex-col sticky top-0 z-10">
-            <div className="bar-1 lg:flex md:justify-between max-w-screen ml-4 md:p-1">
-                <div className="call flex md:justify-normal justify-center text-sm items-center gap-1 ">
-                    <HugeiconsIcon
-                        icon={Call02FreeIcons}
-                        size={20}
-                        color="currentColor"
-                        strokeWidth={.5}
-                    />
-                    <p>+91-9928077671</p>
+        <nav className="bg-[#222831] text-white sticky top-0 z-10 w-full">
+            {/* Top Bar */}
+            <div className="bar-1 lg:flex md:justify-between  max-w-screen md:p-1 ">
+                <div className="call flex md:justify-normal justify-center text-sm md:ml-5 items-center gap-1">
+                    <HugeiconsIcon icon={Call02FreeIcons} size={20} color="currentColor" strokeWidth={1} />
+                    <p >+91-9928077671</p>
                 </div>
-                <div className="welcome-text text-sm hidden lg:flex mr-48 lg:mr-24 items-center ">
-                    <Link href='/shop-all'>Welcome ! Get 10% OFF On All Your Purchase. | Shop Now</Link>
+                <div className="welcome-text text-sm hidden lg:flex lg:mr-[730px] items-center ">
+                    <Link href='/shop-all' >Welcome! Get 10% OFF On All Your Purchase. | Shop Now</Link>
                 </div>
-                <div className=""></div>
-
             </div>
-            <hr className=" border-t border-gray-700" />
 
-            <div className="bar-2 md:p-2 h-16 flex justify-between items-center ">
+            <hr className="border-t border-gray-700" />
 
+            {/* Main Bar */}
+            <div className="bar-2 md:p-2 h-16 flex justify-between items-center relative">
+                {/* Logo */}
                 <Link href={'/'}>
-
-                    <div className="logo lg:size-15 size-[50px]   flex items-center gap-2  px-2">
-
-                        <Image
-                            src="/icons/logo.png"
-                            alt="logo Image"
-                            width={50}
-                            height={40}
-                            priority
-                            className=' '
-                        />
+                    <div className="logo lg:size-15 size-[50px] flex items-center gap-2 px-2">
+                        <Image src="/icons/logo.png" alt="logo Image" width={40} height={40} priority />
                         <h1 className='lg:text-2xl text-xl font-serif'>BynaTablet.in</h1>
-
                     </div>
                 </Link>
 
-
+                {/* Desktop Nav */}
                 <div className="lg:flex h-5 items-center hidden lg:ml-32 lg:text-xl font-serif">
-
-
                     <ul className="flex items-center justify-evenly gap-3">
                         {navItems.map((item, index) => (
                             <li key={item} className="flex items-center">
@@ -92,96 +79,53 @@ const Navbar = () => {
                             </li>
                         ))}
                     </ul>
-
                 </div>
 
-                <div className="user md:flex flex justify-center items-center gap-5 md:px-2 p-4">
-                    
-                    
-                    <div className="user flex justify-center items-center md:gap-2 gap-4">
-                        
+                {/* Right Side - Cart & Hamburger */}
+                <div className="flex justify-center items-center gap-5 md:px-2 p-4">
+                    {/* Cart */}
+                    <Link href={"/cart"}>
+                        <div className="cart flex mr-2 gap-2">
+                            <HugeiconsIcon icon={Trolley01FreeIcons} size={20} color="currentColor" strokeWidth={1} />
+                            <p className='md:flex hidden items-center font-bold text-base'>My Cart</p>
+                        </div>
+                    </Link>
 
-                        <Link href={"/cart"}>
-                            <div className="cart flex mr-4 gap-2">
-                                <HugeiconsIcon
-                                    icon={Trolley01FreeIcons}
-                                    size={20}
-                                    color="currentColor"
-                                    strokeWidth={1}
-                                    />
-                                <p className='md:flex hidden items-center font-bold text-base'>My Cart</p>
-
-                            </div>
-                        </Link>
-
-                        {/* <SignedIn >
-                            <div className=" flex gap-4 items-center">
-
-
-
-
-                            <div className="cart md:flex hidden gap-5">
-                                <DropdownMenu >
-
-
-                                    <DropdownMenuTrigger>
-                                        <p className='flex items-center font-bold text-base'>My Account<ChevronDown className='h-5' /></p>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="bg-[#222831] text-white">
-                                        <DropdownMenuLabel>{"Hey! " + name}</DropdownMenuLabel>
-                                        <DropdownMenuSeparator className="bg-white" />
-                                        <DropdownMenuItem>My Account</DropdownMenuItem>
-                                        <DropdownMenuItem>My Wishlist</DropdownMenuItem>
-                                        <DropdownMenuItem>My Cart</DropdownMenuItem>
-                                        <DropdownMenuItem>My Orders</DropdownMenuItem>
-                                    </DropdownMenuContent>
-
-                                </DropdownMenu>
-
-
-                            </div>
-                            
-                                <UserButton />
-
-
-                                    </div>
-                        </SignedIn>
-
-
-                        <SignedOut>
-
-
-                            <SignInButton className="md:flex  lg:mr-2 md:mr-5 gap-2 justify-center items-center hover:cursor-pointer">
-
-                                <div className="login flex gap-2 text-white items-center">
-
-
-                                    <HugeiconsIcon
-                                        icon={User03Icon}
-                                        size={20}
-                                        color="currentColor"
-                                        strokeWidth={1}
-                                    />
-
-
-                                    <p className='md:flex hidden items-center font-bold text-base'>Login</p>
-
-                                </div>
-                            </SignInButton>
-
-
-                        </SignedOut> */}
-
-
+                    {/* Mobile Hamburger Icon */}
+                    <div className="lg:hidden block cursor-pointer">
+                        {isMobileMenuOpen ? (
+                            <IoClose className="text-2xl" onClick={() => setIsMobileMenuOpen(false)} />
+                        ) : (
+                            <FaBars className="text-xl" onClick={() => setIsMobileMenuOpen(true)} />
+                        )}
                     </div>
-
-
                 </div>
-            </div >
-            <hr className=" border-t border-gray-700" />
-        </nav >
+            </div>
+
+            {/* Mobile Dropdown Menu */}
+            {isMobileMenuOpen && (
+                <div className="lg:hidden flex flex-col bg-[#1d1f24] px-6 py-4 space-y-4 text-lg font-serif transition-all duration-300">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item}
+                            href={`/${item.replace(/ /g, '-').toLowerCase()}`}
+                            className="hover:text-gray-300 text-center border py-1"
+                            onClick={() => setIsMobileMenuOpen(false)} // auto close on click
+                        >
+                            {item}
+                            
+                        </Link>
+                    ))}
+                    {/* <hr className="border-white" /> */}
+                    <Link href={"/cart"} onClick={() => setIsMobileMenuOpen(false)} className='hover:text-gray-300 text-center border py-1'>
+                        🛒 My Cart
+                    </Link>
+                </div>
+            )}
+
+            <hr className="border-t border-gray-700" />
+        </nav>
     );
 };
 
 export default Navbar;
-
