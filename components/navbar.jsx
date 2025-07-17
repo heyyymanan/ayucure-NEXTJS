@@ -45,8 +45,11 @@ const Navbar = () => {
                     <HugeiconsIcon icon={Call02FreeIcons} size={20} color="currentColor" strokeWidth={1} />
                     <p >+91-9928077671</p>
                 </div>
-                <div className="welcome-text text-sm hidden lg:flex lg:mr-[730px] items-center ">
+                <div className="welcome-text    w-full text-sm hidden md:flex lg:flex justify-center items-center ">
+                    <div className="div">
+
                     <Link href='/shop-all' >Welcome! Get 10% OFF On All Your Purchase. | Shop Now</Link>
+                    </div>
                 </div>
             </div>
 
