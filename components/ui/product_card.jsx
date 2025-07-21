@@ -55,7 +55,7 @@ const ProductCard = ({ product }) => {
 
 
       <div
-        className="border rounded-2xl  shadow-md max-w-xs h-auto sm:max-w-sm md:max-w-md bg-white p-1 pb-3 sm:p-4 transition-transform hover:scale-105 "
+        className="border rounded-[10px] min-w-44 overflow-clip shadow-md max-w-xs h-auto sm:max-w-sm md:max-w-md bg-white p-1 pb-3 sm:p-4 transition-transform hover:scale-105 "
       >
         <Link href={`/products/${product.variants[0].sku}`}>
         <div className="relative flex justify-center w-full h-auto sm:h-64 hover:cursor-pointer">
@@ -81,7 +81,7 @@ const ProductCard = ({ product }) => {
             </span>
           </div>
 
-          <h3 className="mt-1 text-base ml-1 sm:text-xl font-bold text-gray-900">{product.name}</h3>
+          <h3 className="mt-1 text-base ml-1 overflow-clip sm:text-xl font-bold text-gray-900">{product.name}</h3>
 
           <div className="hidden md:flex h-4 sm:h-auto items-center mx-1 mt-2">
             {[...Array(fullStars)].map((_, i) => (

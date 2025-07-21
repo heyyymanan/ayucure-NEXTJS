@@ -98,7 +98,7 @@ export default function ShopAll() {
   ];
 
   return (
-    <div className="p-4 md:p-8 flex flex-wrap">
+    <div className="p-2 md:p-8 flex flex-wrap">
       {/* Left Sidebar (Filter Panel) */}
       <div className="w-full md:w-1/4 lg:w-1/5 bg-gray-50 p-4 rounded-lg shadow-md mb-6 md:mb-0">
         <h2 className="text-xl font-semibold mb-4">Filters</h2>

@@ -4,7 +4,8 @@ import { useState, useEffect, use } from "react";
 import { Star } from "lucide-react";
 import AddToCartButton from "@/components/ui/addToCartBtn";
 import Image from "next/image";
-import Head from "next/head";
+
+
 
 function decodeHtmlEntities(str) {
   if (typeof window === "undefined") return str;
@@ -121,18 +122,6 @@ export default function ProductPage({ params }) {
 
   return (
     <div className="relative">
-
-      <Head>
-      <title>{product.name} – Buy Now at ₹{selectedVariant?.price} | BynaTablet.in</title>
-      <meta name="description" content={product.meta_description || `Shop ${product.name} by ${product.company} at best prices.`} />
-      <meta name="keywords" content={product.meta_keywords?.join(", ") || `${product.name}, ${product.company}, Buy Online`} />
-      <link rel="canonical" href={`https://bynatablet.in/product/${selectedVariant?.sku}`} />
-      <meta property="og:title" content={`${product.name} – BynaTablet.in`} />
-      <meta property="og:description" content={product.meta_description || `Buy ${product.name} online in India`} />
-      <meta property="og:image" content={product.images[0]} />
-      <meta property="og:url" content={`https://bynatablet.in/product/${selectedVariant?.sku}`} />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Head>
     
       <section className="flex flex-col md:flex-row gap-8 p-6 md:px-24 md:py-12">
         <div className="flex flex-col md:flex-row w-full md:w-2/3 gap-6">

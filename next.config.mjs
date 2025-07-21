@@ -14,6 +14,11 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/ayucure/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/ayucure/**',
+      },
     ],
   },
   async rewrites() {
