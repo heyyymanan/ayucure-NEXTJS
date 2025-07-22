@@ -7,6 +7,7 @@ module.exports = {
     '/thank-you',
     '/payment-failed',
     '/payment-pending',
+    '/test',
     '/order-success'
   ],
 }

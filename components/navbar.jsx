@@ -29,6 +29,7 @@ import {
     UserButton,
     useUser
 } from '@clerk/nextjs';
+import { useCart } from '@/app/context/CartContext';
 
 const Navbar = () => {
     const { user } = useUser();
@@ -36,6 +37,8 @@ const Navbar = () => {
 
     const navItems = ['Home', 'Shop All', 'About Us', 'Contact Us'];
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const {cart}=useCart()
+    
 
     return (
         <nav className="bg-[#222831] text-white sticky top-0 z-10 w-full">
@@ -88,8 +91,12 @@ const Navbar = () => {
                 <div className="flex justify-center items-center gap-5 md:px-2 p-4">
                     {/* Cart */}
                     <Link href={"/cart"}>
-                        <div className="cart flex mr-2 gap-2">
-                            <HugeiconsIcon icon={Trolley01FreeIcons} size={20} color="currentColor" strokeWidth={1} />
+                        <div className="cart  flex mr-2 gap-4">
+                            <div className="ico relative">
+
+                            <HugeiconsIcon icon={Trolley01FreeIcons} size={25} color="currentColor" strokeWidth={2} />
+                            <span className='absolute -top-1 border-black border-[1px]  left-4  bg-white text-black rounded-full w-[17px] h-[17px] text-[11px] flex items-center justify-center font-bold'>{cart.length}</span>
+                            </div>
                             <p className='md:flex hidden items-center font-bold text-base'>My Cart</p>
                         </div>
                     </Link>
