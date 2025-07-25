@@ -23,8 +23,8 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${product.name} - ${product.short_description} - ${product.remedy_for?.join(", ")} - BynaTablet.in`,
-    description: product.short_description,
+    title: `${product.name} - ${product.short_description} - BynaTablet.in`,
+    description: `${product.short_description} | ${product.remedy_for?.join(", ")} | ${product.key_benefits.join(", ")} | BynaTablet.in`,
     keywords: product.remedy_for?.join(", ")+", "+product.short_description+", "+product.key_benefits.join(", "),
     openGraph: {
       title: product.name,
