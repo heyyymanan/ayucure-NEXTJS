@@ -23,9 +23,9 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${product.name} - BynaTablet.in`,
-    description: product.meta_description,
-    keywords: product.remedy_for?.join(", "),
+    title: `${product.name} - ${product.short_description} - ${product.remedy_for?.join(", ")} - BynaTablet.in`,
+    description: product.short_description,
+    keywords: product.remedy_for?.join(", ")+", "+product.short_description+", "+product.key_benefits.join(", "),
     openGraph: {
       title: product.name,
       description: product.short_description,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
 
 export default async function ProductPage({ params }) {
   const product = await getProductBySKU(params.sku);
-  const variant = product?.variants.find(v => v.sku === params.sku);
+  const variant =  product?.variants.find(v => v.sku === params.sku);
 
   if (!product || !variant) return notFound();
 
