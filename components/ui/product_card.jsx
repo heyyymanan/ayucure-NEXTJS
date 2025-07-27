@@ -55,7 +55,7 @@ const ProductCard = ({ product }) => {
 
 
       <div
-        className="border rounded-[10px] min-w-44 overflow-clip shadow-md max-w-xs h-auto sm:max-w-sm md:max-w-md bg-white p-1 pb-3 sm:p-4 transition-transform hover:scale-105 "
+        className="border rounded-[10px] min-w-44 overflow-clip shadow-md max-w-xs h-auto sm:max-w-sm md:max-w-[275px] bg-white p-1 pb-3 sm:p-4 transition-transform hover:scale-105 "
       >
         <Link href={`/products/${product.variants[0].sku}`}>
         <div className="relative flex justify-center w-full h-auto sm:h-64 hover:cursor-pointer">
@@ -97,17 +97,21 @@ const ProductCard = ({ product }) => {
           </div>
 
           {product.remedy_for.length>2 ? (
-            <div className="flex flex-row gap-2 mt-3">
-              
+            <div className="flex flex-row gap-1 mt-3">
+
+              <div className="kk flex">
+
                 <span
-                  className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-100 rounded-full px-2 py-1"
-                >
-                  💊 {product.remedy_for[0]}
+                  className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-200 overflow-clip flex gap-2 justify-center items-center rounded-full max-w-52 px-5 sm:py-1"
+                  >
+                <Image src={'/kharal1.png'} alt="kharal" width={25} height={20}/> 
+                  {product.remedy_for[0]}
                 </span>
+                  </div>
                 <span
-                  className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-100 rounded-full px-2 py-1"
-                >
-                  💊...& More
+                  className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-200 overflow-clip flex gap-2 justify-center items-center rounded-full max-w-52 px-5 sm:py-1"
+                  >
+                <Image src={'/kharal1.png'} alt="kharal" width={25} height={20}/> ...& More
                 </span>
 
               

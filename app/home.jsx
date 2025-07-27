@@ -15,6 +15,7 @@ export default function Home() {
   const [healthyProducts, setHealthyProducts] = useState([]);
   const [sexualWellness, setSexualWellness] = useState([]);
   const [skinCare, setSkinCare] = useState([]);
+  const [womenSpecial, setwomenSpecial] = useState([]);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -23,12 +24,14 @@ export default function Home() {
         const trending = await fetchProducts({ tag: "trending", limit: 5 });
         const healthy = await fetchProducts({ tag: "healthy", limit: 5 });
         const sexual = await fetchProducts({ tag: "sexual-wellness", limit: 5 });
+        const women = await fetchProducts({ tag: "women", limit: 5 });
         const skin = await fetchProducts({ tag: "skin-care", limit: 5 });
 
         setTrendingProducts(trending);
         setHealthyProducts(healthy);
         setSexualWellness(sexual);
         setSkinCare(skin);
+        setwomenSpecial(women);
       } catch (error) {
         console.error("Failed to load products:", error);
       }
@@ -86,6 +89,7 @@ export default function Home() {
       </div>
 
       
+      <ProductSection title="Womens Special" products={womenSpecial} />
       <ProductSection title="Sexual Wellness" products={sexualWellness} />
       <ProductSection title="Skin Care" products={skinCare} />
       <ProductSection title="Want A Healthy Life?" products={healthyProducts} />
