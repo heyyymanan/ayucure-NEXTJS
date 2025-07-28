@@ -3,12 +3,10 @@
 import Hero from "@/components/hero.jsx";
 import Category from "@/components/category.jsx";
 import ProductCard from "@/components/ui/product_card.jsx";
+import ProductCardSkeleton from "@/components/ui/product-card-skeleton.jsx";
 import { useEffect, useState, useRef } from "react";
 import { fetchProducts } from "@/lib/api/products.js";
 import { Fire } from "@/components/ui/fire";
-
-
-
 
 export default function Home() {
   const [trendingProducts, setTrendingProducts] = useState([]);
@@ -16,6 +14,7 @@ export default function Home() {
   const [sexualWellness, setSexualWellness] = useState([]);
   const [skinCare, setSkinCare] = useState([]);
   const [womenSpecial, setwomenSpecial] = useState([]);
+  const [loading, setLoading] = useState(true);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -34,22 +33,24 @@ export default function Home() {
         setwomenSpecial(women);
       } catch (error) {
         console.error("Failed to load products:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
     loadProducts();
   }, []);
 
-  const ProductSection = ({ title, products }) => (
+  const ProductSection = ({ title, products, loading }) => (
     <>
       <h1 className="text-center text-white lg:text-5xl text-3xl mt-5 lg:mt-10 font-serif">
         {title}
       </h1>
       <div className="flex overflow-x-auto whitespace-nowrap gap-x-5 gap-y-5 p-4 md:p-10 justify-evenly">
-        {products.length === 0 ? (
-          <div className="text-gray-500 text-lg italic">
-            No products found in this category.
-          </div>
+        {loading ? (
+          Array.from({ length: 5 }).map((_, i) => <ProductCardSkeleton key={i} />)
+        ) : products.length === 0 ? (
+          <div className="text-gray-500 text-lg italic">No products found in this category.</div>
         ) : (
           products.map((product) => (
             <ProductCard key={product._id} product={product} />
@@ -66,7 +67,6 @@ export default function Home() {
       <Category />
       <hr className="border-t border-gray-400" />
 
-      
       <div className="flex items-center justify-center mt-5">
         <Fire />
         <h1
@@ -77,9 +77,11 @@ export default function Home() {
         </h1>
         <Fire />
       </div>
-      
+
       <div className="flex overflow-x-auto whitespace-nowrap gap-x-5 gap-y-5 p-4 md:p-10 justify-evenly">
-        {trendingProducts.length === 0 ? (
+        {loading ? (
+          Array.from({ length: 5 }).map((_, i) => <ProductCardSkeleton key={i} />)
+        ) : trendingProducts.length === 0 ? (
           <div className="text-white italic text-lg">No trending products available.</div>
         ) : (
           trendingProducts.map((product) => (
@@ -88,11 +90,10 @@ export default function Home() {
         )}
       </div>
 
-      
-      <ProductSection title="Womens Special" products={womenSpecial} />
-      <ProductSection title="Sexual Wellness" products={sexualWellness} />
-      <ProductSection title="Skin Care" products={skinCare} />
-      <ProductSection title="Want A Healthy Life?" products={healthyProducts} />
+      <ProductSection title="Womens Special" products={womenSpecial} loading={loading} />
+      <ProductSection title="Sexual Wellness" products={sexualWellness} loading={loading} />
+      <ProductSection title="Skin Care" products={skinCare} loading={loading} />
+      <ProductSection title="Want A Healthy Life?" products={healthyProducts} loading={loading} />
     </div>
   );
 }
