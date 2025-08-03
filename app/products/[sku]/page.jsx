@@ -57,7 +57,7 @@ export async function generateMetadata({ params }) {
       title: product.name,
       description: shortDesc,
       images: imageUrl ? [{ url: imageUrl }] : [],
-      type: "product",
+      type: "website",
       siteName: "BynaTablet.in",
       url: `${process.env.NEXT_PUBLIC_SITE_URL}/product/${params.sku}`,
     },
