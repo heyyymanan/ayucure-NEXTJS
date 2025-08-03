@@ -20,7 +20,7 @@ const ContactUs = () => {
 
                         <div className="flex flex-col items-center">
                             <FaEnvelope className="text-blue-500 text-3xl mb-2" />
-                            <p>Support : <a href="mailto:support@bynatablet.com" className="text-blue-500">support@bynatablet.com</a></p>
+                            <p>Support : <a href="mailto:support@bynatablet.com" className="text-blue-500">support@bynatablet.in</a></p>
                             <p>Or : <a href="mailto:shreejiremedies25@gmail.com" className="text-blue-500">shreejiremedies25@gmail.com</a></p>
                         </div>
 

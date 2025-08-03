@@ -20,11 +20,11 @@ export default function Home() {
   useEffect(() => {
     async function loadProducts() {
       try {
-        const trending = await fetchProducts({ tag: "trending", limit: 5 });
-        const healthy = await fetchProducts({ tag: "healthy", limit: 5 });
-        const sexual = await fetchProducts({ tag: "sexual-wellness", limit: 5 });
-        const women = await fetchProducts({ tag: "women", limit: 5 });
-        const skin = await fetchProducts({ tag: "skin-care", limit: 5 });
+        const trending = await fetchProducts({ tag: "trending", limit: 7 });
+        const healthy = await fetchProducts({ tag: "healthy", limit: 7 });
+        const sexual = await fetchProducts({ tag: "sexual-wellness", limit: 7 });
+        const women = await fetchProducts({ tag: "women", limit: 7 });
+        const skin = await fetchProducts({ tag: "skin-care", limit: 7 });
 
         setTrendingProducts(trending);
         setHealthyProducts(healthy);
@@ -92,7 +92,7 @@ export default function Home() {
 
       <ProductSection title="Womens Special" products={womenSpecial} loading={loading} />
       <ProductSection title="Sexual Wellness" products={sexualWellness} loading={loading} />
-      <ProductSection title="Skin Care" products={skinCare} loading={loading} />
+      <ProductSection title="Skin Care & Hair Care" products={skinCare} loading={loading} />
       <ProductSection title="Want A Healthy Life?" products={healthyProducts} loading={loading} />
     </div>
   );
