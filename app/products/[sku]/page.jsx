@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import ProductPageClient from "@/components/product-page";
 
-// Fetch product data by SKU
 async function getProductBySKU(sku) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/general/products/${sku}`,
@@ -11,26 +10,16 @@ async function getProductBySKU(sku) {
   return res.json();
 }
 
-// Utility to ensure URLs are absolute
 function toAbsoluteUrl(imgUrl) {
   if (!imgUrl) return "";
-  try {
-    // Is already absolute
-    if (imgUrl.startsWith("http://") || imgUrl.startsWith("https://")) {
-      return imgUrl;
-    }
-    // Otherwise, join with site URL
-    const base = process.env.NEXT_PUBLIC_SITE_URL || "";
-    // Remove double slashes if any
-    return base.replace(/\/$/, '') + '/' + imgUrl.replace(/^\//, '');
-  } catch {
-    return imgUrl;
-  }
+  if (imgUrl.startsWith("http://") || imgUrl.startsWith("https://")) return imgUrl;
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "";
+  return base.replace(/\/$/, '') + '/' + imgUrl.replace(/^\//, '');
 }
 
 export async function generateMetadata({ params }) {
   const product = await getProductBySKU(params.sku);
-  const variant = product?.variants.find((v) => v.sku === params.sku);
+  const variant = product?.variants.find(v => v.sku === params.sku);
 
   if (!product || !variant) {
     return {
@@ -40,39 +29,72 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  // Safe fallback for all optional values.
+  
   const shortDesc = product.short_description || "";
   const remedyFor = (product.remedy_for || []).join(", ");
   const keyBenefits = (product.key_benefits || []).join(", ");
+  const siteName = "Byna Tablet"; // change if needed
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bynatablet.in";
+  const productUrl = `${siteUrl}/products/${params.sku}`;
 
-  // Choose the variant image, else the first product image, else fallback to blank image.
+  
   const rawImageUrl = variant?.image || (product.images?.[0] ?? "");
   const imageUrl = toAbsoluteUrl(rawImageUrl);
 
+  
+  const imageWidth = 300;  
+  const imageHeight = 300; 
+
+  
+  const priceAmount = variant?.price || product?.price || ""; 
+  const priceCurrency = "INR"; 
+
   return {
-    title: `${product.name} - ${shortDesc} - BynaTablet.in`,
-    description: `${shortDesc} | ${remedyFor} | ${keyBenefits} | BynaTablet.in`,
+    title: `${product.name} - ${shortDesc} - ${siteName}`,
+    description: `${shortDesc} | ${remedyFor} | ${keyBenefits} | ${siteName}`,
     keywords: `${remedyFor}, ${shortDesc}, ${keyBenefits}`,
     openGraph: {
+      siteName: siteName,
+      url: productUrl,
       title: product.name,
       description: shortDesc,
-      images: imageUrl ? [{ url: imageUrl }] : [],
-      type: "website",
-      siteName: "BynaTablet.in",
-      url: `${process.env.NEXT_PUBLIC_SITE_URL}/product/${params.sku}`,
+      type: "website", 
+      images: imageUrl ? [{
+        url: imageUrl,
+        width: imageWidth,
+        height: imageHeight,
+        alt: product.name,
+        
+      }] : [],
+      price: {
+        amount: priceAmount,
+        currency: priceCurrency,
+      },
     },
     twitter: {
       card: "summary_large_image",
+      site: "@vyas_mitra",
       title: product.name,
       description: shortDesc,
       images: imageUrl ? [imageUrl] : [],
     },
+    
+    custom: [
+      { property: "og:image:secure_url", content: imageUrl },
+      { property: "og:image:width", content: String(imageWidth) },
+      { property: "og:image:height", content: String(imageHeight) },
+      { property: "og:price:amount", content: String(priceAmount) },
+      { property: "og:price:currency", content: priceCurrency },
+      { name: "twitter:site", content: "@vyas_mitra" }
+    ]
   };
 }
 
+
+
 export default async function ProductPage({ params }) {
   const product = await getProductBySKU(params.sku);
-  const variant = product?.variants.find((v) => v.sku === params.sku);
+  const variant = product?.variants.find(v => v.sku === params.sku);
 
   if (!product || !variant) return notFound();
 
