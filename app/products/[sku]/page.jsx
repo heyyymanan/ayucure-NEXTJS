@@ -29,47 +29,43 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  
   const shortDesc = product.short_description || "";
   const remedyFor = (product.remedy_for || []).join(", ");
   const keyBenefits = (product.key_benefits || []).join(", ");
-  const siteName = "Byna Tablet"; // change if needed
+  const siteName = "Byna Tablet";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bynatablet.in";
   const productUrl = `${siteUrl}/products/${params.sku}`;
 
-  
   const rawImageUrl = variant?.image || (product.images?.[0] ?? "");
   const imageUrl = toAbsoluteUrl(rawImageUrl);
 
-  
-  const imageWidth = 300;  
-  const imageHeight = 300; 
+  const imageWidth = 300;
+  const imageHeight = 300;
 
-  
-  const priceAmount = variant?.price || product?.price || ""; 
-  const priceCurrency = "INR"; 
+  const priceAmount = variant?.price || product?.price || "";
+  const priceCurrency = "INR";
 
   return {
     title: `${product.name} - ${shortDesc} - ${siteName}`,
     description: `${shortDesc} | ${remedyFor} | ${keyBenefits} | ${siteName}`,
-    keywords: `${remedyFor}, ${shortDesc}, ${keyBenefits}`,
+    keywords: `${remedyFor}, ${shortDesc}, ${keyBenefits}, ${product.name}, Byna Tablet`,
+    alternates: {
+      canonical: productUrl,
+    },
     openGraph: {
-      siteName: siteName,
+      siteName,
       url: productUrl,
-      title: product.name,
+      title: `${product.name} - ${shortDesc}`,
       description: shortDesc,
-      type: "website", 
-      images: imageUrl ? [{
-        url: imageUrl,
-        width: imageWidth,
-        height: imageHeight,
-        alt: product.name,
-        
-      }] : [],
-      price: {
-        amount: priceAmount,
-        currency: priceCurrency,
-      },
+      type: "product",
+      images: imageUrl ? [
+        {
+          url: imageUrl,
+          width: imageWidth,
+          height: imageHeight,
+          alt: product.name,
+        },
+      ] : [],
     },
     twitter: {
       card: "summary_large_image",
@@ -78,15 +74,20 @@ export async function generateMetadata({ params }) {
       description: shortDesc,
       images: imageUrl ? [imageUrl] : [],
     },
-    
-    custom: [
-      { property: "og:image:secure_url", content: imageUrl },
-      { property: "og:image:width", content: String(imageWidth) },
-      { property: "og:image:height", content: String(imageHeight) },
-      { property: "og:price:amount", content: String(priceAmount) },
-      { property: "og:price:currency", content: priceCurrency },
-      { name: "twitter:site", content: "@vyas_mitra" }
-    ]
+    icons: {
+      icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: imageUrl, // Place in public/
+    },
+    metadataBase: new URL(siteUrl),
+    other: {
+      "og:image:secure_url": imageUrl,
+      "og:image:width": String(imageWidth),
+      "og:image:height": String(imageHeight),
+      "product:price:amount": String(priceAmount),
+      "product:price:currency": priceCurrency,
+      "twitter:site": "@vyas_mitra",
+    }
   };
 }
 
