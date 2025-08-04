@@ -65,6 +65,7 @@ const Hero = ({sectionRef}) => {
           height={492}
           className="hero-img mx-2 md:h-[240px] md:w-[500px] lg:w-[800px] lg:h-[380px] xl:w-[950px] xl:h-[390px] 2xl:w-[970px] 2xl:h-[460px]  "
           ref={pngRef}
+          loading='lazy'
         />
       </div>
 

@@ -57,7 +57,7 @@ export async function generateMetadata({ params }) {
       url: productUrl,
       title: `${product.name} - ${shortDesc}`,
       description: shortDesc,
-      type: "product",
+      type: "website",
       images: imageUrl ? [
         {
           url: imageUrl,
@@ -75,8 +75,8 @@ export async function generateMetadata({ params }) {
       images: imageUrl ? [imageUrl] : [],
     },
     icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
+      icon: "/icons/favicon.ico",
+      shortcut: "/icons/favicon.ico",
       apple: imageUrl, // Place in public/
     },
     metadataBase: new URL(siteUrl),

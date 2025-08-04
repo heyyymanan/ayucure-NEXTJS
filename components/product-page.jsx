@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 import AddToCartButton from "@/components/ui/addToCartBtn";
 import Image from "next/image";
+import Head from "next/head";
 
 function ProductDescription({ description }) {
   return (
@@ -75,6 +76,11 @@ export default function ProductPageClient({ product, selectedVariant }) {
 
   return (
     <div className="relative">
+      <Head>
+        <link rel="apple-touch-icon" href={product.images[0]} />
+        <link rel="icon" href={product.images[0]} sizes="any" />
+      </Head>
+
       <section className="flex flex-col md:flex-row gap-8 p-6 md:px-24 md:py-12">
         <div className="flex flex-col md:flex-row w-full md:w-2/3 gap-6">
           <div className="hidden md:flex flex-col gap-4">
@@ -84,10 +90,9 @@ export default function ProductPageClient({ product, selectedVariant }) {
                 width={200}
                 key={idx}
                 src={img}
-                alt={`Thumbnail ${idx}`}
-                className={`w-20 h-20 rounded-lg border object-cover cursor-pointer ${
-                  currentIndex === idx ? "border-orange-500" : "border-gray-300"
-                }`}
+                alt={`${product.name} thumbnail ${idx + 1}`}
+                className={`w-20 h-20 rounded-lg border object-cover cursor-pointer ${currentIndex === idx ? "border-orange-500" : "border-gray-300"
+                  }`}
                 onClick={() => setCurrentIndex(idx)}
                 loading="lazy"
               />
@@ -100,9 +105,9 @@ export default function ProductPageClient({ product, selectedVariant }) {
               height={500}
               width={500}
               src={product.images[currentIndex]}
-              alt="Main Product"
+              alt={`${product.name} thumbnail 1`}
               className="rounded-2xl object-contain max-h-[26rem] border"
-              priority
+              loading="lazy"
             />
           </div>
 
@@ -113,24 +118,22 @@ export default function ProductPageClient({ product, selectedVariant }) {
                 height={200}
                 width={200}
                 src={product.images[currentIndex]}
-                alt="Product"
+                alt={`${product.name} thumbnail 1`}
                 className="w-full h-full object-contain"
-                priority
+                loading="lazy"
               />
             </div>
             <button
               onClick={handlePrev}
-              className={`${
-                product.images.length === 1 ? "hidden" : ""
-              } absolute top-1/2 left-0 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full`}
+              className={`${product.images.length === 1 ? "hidden" : ""
+                } absolute top-1/2 left-0 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full`}
             >
               ❮
             </button>
             <button
               onClick={handleNext}
-              className={`${
-                product.images.length === 1 ? "hidden" : ""
-              } absolute top-1/2 right-0 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full`}
+              className={`${product.images.length === 1 ? "hidden" : ""
+                } absolute top-1/2 right-0 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full`}
             >
               ❯
             </button>
@@ -163,7 +166,37 @@ export default function ProductPageClient({ product, selectedVariant }) {
         </div>
         <AddToCartButton product={product} variantSku={variant.sku} />
       </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            name: product.name,
+            image: product.images,
+            description: product.short_description,
+            sku: variant.sku,
+            brand: {
+              "@type": "Brand",
+              name: product.company,
+            },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: product.rating.toFixed(1),
+              reviewCount: product.reviews.length,
+            },
+            offers: {
+              "@type": "Offer",
+              url: `${process.env.NEXT_PUBLIC_SITE_URL}/products/${variant.sku}`,
+              priceCurrency: "INR",
+              price: variant.price,
+              availability: "https://schema.org/InStock",
+            },
+          },null,2),
+        }}
+      ></script>
     </div>
+
   );
 }
 
@@ -227,7 +260,7 @@ function ProductInfo({ product, variant, onVariantChange }) {
           <p>{product.short_description}</p>
         </section>
       )}
-      
+
 
       {/* === NEW: Key Benefits Section === */}
       {product.key_benefits && product.key_benefits.length > 0 && (
@@ -236,8 +269,8 @@ function ProductInfo({ product, variant, onVariantChange }) {
           <ul className="list-disc ">
             {product.key_benefits.map((item, i) => (
               <li key={i} className="flex items-center gap-2">
-                <Image src={'/icons/logo_icon.png'} width={20} height={20} alt="Benefit Icon" />
-                {item}.
+                {/* <Image src={'/icons/logo_icon.png'} width={20} height={20} alt={`${product.name} thumbnail ${i + 1}`} /> */}
+                🍀 {item}.
               </li>
             ))}
           </ul>
