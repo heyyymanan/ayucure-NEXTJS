@@ -30,10 +30,21 @@ export default function UserOnboarding() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
+  const isValidEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    return regex.test(email)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
+
+    if (!isValidEmail(formData.email)) {
+      setError("Invalid email format. Please enter a valid email address.")
+      setLoading(false)
+      return
+    }
 
     try {
       const response = await axios.put(
@@ -46,18 +57,18 @@ export default function UserOnboarding() {
           withCredentials: true,
         }
       )
-      if (response.data.success) {
 
+      if (response.data.success) {
         // Save to localStorage
         localStorage.setItem("user", JSON.stringify(response.data?.data?.user || {}))
         localStorage.setItem("isLoggedin", true)
+        localStorage.setItem("isOnboarded", true)
         setSuccess(true)
 
         // Redirect after short delay
         setTimeout(() => {
           router.push('/')
         }, 2000)
-
       }
     } catch (err) {
       console.error("❌ Update error:", err.response?.data || err.message)
@@ -73,7 +84,7 @@ export default function UserOnboarding() {
     <div className="min-h-screen flex flex-col items-center justify-start mt-10 px-4">
       <h1 className="text-2xl font-bold mb-6">Welcome! Complete your profile 📝</h1>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 gap-5" >
+      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 gap-5">
         <input
           type="text"
           name="first_name"
@@ -102,25 +113,23 @@ export default function UserOnboarding() {
         />
         <button
           type="submit"
-          disabled={loading||success}
+          disabled={loading || success}
           className="bg-lime-500 hover:bg-lime-600 text-white px-4 py-2 rounded w-full"
         >
           {loading ? "Submitting..." : "Submit"}
         </button>
 
-        {success ?
-          <div className="success flex flex-col items-center py-5 gap-16 ">
-
-            <p className="text-green-600 text-center font-bold">Profile updated! 🎉 Redirecting...</p>
-            <div className="flex justify-center items-center ">
+        {success && (
+          <div className="success flex flex-col items-center py-5 gap-16">
+            <p className="text-green-600 text-center font-bold">
+              Profile updated! 🎉 Redirecting...
+            </p>
+            <div className="flex justify-center items-center">
               <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
-
-
-
           </div>
-          : <></>
-        }
+        )}
+
         {error && <p className="text-red-500 text-center">{error}</p>}
       </form>
     </div>

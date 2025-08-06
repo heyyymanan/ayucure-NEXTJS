@@ -81,9 +81,11 @@ const Navbar = () => {
 
       localStorage.removeItem("isLoggedin");
       localStorage.removeItem("user");
+      localStorage.removeItem("isOnboarded")
 
       setIsUserOpen(false);
       setIsLoggedIn(false);
+      
 
       router.push("/");
     } catch (error) {
