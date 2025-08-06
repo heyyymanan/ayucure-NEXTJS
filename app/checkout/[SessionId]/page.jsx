@@ -8,6 +8,7 @@ import { useCart } from "../../context/CartContext";
 import { Button } from "@/components/ui/button";
 import CheckoutForm from "@/components/deliveryForm";
 import { useRouter } from "next/navigation";
+import OTPOnClick from "@/lib/utils/MSG91";
 
 
 const isValidEmail = (email) => {
@@ -48,6 +49,9 @@ const FormCheck = (formData, cart) => {
 export default function CheckoutPage() {
 
     const router = useRouter();
+
+    const [showLoginPopup, setShowLoginPopup] = useState(false);
+
     const { cart, getTotalPrice } = useCart();
 
     const [formData, setFormData] = useState({
@@ -88,20 +92,20 @@ export default function CheckoutPage() {
     }, []);
 
     // Save to localStorage when saveAddress is true
-   useEffect(() => {
-    if (formData.preferences.saveAddress) {
-        // Create a copy of formData without paymentMethod
-        const { preferences, ...rest } = formData;
-        const dataToStore = {
-            ...rest,
-            preferences: {
-                ...preferences,
-                paymentMethod: "", // or you can simply omit this line if you want to totally remove it
-            },
-        };
-        localStorage.setItem("userAddr", JSON.stringify(dataToStore));
-    }
-}, [formData]);
+    useEffect(() => {
+        if (formData.preferences.saveAddress) {
+            // Create a copy of formData without paymentMethod
+            const { preferences, ...rest } = formData;
+            const dataToStore = {
+                ...rest,
+                preferences: {
+                    ...preferences,
+                    paymentMethod: "", // or you can simply omit this line if you want to totally remove it
+                },
+            };
+            localStorage.setItem("userAddr", JSON.stringify(dataToStore));
+        }
+    }, [formData]);
 
 
 
@@ -169,7 +173,7 @@ export default function CheckoutPage() {
                 pincode: formData.delivery.pincode,
                 phone: formData.delivery.phone,
             },
-            orderItems: cart, 
+            orderItems: cart,
             paymentMethod: formData.preferences.paymentMethod,
             order_amount: order_amount,
 
@@ -179,33 +183,41 @@ export default function CheckoutPage() {
     };
 
     const placeOrder = async (orderDetailsObj) => {
-        let data = null; 
+        let data = null;
 
         try {
             const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_API_URL}/general/create-order`,
+                `${process.env.NEXT_PUBLIC_API_URL}/users/create-order`,
                 {
                     order_details: JSON.stringify(orderDetailsObj),
                 },
                 {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    withCredentials: true
                 }
             );
 
             data = response.data;
+            console.log(data)
         } catch (error) {
-            console.error('❌ Order Error:', error.response?.data?.message || error.message);
-            alert('Failed to place order: ' + (error.response?.data?.message || error.message));
+            const status = error?.response?.status;
+            const statusText = error?.response?.statusText;
+
+            if (status === 401 && statusText === "Unauthorized") {
+                const refreshed = await refreshToken();
+                if (refreshed) return placeOrder(transformToOrderDetails());
+
+                console.error('❌ Order Error:', error.response?.data?.message || error.message);
+                alert('Failed to place order: ' + (error.response?.data?.message || error.message));
+            } else {
+                console.error('❌ Order Error:', error.response?.data?.message || error.message);
+                alert('Failed to place order: ' + (error.response?.data?.message || error.message));
+            }
         } finally {
-            if (data?.success&&data?.order.paymentMethod=="Online") {
+            if (data?.success && data?.order.paymentMethod === "Online") {
                 router.push(data.phonepe_checkout_url);
-            } 
-            else if (data?.success&&data?.order.paymentMethod=="COD") {
-                router.push(`/order-success?orderId=${data?.order.orderNum}`);
-            } 
-            else {
+            } else if (data?.success && data?.order.paymentMethod === "COD") {
+                router.push(`/order-success?orderId=${data?.order.orderId}`);
+            } else if (!data?.success) {
                 alert("An error occurred");
             }
         }
@@ -213,17 +225,21 @@ export default function CheckoutPage() {
 
 
 
+    const CreateOrder = async (e) => {
+        e.preventDefault();
 
-
-
-    const redirectToPaymentPage = async (e) => {
-
-
-        placeOrder(transformToOrderDetails()) //Creates Order In DataBase
-
-        e.preventDefault()
-
+        if (localStorage.getItem("isLoggedin")) {
+            await placeOrder(transformToOrderDetails());
+        } else {
+            setShowLoginPopup(true); // Show the popup
+        }
     };
+
+    const closeModal = () => {
+        setShowLoginPopup(false);
+    };
+
+
     const states = [
         "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
         "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
@@ -347,7 +363,7 @@ export default function CheckoutPage() {
                         <Button
                             type="submit"
                             disabled={!isFormValid}
-                            onClick={redirectToPaymentPage}
+                            onClick={CreateOrder}
                             className={`flex w-full items-center justify-center rounded-lg bg-lime-500 p-2 text-lg font-semibold  ${isFormValid
                                 ? "bg-green-600 text-white"
                                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -355,6 +371,20 @@ export default function CheckoutPage() {
                         >
                             {formData.preferences.paymentMethod === "Online" ? "Pay Now" : "Complete Order"}
                         </Button>
+                        {/* Login Popup Modal */}
+                        {showLoginPopup && (
+                            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                                <div className="bg-white py-5 pt-1 rounded-lg shadow-lg w-[90%] max-w-md text-center">
+                                    <div class="close flex flex-col">
+
+                                        <Button onClick={closeModal} className='bg-transparent flex justify-end'>❌</Button>
+                                        <h2 className="text-2xl text-center font-serif mb-4">Login Required !</h2>
+                                    </div>
+                                    <p className="text-gray-600 mb-6">Please login first to make an order.</p>
+                                    <OTPOnClick />
+                                </div>
+                            </div>
+                        )}
                         <div className="flex items-center justify-center gap-2">
                             <span className="text-sm font-normal text-gray-500">or</span>
                             <Link href="/" className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">

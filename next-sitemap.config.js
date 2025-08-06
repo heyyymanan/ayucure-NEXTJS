@@ -8,11 +8,16 @@ module.exports = {
 
   exclude: [
     '/cart',
+    '/checkout',
     '/thank-you',
     '/payment-failed',
     '/payment-pending',
     '/test',
-    '/order-success'
+    '/order-success',
+    '/onboarding',
+    '/user/my-orders',
+    '/user/my-wishlist',
+    '/user/my-profile'
   ],
 
   additionalPaths: async () => {

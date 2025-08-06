@@ -1,11 +1,7 @@
 import Image from "next/image";
 import { Star, StarHalf, Star as StarOutline } from "lucide-react";
-import { LucidePlusCircle, LucideMinusCircle } from "lucide-react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { PlusSignCircleFreeIcons } from "@hugeicons/core-free-icons/index";
 import { useCart } from "@/app/context/CartContext";
 import { useEffect, useRef } from "react";
-import { toast } from "sonner";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Link from "next/link";
@@ -102,7 +98,7 @@ const ProductCard = ({ product }) => {
               <div className="kk flex">
 
                 <span
-                  className="text-[10px] sm:text-sm mx-1 text-gray-700 bg-gray-200 overflow-clip flex gap-2 justify-center items-center rounded-full max-w-52 px-5 sm:py-1"
+                  className="text-[10px]  sm:text-sm mx-1 text-gray-700 bg-gray-200 overflow-clip flex gap-2 justify-center items-center rounded-full max-w-52 px-5 sm:py-1"
                   >
                 <Image src={'/kharal1.png'} alt="kharal" width={25} height={20}/> 
                   {product.remedy_for[0]}

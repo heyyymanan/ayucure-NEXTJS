@@ -3,15 +3,10 @@ import "./globals.css";
 import Navbar from "@/components/navbar.jsx";
 import Footer from "@/components/footer.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
-import { Toaster } from "@/components/ui/sonner.jsx"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
 
 
-import {
-  ClerkProvider,
-
-} from '@clerk/nextjs'
 import ScrollToTop from "./functions/scrollToTop";
 import FloatingCart from "@/components/ui/floating_cart";
 
@@ -34,11 +29,10 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    
       <CartProvider >
 
-
-        <html lang="en">
+          <html lang="en">
           <meta name="google-site-verification" content="OgqfdPeXzgaIRi6ZIyf8w4mvNBVxTdagT9SYP9TMeFc" />
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -53,10 +47,11 @@ export default function RootLayout({ children }) {
             <FloatingCart/>
 
             <Footer />
-            <Toaster richColors closeButton expand={false} />
+            
           </body>
         </html>
+
       </CartProvider>
-    </ClerkProvider>
+   
   );
 }
