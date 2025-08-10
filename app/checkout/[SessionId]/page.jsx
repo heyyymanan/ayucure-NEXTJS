@@ -32,7 +32,7 @@ const FormCheck = (formData, cart) => {
         preferences: { paymentMethod },
     } = formData;
     return (
-        isValidEmail(email?.trim()) &&
+        // isValidEmail(email?.trim()) &&
         firstName?.trim() !== "" &&
         lastName?.trim() !== "" &&
         fullAddress?.trim() !== "" &&

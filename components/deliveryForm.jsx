@@ -17,8 +17,7 @@ export default function CheckoutForm({
     let errorMsg = "";
 
     if (section === "contact" && field === "email") {
-      if (!value) errorMsg = "Email is required";
-      else if (!/^[\w.-]+@[\w.-]+\.\w{2,}$/.test(value)) errorMsg = "Invalid email address";
+      if (!/^[\w.-]+@[\w.-]+\.\w{2,}$/.test(value)) errorMsg = "Invalid email address";
     }
 
     if (section === "delivery") {
@@ -114,7 +113,7 @@ export default function CheckoutForm({
     <div className="flex-1 space-y-6 max-w-3xl mx-auto font-sans">
       {/* Contact */}
       <div>
-        <h2 className="font-semibold text-lg mb-2">Contact</h2>
+        <h2 className="font-semibold text-lg mb-2 flex gap-2 items-center">Email Address :<p className="text-grey text-base">(optional)</p></h2>
         <input
           type="email"
           placeholder="Email"
@@ -284,8 +283,8 @@ export default function CheckoutForm({
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium">
-            Phone Number
+          <label htmlFor="phone" className=" flex text-sm font-medium">
+            Phone Number <p className="text-red-500  ">*</p>
           </label>
           <input
             id="phone"
