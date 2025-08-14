@@ -309,7 +309,7 @@ export default function CheckoutPage() {
 
     const CreateOrder = async (e) => {
         e.preventDefault();
-        const combinedData = { ...formData, cart, sessionId };
+        const combinedData = { ...formData};
         if (mounted) {
             localStorage.setItem("initUser", JSON.stringify(combinedData));
         }
