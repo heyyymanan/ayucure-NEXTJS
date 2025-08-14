@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import CheckoutForm from "@/components/deliveryForm";
 import { useRouter } from "next/navigation";
 import OTPOnClick from "@/lib/utils/MSG91";
+import Image from "next/image";
 
 /* ------------------- Form Validation ------------------- */
 const FormCheck = (formData, cart, deliverySetSuccess) => {
