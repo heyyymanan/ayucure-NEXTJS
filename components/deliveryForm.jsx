@@ -230,6 +230,7 @@ export default function CheckoutForm({
               City
             </label>
             <input
+              disabled
               id="city"
               type="text"
               placeholder="City"
@@ -247,40 +248,43 @@ export default function CheckoutForm({
             <label htmlFor="state" className="block text-sm font-medium">
               State
             </label>
-            <select
+            <input
+              disabled
               id="state"
+              type="text"
+              placeholder="State"
               value={formData.delivery.state}
               onChange={handleChangeAndValidate("delivery", "state")}
-              className={`border p-2 rounded w-full ${errors.delivery_state ? "border-red-500" : ""}`}
+              className={`border p-2 rounded w-full ${errors.delivery_city ? "border-red-500" : ""}`}
               required
-            >
-              <option value="">Select a state</option>
-              {states.map((state) => (
-                <option key={state} value={state}>
-                  {state}
-                </option>
-              ))}
-            </select>
+            />
             {errors.delivery_state && (
               <p className="text-red-600 text-sm mt-1">{errors.delivery_state}</p>
             )}
           </div>
 
           <div>
-            <label htmlFor="country" className="block text-sm font-medium">
+            <label htmlFor="state" className="block text-sm font-medium">
               Country
             </label>
-            <select
-              id="country"
+            <input
               disabled
+              id="country"
+              type="text"
+              placeholder="Country"
               value={formData.delivery.country}
-              onChange={handleInputChange("delivery", "country")}
-              className="border p-2 rounded w-full"
-            >
-              <option value="India">India</option>
-            </select>
+              onChange={handleChangeAndValidate("delivery", "country")}
+              className={`border p-2 rounded w-full ${errors.delivery_country ? "border-red-500" : ""}`}
+              required
+            />
+            {errors.delivery_country && (
+              <p className="text-red-600 text-sm mt-1">{errors.delivery_country}</p>
+            )}
           </div>
         </div>
+
+
+
 
         <div>
           <label htmlFor="phone" className=" flex text-sm font-medium">
@@ -311,67 +315,7 @@ export default function CheckoutForm({
         </label>
       </div>
 
-      {/* Payment Options */}
-      <div>
-        <h2 className="font-semibold text-lg mb-2">
-          Payment Method : {formData.preferences.paymentMethod} {!OnlineAvailable && "(Online Payment Currently Unavailable)"}
-        </h2>
-
-        <div className="space-y-2">
-          <label
-            className={`flex items-center justify-between border rounded p-2 cursor-pointer transition
-                ${!OnlineAvailable ? "opacity-50 cursor-not-allowed bg-gray-100" : "hover:shadow-md"}`}
-          >
-            <div>
-              <input
-                type="radio"
-                onClick={() => handlePaymentChange("Online")}
-                name="payment"
-                defaultChecked={formData.preferences.paymentMethod === "Online"}
-                className="mr-2"
-                disabled={!OnlineAvailable}
-              />
-              <span className={`${!OnlineAvailable ? "text-gray-500" : ""}`}>Online</span>
-              {OnlineAvailable && <span className="text-xs text-green-600 ml-2">Priority Shipping</span>}
-            </div>
-            <span className="font-bold">FREE</span>
-          </label>
-
-          <label className="flex items-center justify-between border rounded p-2 cursor-pointer hover:shadow-md">
-            <div>
-              <input
-                type="radio"
-                onClick={() => handlePaymentChange("COD")}
-                name="payment"
-                defaultChecked={formData.preferences.paymentMethod === "COD"}
-                className="mr-2"
-              />
-              COD
-              {OnlineAvailable ? (
-                <span className="text-xs text-yellow-600 ml-2">: Pay Online & Save Rs. 99</span>
-              ) : (
-                ""
-              )}
-            </div>
-            <span className="font-bold">₹ 99.00</span>
-          </label>
-        </div>
-      </div>
-
-      {/* Payment Method Description */}
-      {formData.preferences.paymentMethod === "Online" ? (
-        <div className="border rounded p-4">
-          <h2 className="font-semibold mb-2">Online Payment :</h2>
-          <p className="text-sm mb-2 text-gray-600">All Transactions Are Secure And Encrypted.</p>
-        </div>
-      ) : (
-        <div className="border rounded p-4">
-          <h2 className="font-semibold mb-2">Cash On Delivery :</h2>
-          <p className="text-sm mb-2 text-gray-600">
-            Handling Charges : ₹ 99.00 {OnlineAvailable ? ", Pay Online To Save COD Charges." : ""}
-          </p>
-        </div>
-      )}
     </div>
+
   );
 }

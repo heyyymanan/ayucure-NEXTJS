@@ -50,6 +50,7 @@ const UserOrders = () => {
 
   useEffect(() => {
     fetchOrders();
+    
   }, []);
 
   return (
@@ -68,6 +69,7 @@ const UserOrders = () => {
       {!loading && Array.isArray(orders) && orders.length === 0 && (
         <p className="text-center text-gray-600">No orders found.</p>
       )}
+
 
       <div className="space-y-6  md:m-20 md:mt-0 ">
         {Array.isArray(orders) &&
@@ -129,7 +131,10 @@ const UserOrders = () => {
                   </ul>
                 </div>
                 <div className={`track ${order.status==="Shipped"?'flex':'hidden'} justify-start`}>
-                    <Button className='bg-lime-500 text-black text-base'>Track Order</Button>
+                  <a href={`${order.tracking_link}`} target="_blank">
+                    <Button  className='bg-lime-500 text-black text-base'>Track Order</Button>
+
+                  </a>
                 </div>
               </div>
             </div>

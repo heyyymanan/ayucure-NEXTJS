@@ -26,6 +26,8 @@ export default function Home() {
         const women = await fetchProducts({ tag: "women", limit: 7 });
         const skin = await fetchProducts({ tag: "skin-care", limit: 7 });
 
+        
+
         setTrendingProducts(trending);
         setHealthyProducts(healthy);
         setSexualWellness(sexual);
@@ -42,6 +44,7 @@ export default function Home() {
   }, []);
 
   const ProductSection = ({ title, products, loading }) => (
+    
     <>
       <h1 className="text-center text-white lg:text-5xl text-3xl mt-5 lg:mt-10 font-serif">
         {title}
@@ -50,11 +53,15 @@ export default function Home() {
         {loading ? (
           Array.from({ length: 5 }).map((_, i) => <ProductCardSkeleton key={i} />)
         ) : products.length === 0 ? (
-          <div className="text-gray-500 text-lg italic">No products found in this category.</div>
+          <div className="text-gray-500 text-lg italic">
+            No products found in this category.
+          </div>
         ) : (
-          products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))
+          products
+            .filter((product) => product.isShowing) // ✅ optional: filter before mapping
+            .map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
         )}
       </div>
     </>
@@ -84,9 +91,11 @@ export default function Home() {
         ) : trendingProducts.length === 0 ? (
           <div className="text-white italic text-lg">No trending products available.</div>
         ) : (
-          trendingProducts.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))
+          trendingProducts
+            .filter((product) => product.isShowing) // ✅ optional: filter before mapping
+            .map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
         )}
       </div>
 

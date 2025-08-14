@@ -23,11 +23,13 @@ export const CartProvider = ({ children }) => {
   // Add product with specific variant SKU
   const addToCart = (product, variantSku) => {
     const variant = product.variants.find((v) => v.sku === variantSku);
+    
     if (!variant) return;
 
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.variantSku === variantSku);
       if (existingItem) {
+        
         return prevCart.map((item) =>
           item.variantSku === variantSku ? { ...item, quantity: item.quantity + 1 } : item
         );
@@ -42,6 +44,7 @@ export const CartProvider = ({ children }) => {
             image: product.images[0], // you can include multiple if needed
             size: variant.size,
             price: variant.price,
+            weight: variant.weight,
             quantity: 1,
           },
         ];

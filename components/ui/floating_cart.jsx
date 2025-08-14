@@ -49,7 +49,7 @@ export default function FloatingCart() {
                 {/* View Cart */}
                 <div className="btn1">
                     <button
-                        onClick={() => router.push('/cart')}
+                        onClick={() => router.push('/cart/')}
                         className="bg-lime-500 text-black px-4 py-2 rounded-md text-sm font-semibold"
                     >
                         View Cart

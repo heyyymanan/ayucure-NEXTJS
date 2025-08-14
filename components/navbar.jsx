@@ -22,7 +22,6 @@ const Navbar = () => {
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [UserName, setUserName] = useState(false);
   const [loading, setLoading] = useState(false); 
 
   const userMenuRef = useRef(null);
@@ -39,7 +38,7 @@ const Navbar = () => {
   useEffect(() => {
     const checkLogin = () => {
       setIsLoggedIn(localStorage.getItem("isLoggedin") === "true");
-      setUserName(JSON.parse(localStorage.getItem("user"))?.first_name);
+      
     };
 
     checkLogin();
@@ -119,8 +118,8 @@ const Navbar = () => {
         {/* Logo */}
         <Link href="/">
           <div className="flex items-center gap-2 px-2">
-            <Image src="/icons/logo.png" alt="logo" width={40} height={40} priority />
-            <h1 className="lg:text-2xl text-xl font-serif">BynaTablet.in</h1>
+            <Image src="/icons/logo.png" alt="logo" width={45} height={45} priority />
+            <h1 className="lg:text-2xl text-xl font-serif">Shreeji Remedies</h1>
           </div>
         </Link>
 
@@ -173,7 +172,7 @@ const Navbar = () => {
             {/* Dropdown */}
             {isUserOpen && (
               <div className="absolute right-0 top-10 bg-white text-black rounded shadow-md z-50 w-48 py-2">
-                <div className="px-4 py-2 font-semibold border-b">Hi! {UserName}</div>
+                <div className="px-4 py-2 font-semibold border-b">Hi!</div>
                 <Link href="/user/my-orders" className="block px-4 py-2 hover:bg-gray-100">My Orders</Link>
                 <button
                   onClick={handleLogout}

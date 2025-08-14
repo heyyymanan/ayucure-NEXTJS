@@ -17,11 +17,14 @@ const OTPOnClick = () => {
       success: async (data) => {
         setloginLoading(true); // ✅ Show loading
 
+       const initUser = JSON.parse(localStorage.getItem("initUser"));
+
         try {
           const response = await axios.post(
             `${process.env.NEXT_PUBLIC_API_URL}/general/msg91verifyotp`,
             {
               token: data.message,
+              inituser: initUser
             },
             {
               withCredentials: true,
@@ -31,12 +34,13 @@ const OTPOnClick = () => {
           const result = response.data;
 
           if (result.success && result.data.onboarding) {
-            router.push(result.data.onboardingURL);
+            localStorage.setItem("isLoggedin",true)
+            localStorage.setItem("isOnboarded",true)
+            window.location.reload()
           } else {
-            localStorage.setItem("user", JSON.stringify(result.data.user || {}));
+            localStorage.setItem("userID", JSON.stringify(result.data?.user?._id || ""));
             localStorage.setItem("isLoggedin", true);
-            window.dispatchEvent(new Event("loginStatusChanged"));
-            router.push("/");
+            window.location.reload()
           }
         } catch (error) {
           console.error("❌ Error sending token to server:", error);
@@ -52,7 +56,7 @@ const OTPOnClick = () => {
     const script = document.createElement("script");
     script.src = "https://verify.msg91.com/otp-provider.js";
     script.type = "text/javascript";
-    script.onload = () => {}
+    script.onload = () => { }
     document.body.appendChild(script);
   }, []);
 

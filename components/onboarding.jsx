@@ -60,7 +60,8 @@ export default function UserOnboarding() {
 
       if (response.data.success) {
         // Save to localStorage
-        localStorage.setItem("user", JSON.stringify(response.data?.data?.user || {}))
+        localStorage.setItem("userID", JSON.stringify(response.data?.data?.user._id || ""))
+        localStorage.setItem("addressID", JSON.stringify(response.data?.data?.user.addresses || []))
         localStorage.setItem("isLoggedin", true)
         localStorage.setItem("isOnboarded", true)
         setSuccess(true)
