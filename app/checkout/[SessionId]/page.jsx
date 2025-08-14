@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Link from "next/link";
-import CartList from "@/components/ui/cart_list";
 import axios from "axios";
 import { useCart } from "../../context/CartContext";
 import { Button } from "@/components/ui/button";
