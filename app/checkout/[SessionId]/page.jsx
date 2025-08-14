@@ -339,6 +339,8 @@ export default function CheckoutPage() {
         );
     }
 
+    const closeModal = () => setShowLoginPopup(false);
+
     return (
         <div className="flex flex-col lg:flex-row p-4 gap-6 max-w-7xl mx-auto font-sans">
             {/* Left: Addresses & Add New */}
