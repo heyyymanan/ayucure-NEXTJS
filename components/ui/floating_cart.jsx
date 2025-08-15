@@ -12,7 +12,7 @@ export default function FloatingCart() {
 
     // 👇 Hide FloatingCart on /checkout and /cart pages
     useEffect(() => {
-        if (pathname.startsWith("/checkout") || pathname === "/cart") {
+        if (pathname.startsWith("/checkout") || pathname.startsWith("/products") || pathname === "/cart") {
             setIsVisible(false);
         } else {
             setIsVisible(cart.length > 0);

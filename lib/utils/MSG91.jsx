@@ -40,6 +40,7 @@ const OTPOnClick = () => {
           } else {
             localStorage.setItem("userID", JSON.stringify(result.data?.user?._id || ""));
             localStorage.setItem("isLoggedin", true);
+            localStorage.setItem("isOnboarded",true)
             window.location.reload()
           }
         } catch (error) {

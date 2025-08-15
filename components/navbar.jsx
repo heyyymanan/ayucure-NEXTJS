@@ -70,7 +70,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      setLoading(true); // ⏳ Start loader
+      setLoading(true); 
 
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/users/logout`,
@@ -91,7 +91,7 @@ const Navbar = () => {
       console.error("Logout failed:", error.response?.data || error.message);
       alert("Logout Error");
     } finally {
-      setLoading(false); // 🧹 End loader
+      setLoading(false); 
     }
   };
 
