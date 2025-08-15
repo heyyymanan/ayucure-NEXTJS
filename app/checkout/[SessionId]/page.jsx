@@ -96,7 +96,7 @@ export default function CheckoutPage() {
 
     /* ------------------- Derived Totals ------------------- */
     const itemTotal = useMemo(() => getTotalPrice(), [cart, getTotalPrice]);
-    const savings = useMemo(() => (cart.length ? 10 : 0), [cart]);
+    const savings = useMemo(() => (cart.length ? 0 : 0), [cart]);
     const orderTotal = useMemo(
         () => itemTotal - (itemTotal / 100) * savings + (deliveryCharge || 0),
         [itemTotal, savings, deliveryCharge]
@@ -206,7 +206,7 @@ export default function CheckoutPage() {
                 };
 
                 const resCourier = await axios.post(
-                    `${process.env.NEXT_PUBLIC_API_URL}/general/list-available-couriers`,
+                    `${process.env.NEXT_PUBLIC_API_URL}/general/list-available-couriers-delhivery`,
                     {
                         pickup_postcode: "313001",
                         delivery_postcode: pincode,
@@ -217,7 +217,7 @@ export default function CheckoutPage() {
                 );
 
                 const bestCourier = getCustomBestCourier(resCourier.data?.data || []);
-                if (isMounted) setDeliveryCharge(bestCourier?.totalPrice || 0);
+                if (isMounted) setDeliveryCharge(bestCourier?.totalPrice-((bestCourier?.totalPrice/100)*20) || 0);
             } catch (err) {
                 console.error("Delivery calc error:", err.message);
                 setDeliverySetSuccess(false);
@@ -290,7 +290,7 @@ export default function CheckoutPage() {
             orderItems: cart,
             paymentMethod: formData.preferences.paymentMethod,
             order_amount: orderTotal.toFixed(2),
-            order_weight: getTotalPackageWeight(cart),
+            order_weight: getTotalPackageWeight(cart).toFixed(4),
         }),
         [formData, cart, orderTotal, getTotalPackageWeight]
     );
@@ -568,10 +568,10 @@ export default function CheckoutPage() {
                         <dt>Total Price</dt>
                         <dd>₹ {itemTotal}</dd>
                     </dl>
-                    <dl className="flex items-center justify-between">
+                    {/* <dl className="flex items-center justify-between">
                         <dt className="text-green-600 font-semibold">Savings</dt>
                         <dd className="text-green-600 font-semibold">- {savings} %</dd>
-                    </dl>
+                    </dl> */}
                     <dl className="flex items-center justify-between">
                         <dt>
                             Delivery Charges{" "}
