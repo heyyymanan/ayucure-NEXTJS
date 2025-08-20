@@ -217,7 +217,7 @@ export default function CheckoutPage() {
                 );
 
                 const bestCourier = getCustomBestCourier(resCourier.data?.data || []);
-                if (isMounted) setDeliveryCharge(bestCourier?.totalPrice-((bestCourier?.totalPrice/100)*20) || 0);
+                if (isMounted) setDeliveryCharge((bestCourier?.totalPrice-((bestCourier?.totalPrice/100)*20))|| 0);
             } catch (err) {
                 console.error("Delivery calc error:", err.message);
                 setDeliverySetSuccess(false);
@@ -578,7 +578,7 @@ export default function CheckoutPage() {
                             {loadingDelivery && <span className="text-sm">(Calculating...)</span>}
                         </dt>
                         {DeliverySetSuccess ? (
-                            <dd>₹ {deliveryCharge}</dd>
+                            <dd>₹ {deliveryCharge?.toFixed(2)}</dd>
                         ) : (
                             <p className="text-red-600 text-base text-end">Enter a Valid Pincode</p>
                         )}
