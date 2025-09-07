@@ -29,7 +29,7 @@ const ContactUs = () => {
                             <p>Address : 37, Gyan Marg, near R.M.V. School, Old City, Surajpole, Brahmpuri, Udaipur, Rajasthan 313001</p>
                         </div>
                     </div>
-
+        
                     {/* Social Links */}
                     <div className="flex justify-center gap-6 mt-8">
                         <a href="https://www.instagram.com/ayurvedic_shreejiremedies/" target="_blank" className="text-blue-500 hover:text-blue-700 text-2xl">
