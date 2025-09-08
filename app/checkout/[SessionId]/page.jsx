@@ -331,7 +331,7 @@ export default function CheckoutPage() {
 
     if (!mounted) return null; // Prevent hydration issues
 
-    // 🛑 If both cart and localCart are empty → show empty cart UI
+    //  If both cart and localCart are empty → show empty cart UI
     if ((!cart || cart.length === 0) && (!localCart || localCart.length === 0)) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[80vh] p-6 font-sans">

@@ -305,14 +305,7 @@ export default function CheckoutForm({
           )}
         </div>
 
-        <label className="flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
-            defaultChecked={formData.preferences.saveAddress}
-            onChange={handleCheckboxChange("preferences", "saveAddress")}
-          />
-          Save this information for next time
-        </label>
+        
       </div>
 
     </div>
