@@ -130,7 +130,7 @@ const UserOrders = () => {
                     ))}
                   </ul>
                 </div>
-                <div className={`track ${order.status==="Shipped"?'flex':'hidden'} justify-start`}>
+                <div className={`track ${order.status!=="Pending" || order.status!=="Canceled" || order.status!=="Delivered"?'flex':'hidden'} justify-start`}>
                   <a href={`${order.tracking_link}`} target="_blank">
                     <Button  className='bg-lime-500 text-black text-base'>Track Order</Button>
 
