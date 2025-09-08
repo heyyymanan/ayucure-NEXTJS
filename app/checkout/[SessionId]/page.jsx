@@ -66,7 +66,7 @@ export default function CheckoutPage() {
     });
     const [isFormValid, setIsFormValid] = useState(false);
     const [OnlineAvailable, setOnlineAvailable] = useState(true);
-    const [deliveryCharge, setDeliveryCharge] = useState(null);
+    const [deliveryCharge, setDeliveryCharge] = useState(40);
     const [loadingDelivery, setLoadingDelivery] = useState(false);
     const [DeliverySetSuccess, setDeliverySetSuccess] = useState(false);
     const [Loading, setLoading] = useState(false);
